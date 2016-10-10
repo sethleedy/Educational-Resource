@@ -2,7 +2,6 @@
 Imports System.Data.SqlClient ' Test
 Module commonFunctions
 
-
     Function openSpreadSheet(path As String) As Boolean
 
         Dim OLEConnection As OleDbConnection
@@ -14,9 +13,9 @@ Module commonFunctions
         ' Connection string changes with OLE componet being used.
         ' Debug Line
         ' Seth's Debug Line
-        Dim OleConnectionStr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\Code and resources\keep unconverted - Fall_2016_Schedule_for_CSE236.xlsx;Persist Security Info=False;Extended Properties=" & Chr(34) & "Excel 12.0;IMEX=1;HDR=Yes" & Chr(34) ' Connection string for 2004 .xlsx files and older.
+        'Dim OleConnectionStr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\Code and resources\keep unconverted - Fall_2016_Schedule_for_CSE236.xlsx;Persist Security Info=False;Extended Properties=" & Chr(34) & "Excel 12.0;IMEX=1;HDR=Yes" & Chr(34) ' Connection string for 2004 .xlsx files and older.
         ' Production Line
-        'Dim OleConnectionStr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Persist Security Info=False;Extended Properties=" & Chr(34) & "Excel 12.0;IMEX=1;HDR=Yes" & Chr(34) ' Connection string for 2004 .xlsx files and older.
+        Dim OleConnectionStr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Persist Security Info=False;Extended Properties=" & Chr(34) & "Excel 12.0;IMEX=1;HDR=Yes" & Chr(34) ' Connection string for 2004 .xlsx files and older.
 
         ' Open main connection
         OLEConnection = New OleDbConnection(OleConnectionStr)
@@ -43,14 +42,10 @@ Module commonFunctions
         'sheetNames1 = GetSchemaTable(OleConnectionStr)
         sheetNames1 = GetSchemaTable(OLEConnection)
 
-        ObjectDumper.ObjectDumperExtensions.DumpToString(sheetNames1, "sheetNames1")
+        'ObjectDumper.ObjectDumperExtensions.DumpToString(sheetNames1, "sheetNames1") ' ObjectDumper is a add-on to VisualStudio for a console printout of an object.
 
         tmpSheetName = sheetNames1.Item(0).ToString ' Assumming only the first tab is being used. Should offer on the form which to use or all.
-        'Dim tmpSheetName As String = "Test1"
-
-
-        'MsgBox(DataGridView1.RowCount) ' Count 13
-
+        Dim returnValue As Boolean
 
         Try
             'For Each tmpSheetName In sheetNames1
@@ -64,7 +59,7 @@ Module commonFunctions
             'MsgBox("Data Opened")
 
             ' Goto this function to parse the records and place into the SQL.
-            Dim returnValue = SQL_Functions.parseSpreadSheet()
+            returnValue = SQL_Functions.parseSpreadSheet()
 
 
             'Next

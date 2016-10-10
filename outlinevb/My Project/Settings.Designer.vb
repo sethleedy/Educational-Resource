@@ -53,6 +53,17 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=DEV-WIN;Integrated Security=True;Connect Timeout=15;Encrypt=False;Tru"& _ 
+            "stServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;I"& _ 
+            "nitial Catalog=EduResSch;")>  _
+        Public ReadOnly Property connectionString() As String
+            Get
+                Return CType(Me("connectionString"),String)
+            End Get
+        End Property
     End Class
 End Namespace
 
