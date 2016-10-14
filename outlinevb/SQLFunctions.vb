@@ -50,20 +50,27 @@ Module SQL_Functions
 
         Dim execStr As String
         Dim sqlConn As SqlConnection = openSQL()
-        Dim myCommand As SqlCommand = New SqlCommand(execStr, sqlConn)
+
 
         ' The entire string to create the database and tables is stored in the Settings of the project.
         execStr = My.Settings.strCreateDatabase
 
         ' We will modify the string to create the specific database we want. Eg: spring2017 or fall2018
-        ' The sql script comes with the default of "EduResSch-spring2017"
+        ' The sql script comes with the default of "EduResSch-template"
         ' Testing with summer2018
-        execStr = execStr.Replace("EduResSch-spring2017", "EduResSch-summer2018")
+        execStr = execStr.Replace("EduResSch-template", "EduResSch-summer2018")
+
+        Dim myCommand As SqlCommand = New SqlCommand(execStr, sqlConn)
 
         ' Then exec the SQL and look for errors.
         Try
-            sqlConn.Open()
-            myCommand.ExecuteNonQuery()
+            ' Split SQL-Scripts at the GO keyword (like SSMS)
+            ' Blorgbeard's Solution
+            ' https://github.com/ststeiger/ScriptSplitter
+            For Each sqlBatch As String In execStr.Split(New String() {"GO", "Go", "go"}, StringSplitOptions.RemoveEmptyEntries)
+                myCommand.CommandText = sqlBatch
+                myCommand.ExecuteNonQuery()
+            Next
 
             MessageBox.Show("Database <?> is created successfully", My.Application.Info.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
