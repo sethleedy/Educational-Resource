@@ -55,7 +55,7 @@ Module commonFunctions
             MyCommand.Fill(dataSet)
 
             ' Set DataGrid to display data from this SheetName, overriding prev because of loop. Need to hold all. Append function ?
-            'DataGridView1.DataSource = dataSet.Tables(0) 
+            'DataGridView1.DataSource = dataSet.Tables(0)
             'MsgBox("Data Opened")
 
             ' Goto this function to parse the records and place into the SQL.
@@ -110,16 +110,16 @@ Module commonFunctions
         'End Using
     End Function
 
-    Function saveSettings() As Boolean
-        ' Save all the settings before closing the form
-        Try
-            My.Settings.Save() ' Needed for the controls on this form
-            Return False
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return True
-        End Try
+    'Function saveSettings() As Boolean
+    '    ' Save all the settings before closing the form
+    '    Try
+    '        My.Settings.Save() ' Needed for the controls on this form
+    '        Return False
+    '    Catch ex As Exception
+    '        MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+    '        Return True
+    '    End Try
 
-    End Function
+    'End Function
 End Module
 

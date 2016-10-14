@@ -1,5 +1,8 @@
 ﻿Imports System.Data.SqlClient ' Test
 Module SQL_Functions
+
+    ' https://www.tutorialspoint.com/vb.net/vb.net_database_access.htm
+
     Dim sqlConn As SqlConnection
     Dim sqlCommand As SqlCommand
     Dim sqlDataSet As New DataSet
@@ -45,6 +48,37 @@ Module SQL_Functions
 
     Function SQLCreateDB() As Boolean
 
+        Dim execStr As String
+        Dim sqlConn As SqlConnection = openSQL()
+        Dim myCommand As SqlCommand = New SqlCommand(execStr, sqlConn)
+
+        ' The entire string to create the database and tables is stored in the Settings of the project.
+        execStr = My.Settings.strCreateDatabase
+
+        ' We will modify the string to create the specific database we want. Eg: spring2017 or fall2018
+        ' The sql script comes with the default of "EduResSch-spring2017"
+        ' Testing with summer2018
+        execStr = execStr.Replace("EduResSch-spring2017", "EduResSch-summer2018")
+
+        ' Then exec the SQL and look for errors.
+        Try
+            sqlConn.Open()
+            myCommand.ExecuteNonQuery()
+
+            MessageBox.Show("Database <?> is created successfully", My.Application.Info.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString())
+            Return False
+
+        Finally
+            If (sqlConn.State = ConnectionState.Open) Then
+                closeSQL(sqlConn)
+            End If
+        End Try
+
+        Return True
+
     End Function
 
     Function SQLTestConnection() As Boolean
@@ -66,7 +100,7 @@ Module SQL_Functions
         sqlConnBuilder.InitialCatalog = "database1"
         sqlConnBuilder.IntegratedSecurity = True
         sqlConnBuilder.ConnectTimeout = 10
-        sqlConnBuilder.Encrypt = False ' What is the requirements for True ?
+        sqlConnBuilder.Encrypt = False ' What are the requirements for True ?
         sqlConnBuilder.TrustServerCertificate = True
         sqlConnBuilder.ApplicationIntent = ApplicationIntent.ReadWrite
 
@@ -100,7 +134,7 @@ Module SQL_Functions
         Catch ex As Exception
 
             closeSQL(sqlCommand.Connection)
-            MsgBox("Can not sqlCommand.ExecuteNonQuery() !: " & ex.Message)
+            MsgBox("Can not execute sqlCommand.ExecuteNonQuery() !: " & ex.Message)
             Return -1
         End Try
 
@@ -121,7 +155,7 @@ Module SQL_Functions
             sqlNewDataTable.Load(sqlReader) ' Load the info from the reader
             sqlDataSet.Tables.Add(sqlNewDataTable) ' Place it into the program tables to be called upon later.
 
-            For Each row As DataRow In sqlDataSet.Tables(sqlDataSet.Tables.Count - 1).Rows
+            For Each row As DataRow In sqlDataSet.Tables(sqlDataSet.Tables.Count - 1).Rows ' Zero based count in Tables...
 
                 MsgBox(row.Item("contact_id").ToString & "  -  " & row.Item("username").ToString & "  -  " & row.Item("email").ToString)
 
@@ -131,7 +165,9 @@ Module SQL_Functions
 
             sqlReader.Close()
             closeSQL(sqlCommand.Connection)
+
             MsgBox("Can not open connection!: " & ex.Message)
+
             Return -1
 
         End Try
@@ -139,7 +175,7 @@ Module SQL_Functions
         sqlReader.Close()
         closeSQL(sqlCommand.Connection)
 
-        Return sqlDataSet.Tables(sqlDataSet.Tables.Count).Rows.Count
+        Return sqlDataSet.Tables(sqlDataSet.Tables.Count - 1).Rows.Count
 
 
     End Function

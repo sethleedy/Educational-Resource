@@ -38,6 +38,7 @@ Partial Class frmSettings
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.TextBox4 = New System.Windows.Forms.TextBox()
@@ -209,6 +210,7 @@ Partial Class frmSettings
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.Button3)
         Me.GroupBox3.Controls.Add(Me.Label6)
         Me.GroupBox3.Controls.Add(Me.Label5)
         Me.GroupBox3.Controls.Add(Me.TextBox4)
@@ -223,6 +225,15 @@ Partial Class frmSettings
         Me.GroupBox3.TabIndex = 0
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Database server location"
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(599, 28)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(75, 23)
+        Me.Button3.TabIndex = 8
+        Me.Button3.Text = "Test"
+        Me.Button3.UseVisualStyleBackColor = True
         '
         'Label6
         '
@@ -359,4 +370,5 @@ Partial Class frmSettings
     Friend WithEvents TextBox3 As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents TabPage3 As TabPage
+    Friend WithEvents Button3 As Button
 End Class
