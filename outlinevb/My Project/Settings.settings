@@ -428,7 +428,13 @@ GO</Value>
       <Value Profile="(Default)">1433</Value>
     </Setting>
     <Setting Name="strInitialCatalog" Type="System.String" Scope="User">
-      <Value Profile="(Default)">EduResSch-summer2018</Value>
+      <Value Profile="(Default)">summer2018</Value>
+    </Setting>
+    <Setting Name="strDBInstance" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="strDBPrefix" Type="System.String" Scope="User">
+      <Value Profile="(Default)">EduResSch-</Value>
     </Setting>
   </Settings>
 </SettingsFile>

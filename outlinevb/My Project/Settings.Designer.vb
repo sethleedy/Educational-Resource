@@ -299,13 +299,37 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("EduResSch-summer2018")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("summer2018")>  _
         Public Property strInitialCatalog() As String
             Get
                 Return CType(Me("strInitialCatalog"),String)
             End Get
             Set
                 Me("strInitialCatalog") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property strDBInstance() As String
+            Get
+                Return CType(Me("strDBInstance"),String)
+            End Get
+            Set
+                Me("strDBInstance") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("EduResSch-")>  _
+        Public Property strDBPrefix() As String
+            Get
+                Return CType(Me("strDBPrefix"),String)
+            End Get
+            Set
+                Me("strDBPrefix") = value
             End Set
         End Property
     End Class

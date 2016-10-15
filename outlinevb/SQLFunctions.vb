@@ -48,20 +48,19 @@ Module SQL_Functions
 
     Function SQLCreateSemesterDB() As Boolean
 
-        Dim execStr1 As String
-        Dim dbname As String = "EduResSch-" & frmSettings.comboSelectSemester.SelectedText & frmSettings.DateTimePickSemesterYear.Value.ToString
+        '''' Database template1 for Semesters
 
-        Dim sqlConn As SqlConnection = openSQL()
+        Dim execStr1 As String
+        Dim dbname As String = "EduResSch-" & frmSettings.comboSelectSemester.SelectedItem.ToString & frmSettings.DateTimePickSemesterYear.Value.Year.ToString
+
+        Dim sqlConn As SqlConnection = openSQL(False, True)
 
 
         ' The entire string to create the database and tables is stored in the Settings of the project.
         execStr1 = My.Settings.strCreateDatabase1 ' This one does the first Semester database
 
-        '''' Database 1 for Semesters
-
         ' We will modify the string to create the specific database we want. Eg: spring2017 or fall2018
-        ' The sql script comes with the default of "EduResSch-template"
-        ' Testing with summer2018
+        ' The sql script comes with the default of "EduResSch-template1"
         execStr1 = execStr1.Replace("EduResSch-template1", dbname)
 
         Dim myCommand As SqlCommand = New SqlCommand(execStr1, sqlConn)
@@ -79,7 +78,8 @@ Module SQL_Functions
             MessageBox.Show("Database " + dbname + " is created successfully", My.Application.Info.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         Catch ex As Exception
-            MessageBox.Show(ex.ToString())
+            MessageBox.Show("Error in creating the database! " & ex.Message.ToString, My.Application.Info.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error)
+
             Return False
         Finally
             If (sqlConn.State = ConnectionState.Open) Then
@@ -88,8 +88,11 @@ Module SQL_Functions
 
         End Try
 
-        ' test
-        sqlCreateAuthDB()
+        ' Set the Semester in use to this one in the frmSettings form.
+        My.Settings.strInitialCatalog = frmSettings.comboSelectSemester.SelectedItem.ToString & frmSettings.DateTimePickSemesterYear.Value.Year.ToString
+
+        ' Call function to fill in combobox with all the semesters in SQL server.
+        listSemestersInDB(frmSettings.semesterComboBox1)
 
         Return True
 
@@ -97,19 +100,28 @@ Module SQL_Functions
 
     Function sqlCreateAuthDB() As Boolean
 
-        '''' Database 2 for Username/Passwords
+        '''' Database template2 for Username/Passwords
 
         Dim execStr2 As String
         Dim dbname As String = "EduResSch-auth"
 
-        execStr2 = My.Settings.strCreateDatabase2 ' This holds the username and passwords for program login.
+
+        ' We do NOT want to overwrite this database.
+        ' Check if exists and return false if so.
+        If CheckDatabaseExists(dbname) Then
+            ' Make a note in the log...
+
+
+            Return False
+        End If
+
+        execStr2 = My.Settings.strCreateDatabase2 ' This holds the SQL code for creating the database
 
         Dim sqlConn As SqlConnection = openSQL()
 
 
         ' We will modify the string to create the specific database we want. Eg: spring2017 or fall2018
-        ' The sql script comes with the default of "EduResSch-template"
-        ' Testing with summer2018
+        ' The sql script comes with the default of "EduResSch-template2"
         execStr2 = execStr2.Replace("EduResSch-template2", dbname)
 
         Dim myCommand2 As SqlCommand = New SqlCommand(execStr2, sqlConn)
@@ -140,6 +152,27 @@ Module SQL_Functions
 
     End Function
 
+    Function CheckDatabaseExists(database As String) As Boolean
+
+        Dim cmdText As String = "select * from master.dbo.sysdatabases where name LIKE '" & database & "%'"
+        Dim sqlConn As SqlConnection = openSQL()
+        Dim bRet As Boolean = False
+
+        Using sqlConn
+
+            Using sqlCmd As SqlCommand = New SqlCommand(cmdText, sqlConn)
+                Using reader As SqlDataReader = sqlCmd.ExecuteReader
+                    bRet = reader.HasRows
+                End Using
+            End Using
+        End Using
+
+        sqlConn.Close()
+
+        Return bRet
+
+    End Function
+
     Function SQLTestConnection() As Boolean
 
         Dim testconn As SqlConnection = openSQL(True)
@@ -153,20 +186,26 @@ Module SQL_Functions
 
     End Function
 
-    Function openSQL(Optional test As Boolean = False) As SqlConnection
+    Function openSQL(Optional test As Boolean = False, Optional DBCreation As Boolean = False) As SqlConnection
 
         Dim sqlConnBuilder As New SqlConnectionStringBuilder()
 
         ' All information should be coming from My.Settings which are updated from frmSettings.
-
         ' https://msdn.microsoft.com/en-us/library/system.data.sqlclient.sqlconnection.connectionstring(v=vs.110).aspx
-        ' Port not working. It is using default right now...
-        sqlConnBuilder.DataSource = My.Settings.strDBServerAddress ' & "," & My.Settings.intDBPort ' Port is included here, but must not contain a space. - stringBuilder.DataSource = @"myServer\InstanceName,1433";
-        'sqlConnBuilder.DataSource = "DEV-WIN"
 
-        'sqlConnBuilder.InitialCatalog = "EduResSch-summer2018" ' Set to currently selected database semester. Catch 22 here.
-        sqlConnBuilder.InitialCatalog = My.Settings.strInitialCatalog
+        ' We can connect with an Instance or just the normal port number.
+        If My.Settings.strDBInstance <> "" Then
+            ' Instance with port
+            sqlConnBuilder.DataSource = My.Settings.strDBServerAddress & "\" & My.Settings.strDBInstance & "," & My.Settings.intDBPort
+        Else
+            ' Normal connection
+            sqlConnBuilder.DataSource = My.Settings.strDBServerAddress
 
+        End If
+
+        If DBCreation = False Then
+            sqlConnBuilder.InitialCatalog = My.Settings.strDBPrefix & My.Settings.strInitialCatalog ' Like EduResSch-summer2018
+        End If
 
         sqlConnBuilder.IntegratedSecurity = True
         sqlConnBuilder.ConnectTimeout = 10
@@ -261,6 +300,84 @@ Module SQL_Functions
 
         Return sqlDataSet.Tables(sqlDataSet.Tables.Count - 1).Rows.Count
 
+
+    End Function
+
+    Function listSemestersInDB(cBox As ComboBox) As Boolean
+
+        ' Dataset that the combobox is going to tie into.
+        Dim ds1 As New DataSet()
+        Dim ds2 As New DataSet()
+        Dim ds3 As New DataSet()
+        Dim command As SqlCommand
+        Dim adapter As New SqlDataAdapter()
+
+        ' Open connection to Master
+        Dim sqlConnList As SqlConnection = openSQL(False, True) ' True, to skip connecting to a specific database
+
+        ' Three searches, one for each semester.
+        Dim Sql1 = "select dbid, name from master.dbo.sysdatabases where name LIKE '" & My.Settings.strDBPrefix & "spring%'"
+        Dim Sql2 = "select dbid, name from master.dbo.sysdatabases where name LIKE '" & My.Settings.strDBPrefix & "summer%'"
+        Dim Sql3 = "select dbid, name from master.dbo.sysdatabases where name LIKE '" & My.Settings.strDBPrefix & "fall%'"
+
+        ' SQL1 to DS1
+        Try
+            command = New SqlCommand(Sql1, sqlConnList)
+            adapter.SelectCommand = command
+            adapter.Fill(ds1)
+
+            adapter.Dispose()
+            command.Dispose()
+
+
+        Catch ex As Exception
+            MessageBox.Show("Error in listing semesters for a combobox: " & ex.Message.ToString)
+
+            Return False
+        End Try
+
+        ' SQL2 to DS2
+        Try
+            command = New SqlCommand(Sql2, sqlConnList)
+            adapter.SelectCommand = command
+            adapter.Fill(ds2)
+
+            adapter.Dispose()
+            command.Dispose()
+
+
+        Catch ex As Exception
+            MessageBox.Show("Error in listing semesters for a combobox: " & ex.Message.ToString)
+
+            Return False
+        End Try
+
+        ' SQL3 to DS3
+        Try
+            command = New SqlCommand(Sql3, sqlConnList)
+            adapter.SelectCommand = command
+            adapter.Fill(ds3)
+
+            adapter.Dispose()
+            command.Dispose()
+
+
+        Catch ex As Exception
+            MessageBox.Show("Error in listing semesters for a combobox: " & ex.Message.ToString)
+
+            Return False
+        End Try
+
+        ' Merge our three search results
+        ds1.Merge(ds2)
+        ds1.Merge(ds3)
+
+        ' Setup the passed combobox for displaying our dataset
+        cBox.DataSource = ds1.Tables(0)
+        cBox.ValueMember = "dbid"
+        cBox.DisplayMember = "name"
+
+        Return True
 
     End Function
 End Module

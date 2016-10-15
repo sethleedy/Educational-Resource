@@ -30,15 +30,19 @@ Partial Class frmSettings
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.semesterComboBox1 = New System.Windows.Forms.ComboBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.DateTimePickSemesterYear = New System.Windows.Forms.DateTimePicker()
+        Me.comboSelectSemester = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.DBBackup = New System.Windows.Forms.Button()
         Me.DBReset = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.strDBInstance = New System.Windows.Forms.TextBox()
         Me.DBTestConnection = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -49,8 +53,6 @@ Partial Class frmSettings
         Me.Label1 = New System.Windows.Forms.Label()
         Me.strDBServerAddress = New System.Windows.Forms.TextBox()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.comboSelectSemester = New System.Windows.Forms.ComboBox()
-        Me.DateTimePickSemesterYear = New System.Windows.Forms.DateTimePicker()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -99,7 +101,7 @@ Partial Class frmSettings
         Me.TabControl1.Multiline = True
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(704, 318)
+        Me.TabControl1.Size = New System.Drawing.Size(704, 337)
         Me.TabControl1.TabIndex = 5
         '
         'TabPage1
@@ -109,7 +111,7 @@ Partial Class frmSettings
         Me.TabPage1.Location = New System.Drawing.Point(4, 26)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(696, 288)
+        Me.TabPage1.Size = New System.Drawing.Size(696, 307)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Semesters"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -117,7 +119,7 @@ Partial Class frmSettings
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.Label7)
-        Me.GroupBox2.Controls.Add(Me.ComboBox1)
+        Me.GroupBox2.Controls.Add(Me.semesterComboBox1)
         Me.GroupBox2.Location = New System.Drawing.Point(8, 112)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(680, 100)
@@ -134,13 +136,14 @@ Partial Class frmSettings
         Me.Label7.TabIndex = 1
         Me.Label7.Text = "Select based on semester && year"
         '
-        'ComboBox1
+        'semesterComboBox1
         '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(6, 25)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(200, 25)
-        Me.ComboBox1.TabIndex = 0
+        Me.semesterComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.semesterComboBox1.FormattingEnabled = True
+        Me.semesterComboBox1.Location = New System.Drawing.Point(6, 25)
+        Me.semesterComboBox1.Name = "semesterComboBox1"
+        Me.semesterComboBox1.Size = New System.Drawing.Size(200, 25)
+        Me.semesterComboBox1.TabIndex = 0
         '
         'GroupBox1
         '
@@ -158,7 +161,7 @@ Partial Class frmSettings
         Me.TabPage2.Controls.Add(Me.GroupBox3)
         Me.TabPage2.Location = New System.Drawing.Point(4, 26)
         Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Size = New System.Drawing.Size(696, 288)
+        Me.TabPage2.Size = New System.Drawing.Size(696, 307)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Database information"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -171,12 +174,35 @@ Partial Class frmSettings
         Me.GroupBox4.Controls.Add(Me.Label3)
         Me.GroupBox4.Controls.Add(Me.DBBackup)
         Me.GroupBox4.Controls.Add(Me.DBReset)
-        Me.GroupBox4.Location = New System.Drawing.Point(8, 180)
+        Me.GroupBox4.Location = New System.Drawing.Point(8, 200)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(680, 100)
         Me.GroupBox4.TabIndex = 4
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Database operations"
+        '
+        'DateTimePickSemesterYear
+        '
+        Me.DateTimePickSemesterYear.CustomFormat = "yyyy"
+        Me.DateTimePickSemesterYear.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DateTimePickSemesterYear.Location = New System.Drawing.Point(599, 21)
+        Me.DateTimePickSemesterYear.MinDate = New Date(1900, 1, 1, 0, 0, 0, 0)
+        Me.DateTimePickSemesterYear.Name = "DateTimePickSemesterYear"
+        Me.DateTimePickSemesterYear.ShowUpDown = True
+        Me.DateTimePickSemesterYear.Size = New System.Drawing.Size(75, 26)
+        Me.DateTimePickSemesterYear.TabIndex = 5
+        Me.DateTimePickSemesterYear.Value = New Date(2017, 1, 1, 0, 0, 0, 0)
+        '
+        'comboSelectSemester
+        '
+        Me.comboSelectSemester.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboSelectSemester.FormattingEnabled = True
+        Me.comboSelectSemester.Items.AddRange(New Object() {"Spring", "Summer", "Fall"})
+        Me.comboSelectSemester.Location = New System.Drawing.Point(459, 22)
+        Me.comboSelectSemester.Name = "comboSelectSemester"
+        Me.comboSelectSemester.Size = New System.Drawing.Size(134, 25)
+        Me.comboSelectSemester.TabIndex = 4
+        Me.ToolTip1.SetToolTip(Me.comboSelectSemester, "Choose the new Semester to setup in a database.")
         '
         'Label4
         '
@@ -219,6 +245,8 @@ Partial Class frmSettings
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.Label8)
+        Me.GroupBox3.Controls.Add(Me.strDBInstance)
         Me.GroupBox3.Controls.Add(Me.DBTestConnection)
         Me.GroupBox3.Controls.Add(Me.Label6)
         Me.GroupBox3.Controls.Add(Me.Label5)
@@ -230,10 +258,27 @@ Partial Class frmSettings
         Me.GroupBox3.Controls.Add(Me.strDBServerAddress)
         Me.GroupBox3.Location = New System.Drawing.Point(8, 3)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(680, 171)
+        Me.GroupBox3.Size = New System.Drawing.Size(680, 191)
         Me.GroupBox3.TabIndex = 0
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Database server location"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(211, 61)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(72, 19)
+        Me.Label8.TabIndex = 10
+        Me.Label8.Text = "Instance"
+        '
+        'strDBInstance
+        '
+        Me.strDBInstance.Location = New System.Drawing.Point(6, 58)
+        Me.strDBInstance.Name = "strDBInstance"
+        Me.strDBInstance.Size = New System.Drawing.Size(200, 26)
+        Me.strDBInstance.TabIndex = 9
+        Me.ToolTip1.SetToolTip(Me.strDBInstance, "Optional instance name to connect to.")
         '
         'DBTestConnection
         '
@@ -248,7 +293,7 @@ Partial Class frmSettings
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(211, 124)
+        Me.Label6.Location = New System.Drawing.Point(211, 160)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(79, 19)
         Me.Label6.TabIndex = 7
@@ -257,7 +302,7 @@ Partial Class frmSettings
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(211, 92)
+        Me.Label5.Location = New System.Drawing.Point(211, 128)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(86, 19)
         Me.Label5.TabIndex = 6
@@ -265,7 +310,7 @@ Partial Class frmSettings
         '
         'strDBPassword
         '
-        Me.strDBPassword.Location = New System.Drawing.Point(6, 121)
+        Me.strDBPassword.Location = New System.Drawing.Point(6, 157)
         Me.strDBPassword.Name = "strDBPassword"
         Me.strDBPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9578)
         Me.strDBPassword.Size = New System.Drawing.Size(200, 26)
@@ -275,7 +320,7 @@ Partial Class frmSettings
         '
         'strDBUsername
         '
-        Me.strDBUsername.Location = New System.Drawing.Point(6, 89)
+        Me.strDBUsername.Location = New System.Drawing.Point(6, 125)
         Me.strDBUsername.Name = "strDBUsername"
         Me.strDBUsername.Size = New System.Drawing.Size(200, 26)
         Me.strDBUsername.TabIndex = 4
@@ -285,7 +330,7 @@ Partial Class frmSettings
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(211, 60)
+        Me.Label2.Location = New System.Drawing.Point(211, 96)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(42, 19)
         Me.Label2.TabIndex = 3
@@ -293,11 +338,12 @@ Partial Class frmSettings
         '
         'intDBPort
         '
-        Me.intDBPort.Location = New System.Drawing.Point(6, 57)
+        Me.intDBPort.Location = New System.Drawing.Point(6, 93)
         Me.intDBPort.Name = "intDBPort"
         Me.intDBPort.Size = New System.Drawing.Size(200, 26)
         Me.intDBPort.TabIndex = 2
         Me.intDBPort.Text = "1433"
+        Me.ToolTip1.SetToolTip(Me.intDBPort, "If not using the standard port, specify here.")
         '
         'Label1
         '
@@ -320,33 +366,10 @@ Partial Class frmSettings
         '
         Me.TabPage3.Location = New System.Drawing.Point(4, 26)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(696, 288)
+        Me.TabPage3.Size = New System.Drawing.Size(696, 344)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "User accounts"
         Me.TabPage3.UseVisualStyleBackColor = True
-        '
-        'comboSelectSemester
-        '
-        Me.comboSelectSemester.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.comboSelectSemester.FormattingEnabled = True
-        Me.comboSelectSemester.Items.AddRange(New Object() {"Spring", "Summer", "Fall"})
-        Me.comboSelectSemester.Location = New System.Drawing.Point(459, 22)
-        Me.comboSelectSemester.Name = "comboSelectSemester"
-        Me.comboSelectSemester.Size = New System.Drawing.Size(134, 25)
-        Me.comboSelectSemester.TabIndex = 4
-        Me.ToolTip1.SetToolTip(Me.comboSelectSemester, "Choose the new Semester to setup in a database.")
-        '
-        'DateTimePickSemesterYear
-        '
-        Me.DateTimePickSemesterYear.CustomFormat = "yyyy"
-        Me.DateTimePickSemesterYear.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DateTimePickSemesterYear.Location = New System.Drawing.Point(599, 21)
-        Me.DateTimePickSemesterYear.MinDate = New Date(1900, 1, 1, 0, 0, 0, 0)
-        Me.DateTimePickSemesterYear.Name = "DateTimePickSemesterYear"
-        Me.DateTimePickSemesterYear.ShowUpDown = True
-        Me.DateTimePickSemesterYear.Size = New System.Drawing.Size(75, 26)
-        Me.DateTimePickSemesterYear.TabIndex = 5
-        Me.DateTimePickSemesterYear.Value = New Date(2017, 1, 1, 0, 0, 0, 0)
         '
         'ToolTip1
         '
@@ -356,7 +379,7 @@ Partial Class frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(704, 343)
+        Me.ClientSize = New System.Drawing.Size(704, 362)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Font = New System.Drawing.Font("Lucida Calligraphy", 10.0!)
@@ -392,7 +415,7 @@ Partial Class frmSettings
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents semesterComboBox1 As ComboBox
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents TabPage2 As TabPage
     Friend WithEvents GroupBox3 As GroupBox
@@ -415,4 +438,6 @@ Partial Class frmSettings
     Friend WithEvents DateTimePickSemesterYear As DateTimePicker
     Friend WithEvents comboSelectSemester As ComboBox
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents Label8 As Label
+    Friend WithEvents strDBInstance As TextBox
 End Class

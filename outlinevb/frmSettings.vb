@@ -27,9 +27,12 @@
         strDBPassword.Text = My.Settings.strDBPassword
         intDBPort.Text = CStr(My.Settings.intDBPort)
 
-        ' Set the default index on the semester selection
+        ' Set the default index on the semester selection on tab Database Information
         comboSelectSemester.SelectedIndex = 0
 
+        ' Set and fill Semester combobox on tab Semesters
+        ' Call function to fill in combobox with all the semesters in SQL server.
+        listSemestersInDB(Me.semesterComboBox1)
 
     End Sub
 
@@ -76,6 +79,7 @@
 
         ' Save the settings
         My.Settings.strDBServerAddress = strDBServerAddress.Text
+        My.Settings.strDBInstance = strDBInstance.Text
         My.Settings.intDBPort = CInt(intDBPort.Text)
         My.Settings.strDBUserName = strDBUsername.Text
         My.Settings.strDBPassword = strDBPassword.Text
@@ -89,6 +93,20 @@
         ' True if the settings worked and the connection is open.
         MsgBox(testReturn)
 
+
+
+    End Sub
+
+    Private Sub DBReset_Click(sender As Object, e As EventArgs) Handles DBReset.Click
+
+        ' Create the database for the selected semester
+        SQLCreateSemesterDB()
+
+        ' Important, create the Auth DB LAST!
+        ' Both for the sake of SQL DB creation errors(errors out and we can still login to fix it/try again), but also for setting the Semester within the code when the SemesterDB gets created.
+
+        ' Create it if it does not exists. Function will check and will not overwrite.
+        sqlCreateAuthDB()
 
 
     End Sub
