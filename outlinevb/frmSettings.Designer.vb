@@ -304,9 +304,9 @@ Partial Class frmSettings
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(211, 28)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(178, 19)
+        Me.Label1.Size = New System.Drawing.Size(192, 19)
         Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Database server name"
+        Me.Label1.Text = "Database server address"
         '
         'strDBServerAddress
         '

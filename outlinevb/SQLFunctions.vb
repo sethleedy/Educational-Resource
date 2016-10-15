@@ -159,7 +159,9 @@ Module SQL_Functions
 
         ' All information should be coming from My.Settings which are updated from frmSettings.
 
-        sqlConnBuilder.DataSource = My.Settings.strDBServerAddress & My.Settings.intDBPort ' Port is included here, but must not contain a space. - stringBuilder.DataSource = @"myServer\InstanceName,1433";
+        ' https://msdn.microsoft.com/en-us/library/system.data.sqlclient.sqlconnection.connectionstring(v=vs.110).aspx
+        ' Port not working. It is using default right now...
+        sqlConnBuilder.DataSource = My.Settings.strDBServerAddress ' & "," & My.Settings.intDBPort ' Port is included here, but must not contain a space. - stringBuilder.DataSource = @"myServer\InstanceName,1433";
         'sqlConnBuilder.DataSource = "DEV-WIN"
 
         'sqlConnBuilder.InitialCatalog = "EduResSch-summer2018" ' Set to currently selected database semester. Catch 22 here.
@@ -183,9 +185,9 @@ Module SQL_Functions
 
         Catch ex As Exception
 
-            If test = False Then
-                MsgBox("Error opening the MSSQL connection: " + ex.Message)
-            End If
+            'If test = False Then
+            MsgBox("Error opening the MSSQL connection: " + ex.Message)
+            'End If
 
             Return sqlConn
         End Try
