@@ -15,7 +15,7 @@ Module SQL_Functions
         ' Change ServerName to localhost or remote server
         'connectionString = "Data Source=ServerName;Initial Catalog=DatabaseName;User ID=UserName;Password=Password"
 
-        sql = "Select * from Contacts;"
+        sql = "Select * from Rooms;"
 
         ' Parameterized SQL command which prevents SQL injections.
         ' It Is best practice to use parameterized commands for security and performance
@@ -46,33 +46,85 @@ Module SQL_Functions
 
     End Function
 
-    Function SQLCreateDB() As Boolean
+    Function SQLCreateSemesterDB() As Boolean
 
-        Dim execStr As String
+        Dim execStr1 As String
+        Dim dbname As String = "EduResSch-" & frmSettings.comboSelectSemester.SelectedText & frmSettings.DateTimePickSemesterYear.Value.ToString
+
         Dim sqlConn As SqlConnection = openSQL()
 
 
         ' The entire string to create the database and tables is stored in the Settings of the project.
-        execStr = My.Settings.strCreateDatabase
+        execStr1 = My.Settings.strCreateDatabase1 ' This one does the first Semester database
+
+        '''' Database 1 for Semesters
 
         ' We will modify the string to create the specific database we want. Eg: spring2017 or fall2018
         ' The sql script comes with the default of "EduResSch-template"
         ' Testing with summer2018
-        execStr = execStr.Replace("EduResSch-template", "EduResSch-summer2018")
+        execStr1 = execStr1.Replace("EduResSch-template1", dbname)
 
-        Dim myCommand As SqlCommand = New SqlCommand(execStr, sqlConn)
+        Dim myCommand As SqlCommand = New SqlCommand(execStr1, sqlConn)
 
         ' Then exec the SQL and look for errors.
         Try
             ' Split SQL-Scripts at the GO keyword (like SSMS)
             ' Blorgbeard's Solution
             ' https://github.com/ststeiger/ScriptSplitter
-            For Each sqlBatch As String In execStr.Split(New String() {"GO", "Go", "go"}, StringSplitOptions.RemoveEmptyEntries)
+            For Each sqlBatch As String In execStr1.Split(New String() {"GO", "Go", "go"}, StringSplitOptions.RemoveEmptyEntries)
                 myCommand.CommandText = sqlBatch
                 myCommand.ExecuteNonQuery()
             Next
 
-            MessageBox.Show("Database <?> is created successfully", My.Application.Info.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Database " + dbname + " is created successfully", My.Application.Info.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString())
+            Return False
+        Finally
+            If (sqlConn.State = ConnectionState.Open) Then
+                closeSQL(sqlConn)
+            End If
+
+        End Try
+
+        ' test
+        sqlCreateAuthDB()
+
+        Return True
+
+    End Function
+
+    Function sqlCreateAuthDB() As Boolean
+
+        '''' Database 2 for Username/Passwords
+
+        Dim execStr2 As String
+        Dim dbname As String = "EduResSch-auth"
+
+        execStr2 = My.Settings.strCreateDatabase2 ' This holds the username and passwords for program login.
+
+        Dim sqlConn As SqlConnection = openSQL()
+
+
+        ' We will modify the string to create the specific database we want. Eg: spring2017 or fall2018
+        ' The sql script comes with the default of "EduResSch-template"
+        ' Testing with summer2018
+        execStr2 = execStr2.Replace("EduResSch-template2", dbname)
+
+        Dim myCommand2 As SqlCommand = New SqlCommand(execStr2, sqlConn)
+
+        ' Then exec the SQL and look for errors.
+        Try
+            ' Split SQL-Scripts at the GO keyword (like SSMS)
+            ' Blorgbeard's Solution
+            ' https://github.com/ststeiger/ScriptSplitter
+            For Each sqlBatch As String In execStr2.Split(New String() {"GO", "Go", "go"}, StringSplitOptions.RemoveEmptyEntries)
+                myCommand2.CommandText = sqlBatch
+                myCommand2.ExecuteNonQuery()
+            Next
+
+            MessageBox.Show("Database " + dbname + " is created successfully", My.Application.Info.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         Catch ex As Exception
             MessageBox.Show(ex.ToString())
@@ -90,30 +142,53 @@ Module SQL_Functions
 
     Function SQLTestConnection() As Boolean
 
+        Dim testconn As SqlConnection = openSQL(True)
+
+        If testconn.State = ConnectionState.Closed Then
+            Return False
+        Else
+            Return True
+        End If
+
+
     End Function
 
-    Function openSQL() As SqlConnection
+    Function openSQL(Optional test As Boolean = False) As SqlConnection
 
         Dim sqlConnBuilder As New SqlConnectionStringBuilder()
 
-        ' Pulled from Visual Studio SQL Server Object Explorer
-        ' Seth's machine connection
-        ' "Data Source=IP,PORT;" Typical Port is 1433
-        ' User ID=myUsername;Password=myPassword;"
+        ' All information should be coming from My.Settings which are updated from frmSettings.
 
-        'connectionString = "Data Source=DEV-WIN;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;Initial Catalog=EduResSch;"
-        sqlConnBuilder.DataSource = "DEV-WIN"
-        'sqlConnBuilder.InitialCatalog = "EduResSch"
-        sqlConnBuilder.InitialCatalog = "database1"
+        sqlConnBuilder.DataSource = My.Settings.strDBServerAddress & My.Settings.intDBPort ' Port is included here, but must not contain a space. - stringBuilder.DataSource = @"myServer\InstanceName,1433";
+        'sqlConnBuilder.DataSource = "DEV-WIN"
+
+        'sqlConnBuilder.InitialCatalog = "EduResSch-summer2018" ' Set to currently selected database semester. Catch 22 here.
+        sqlConnBuilder.InitialCatalog = My.Settings.strInitialCatalog
+
+
         sqlConnBuilder.IntegratedSecurity = True
         sqlConnBuilder.ConnectTimeout = 10
         sqlConnBuilder.Encrypt = False ' What are the requirements for True ?
         sqlConnBuilder.TrustServerCertificate = True
         sqlConnBuilder.ApplicationIntent = ApplicationIntent.ReadWrite
 
-        sqlConn = New SqlConnection(sqlConnBuilder.ToString)
-        sqlConn.Open()
+        ' Get auth info and use it here to open SQL server
+        sqlConnBuilder.UserID = My.Settings.strDBUserName
+        sqlConnBuilder.Password = My.Settings.strDBPassword
 
+
+        Try
+            sqlConn = New SqlConnection(sqlConnBuilder.ToString)
+            sqlConn.Open()
+
+        Catch ex As Exception
+
+            If test = False Then
+                MsgBox("Error opening the MSSQL connection: " + ex.Message)
+            End If
+
+            Return sqlConn
+        End Try
 
 
         Return sqlConn

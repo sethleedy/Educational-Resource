@@ -22,6 +22,7 @@ Partial Class frmSettings
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.browseSpreadSheet = New System.Windows.Forms.Button()
@@ -35,19 +36,22 @@ Partial Class frmSettings
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.DBBackup = New System.Windows.Forms.Button()
+        Me.DBReset = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.DBTestConnection = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.strDBPassword = New System.Windows.Forms.TextBox()
+        Me.strDBUsername = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.intDBPort = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.strDBServerAddress = New System.Windows.Forms.TextBox()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.comboSelectSemester = New System.Windows.Forms.ComboBox()
+        Me.DateTimePickSemesterYear = New System.Windows.Forms.DateTimePicker()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -128,7 +132,7 @@ Partial Class frmSettings
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(246, 19)
         Me.Label7.TabIndex = 1
-        Me.Label7.Text = "Select based on year && semester"
+        Me.Label7.Text = "Select based on semester && year"
         '
         'ComboBox1
         '
@@ -161,10 +165,12 @@ Partial Class frmSettings
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.DateTimePickSemesterYear)
+        Me.GroupBox4.Controls.Add(Me.comboSelectSemester)
         Me.GroupBox4.Controls.Add(Me.Label4)
         Me.GroupBox4.Controls.Add(Me.Label3)
-        Me.GroupBox4.Controls.Add(Me.Button2)
-        Me.GroupBox4.Controls.Add(Me.Button1)
+        Me.GroupBox4.Controls.Add(Me.DBBackup)
+        Me.GroupBox4.Controls.Add(Me.DBReset)
         Me.GroupBox4.Location = New System.Drawing.Point(8, 180)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(680, 100)
@@ -190,35 +196,38 @@ Partial Class frmSettings
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Create anew or reset existing database"
         '
-        'Button2
+        'DBBackup
         '
-        Me.Button2.Location = New System.Drawing.Point(6, 54)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 1
-        Me.Button2.Text = "Go!"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.DBBackup.Location = New System.Drawing.Point(6, 54)
+        Me.DBBackup.Name = "DBBackup"
+        Me.DBBackup.Size = New System.Drawing.Size(75, 23)
+        Me.DBBackup.TabIndex = 1
+        Me.DBBackup.Text = "Go!"
+        Me.ToolTip1.SetToolTip(Me.DBBackup, "The backup will goto a yet to be chosen folder")
+        Me.DBBackup.UseVisualStyleBackColor = True
         '
-        'Button1
+        'DBReset
         '
-        Me.Button1.Location = New System.Drawing.Point(6, 25)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "Reset"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.DBReset.Location = New System.Drawing.Point(6, 25)
+        Me.DBReset.Name = "DBReset"
+        Me.DBReset.Size = New System.Drawing.Size(75, 23)
+        Me.DBReset.TabIndex = 0
+        Me.DBReset.Text = "Reset"
+        Me.ToolTip1.SetToolTip(Me.DBReset, "This will create a new database with the name containing the semester and year se" &
+        "lected.")
+        Me.DBReset.UseVisualStyleBackColor = True
         '
         'GroupBox3
         '
-        Me.GroupBox3.Controls.Add(Me.Button3)
+        Me.GroupBox3.Controls.Add(Me.DBTestConnection)
         Me.GroupBox3.Controls.Add(Me.Label6)
         Me.GroupBox3.Controls.Add(Me.Label5)
-        Me.GroupBox3.Controls.Add(Me.TextBox4)
-        Me.GroupBox3.Controls.Add(Me.TextBox3)
+        Me.GroupBox3.Controls.Add(Me.strDBPassword)
+        Me.GroupBox3.Controls.Add(Me.strDBUsername)
         Me.GroupBox3.Controls.Add(Me.Label2)
-        Me.GroupBox3.Controls.Add(Me.TextBox2)
+        Me.GroupBox3.Controls.Add(Me.intDBPort)
         Me.GroupBox3.Controls.Add(Me.Label1)
-        Me.GroupBox3.Controls.Add(Me.TextBox1)
+        Me.GroupBox3.Controls.Add(Me.strDBServerAddress)
         Me.GroupBox3.Location = New System.Drawing.Point(8, 3)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(680, 171)
@@ -226,14 +235,15 @@ Partial Class frmSettings
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Database server location"
         '
-        'Button3
+        'DBTestConnection
         '
-        Me.Button3.Location = New System.Drawing.Point(599, 28)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(75, 23)
-        Me.Button3.TabIndex = 8
-        Me.Button3.Text = "Test"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.DBTestConnection.Location = New System.Drawing.Point(599, 28)
+        Me.DBTestConnection.Name = "DBTestConnection"
+        Me.DBTestConnection.Size = New System.Drawing.Size(75, 23)
+        Me.DBTestConnection.TabIndex = 8
+        Me.DBTestConnection.Text = "Test"
+        Me.ToolTip1.SetToolTip(Me.DBTestConnection, "Test the connection to MSSQL server.")
+        Me.DBTestConnection.UseVisualStyleBackColor = True
         '
         'Label6
         '
@@ -253,21 +263,24 @@ Partial Class frmSettings
         Me.Label5.TabIndex = 6
         Me.Label5.Text = "Username"
         '
-        'TextBox4
+        'strDBPassword
         '
-        Me.TextBox4.Location = New System.Drawing.Point(6, 121)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9578)
-        Me.TextBox4.Size = New System.Drawing.Size(200, 26)
-        Me.TextBox4.TabIndex = 5
-        Me.TextBox4.UseSystemPasswordChar = True
+        Me.strDBPassword.Location = New System.Drawing.Point(6, 121)
+        Me.strDBPassword.Name = "strDBPassword"
+        Me.strDBPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9578)
+        Me.strDBPassword.Size = New System.Drawing.Size(200, 26)
+        Me.strDBPassword.TabIndex = 5
+        Me.strDBPassword.UseSystemPasswordChar = True
+        Me.strDBPassword.WordWrap = False
         '
-        'TextBox3
+        'strDBUsername
         '
-        Me.TextBox3.Location = New System.Drawing.Point(6, 89)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(200, 26)
-        Me.TextBox3.TabIndex = 4
+        Me.strDBUsername.Location = New System.Drawing.Point(6, 89)
+        Me.strDBUsername.Name = "strDBUsername"
+        Me.strDBUsername.Size = New System.Drawing.Size(200, 26)
+        Me.strDBUsername.TabIndex = 4
+        Me.ToolTip1.SetToolTip(Me.strDBUsername, "Please ensure that the user has 'dbcreator' permission to create the database.")
+        Me.strDBUsername.WordWrap = False
         '
         'Label2
         '
@@ -278,13 +291,13 @@ Partial Class frmSettings
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Port"
         '
-        'TextBox2
+        'intDBPort
         '
-        Me.TextBox2.Location = New System.Drawing.Point(6, 57)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(200, 26)
-        Me.TextBox2.TabIndex = 2
-        Me.TextBox2.Text = "1433"
+        Me.intDBPort.Location = New System.Drawing.Point(6, 57)
+        Me.intDBPort.Name = "intDBPort"
+        Me.intDBPort.Size = New System.Drawing.Size(200, 26)
+        Me.intDBPort.TabIndex = 2
+        Me.intDBPort.Text = "1433"
         '
         'Label1
         '
@@ -295,12 +308,13 @@ Partial Class frmSettings
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Database server name"
         '
-        'TextBox1
+        'strDBServerAddress
         '
-        Me.TextBox1.Location = New System.Drawing.Point(6, 25)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(200, 26)
-        Me.TextBox1.TabIndex = 0
+        Me.strDBServerAddress.Location = New System.Drawing.Point(6, 25)
+        Me.strDBServerAddress.Name = "strDBServerAddress"
+        Me.strDBServerAddress.Size = New System.Drawing.Size(200, 26)
+        Me.strDBServerAddress.TabIndex = 0
+        Me.strDBServerAddress.WordWrap = False
         '
         'TabPage3
         '
@@ -310,6 +324,33 @@ Partial Class frmSettings
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "User accounts"
         Me.TabPage3.UseVisualStyleBackColor = True
+        '
+        'comboSelectSemester
+        '
+        Me.comboSelectSemester.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboSelectSemester.FormattingEnabled = True
+        Me.comboSelectSemester.Items.AddRange(New Object() {"Spring", "Summer", "Fall"})
+        Me.comboSelectSemester.Location = New System.Drawing.Point(459, 22)
+        Me.comboSelectSemester.Name = "comboSelectSemester"
+        Me.comboSelectSemester.Size = New System.Drawing.Size(134, 25)
+        Me.comboSelectSemester.TabIndex = 4
+        Me.ToolTip1.SetToolTip(Me.comboSelectSemester, "Choose the new Semester to setup in a database.")
+        '
+        'DateTimePickSemesterYear
+        '
+        Me.DateTimePickSemesterYear.CustomFormat = "yyyy"
+        Me.DateTimePickSemesterYear.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DateTimePickSemesterYear.Location = New System.Drawing.Point(599, 21)
+        Me.DateTimePickSemesterYear.MinDate = New Date(1900, 1, 1, 0, 0, 0, 0)
+        Me.DateTimePickSemesterYear.Name = "DateTimePickSemesterYear"
+        Me.DateTimePickSemesterYear.ShowUpDown = True
+        Me.DateTimePickSemesterYear.Size = New System.Drawing.Size(75, 26)
+        Me.DateTimePickSemesterYear.TabIndex = 5
+        Me.DateTimePickSemesterYear.Value = New Date(2017, 1, 1, 0, 0, 0, 0)
+        '
+        'ToolTip1
+        '
+        Me.ToolTip1.IsBalloon = True
         '
         'frmSettings
         '
@@ -356,19 +397,22 @@ Partial Class frmSettings
     Friend WithEvents TabPage2 As TabPage
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents Label2 As Label
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents intDBPort As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents strDBServerAddress As TextBox
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents DBBackup As Button
+    Friend WithEvents DBReset As Button
     Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
-    Friend WithEvents TextBox4 As TextBox
-    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents strDBPassword As TextBox
+    Friend WithEvents strDBUsername As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents TabPage3 As TabPage
-    Friend WithEvents Button3 As Button
+    Friend WithEvents DBTestConnection As Button
+    Friend WithEvents DateTimePickSemesterYear As DateTimePicker
+    Friend WithEvents comboSelectSemester As ComboBox
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

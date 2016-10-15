@@ -17,6 +17,20 @@
 
     Private Sub frmSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        ' Check Security
+
+        ' All good ?
+
+        ' Load form values.
+        strDBServerAddress.Text = My.Settings.strDBServerAddress
+        strDBUsername.Text = My.Settings.strDBUserName
+        strDBPassword.Text = My.Settings.strDBPassword
+        intDBPort.Text = CStr(My.Settings.intDBPort)
+
+        ' Set the default index on the semester selection
+        comboSelectSemester.SelectedIndex = 0
+
+
     End Sub
 
     Private Sub browseSpreadSheet_Click_1(sender As Object, e As EventArgs) Handles browseSpreadSheet.Click
@@ -58,13 +72,24 @@
         End If
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+    Private Sub DBTestConnection_Click(sender As Object, e As EventArgs) Handles DBTestConnection.Click
 
-    End Sub
+        ' Save the settings
+        My.Settings.strDBServerAddress = strDBServerAddress.Text
+        My.Settings.intDBPort = CInt(intDBPort.Text)
+        My.Settings.strDBUserName = strDBUsername.Text
+        My.Settings.strDBPassword = strDBPassword.Text
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        ' Save settings
+        My.Settings.Save()
 
-        SQLCreateDB()
+        ' Test if the SQL Server connection is good
+        Dim testReturn As Boolean = SQL_Functions.SQLTestConnection()
+
+        ' True if the settings worked and the connection is open.
+        MsgBox(testReturn)
+
+
 
     End Sub
 End Class
