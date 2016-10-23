@@ -1,0 +1,286 @@
+THE VB.NET EXAMPLE WEBFORM FOR ENCRYPTING/DECRYPTING A LINE OF TEXT
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+<%@ Page Language="VB" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Data.SqlClient" %>
+<!DOCTYPE html>
+<script runat="server">
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
+        If Not Page.IsPostBack Then
+            popUserList()
+        End If
+    End Sub
+ 
+    Private Sub popUserList()
+        Dim strConn As String = ConfigurationManager.ConnectionStrings("Conn").ConnectionString
+        Using connection As New SqlConnection(strConn)
+            Dim dtUserList As DataTable
+            Dim strInlineQuery As String = "SELECT '0' Id, '' Userid, ' - NONE -' firstname UNION select Id, Userid, firstname from TEST_Encryption order by firstname"
+            Dim objDataSet As New DataSet()
+            Dim cmd As New SqlCommand()
+            cmd.Connection = connection
+            cmd.CommandText = strInlineQuery
+            cmd.CommandTimeout = 30
+            cmd.CommandType = CommandType.Text
+            Using adapter As New SqlDataAdapter()
+                adapter.SelectCommand = cmd
+                adapter.Fill(objDataSet)
+                dtUserList = objDataSet.Tables(0)
+                ddlUsers.DataSource = dtUserList
+                ddlUsers.DataValueField = "Id"
+                ddlUsers.DataTextField = "firstname"
+                ddlUsers.DataBind()
+            End Using
+        End Using
+    End Sub
+ 
+    Protected Sub btnSave_Click(sender As Object, e As EventArgs)
+        Dim idSelected = ddlUsers.SelectedValue
+        If idSelected = "0" Then
+            ' do add
+            addNewUser()
+        Else
+            ' do edit
+            updateUser()
+        End If
+    End Sub
+ 
+    Private Sub updateUser()
+        Dim idSelected = ddlUsers.SelectedValue
+        Dim strConn As String = ConfigurationManager.ConnectionStrings("Conn").ConnectionString
+        Dim wrapper As New Simple3Des("123")
+        Dim cipherText As String = wrapper.EncryptData(tbHat_Color.Text)
+        Using conn As New SqlConnection(strConn)
+            Dim cmdCommand As SqlCommand = conn.CreateCommand()
+            cmdCommand.CommandText = "UPDATE TEST_Encryption SET UserId=@UserId, FirstName=@FirstName, EncHat_Color=@EncHat_Color WHERE Id=@Id"
+            cmdCommand.CommandType = CommandType.Text
+            cmdCommand.Parameters.Add("@Id", SqlDbType.VarChar).Value = idSelected ' tbUserId.Text
+            cmdCommand.Parameters.Add("@UserId", SqlDbType.VarChar).Value = tbUserId.Text
+            cmdCommand.Parameters.Add("@FirstName", SqlDbType.VarChar).Value = tbUserFN.Text
+            cmdCommand.Parameters.Add("@EncHat_Color", SqlDbType.VarChar).Value = cipherText
+            cmdCommand.Connection.Open()
+            cmdCommand.ExecuteNonQuery()
+        End Using
+        popUserList()
+        tbUserId.Text = ""
+        tbUserFN.Text = ""
+        tbHat_Color.Text = ""
+    End Sub
+ 
+    Private Sub addNewUser()
+        Dim strConn As String = ConfigurationManager.ConnectionStrings("Conn").ConnectionString
+        Dim wrapper As New Simple3Des("123")
+        Dim cipherText As String = wrapper.EncryptData(tbHat_Color.Text)
+        Using conn As New SqlConnection(strConn)
+            Dim cmdCommand As SqlCommand = conn.CreateCommand()
+            cmdCommand.CommandText = "INSERT INTO TEST_Encryption (UserId,FirstName,EncHat_Color) VALUES (@Id,@FN,@EncHat_Color)"
+            cmdCommand.CommandType = CommandType.Text
+            cmdCommand.Parameters.Add("@Id", SqlDbType.VarChar).Value = tbUserId.Text
+            cmdCommand.Parameters.Add("@FN", SqlDbType.VarChar).Value = tbUserFN.Text
+            cmdCommand.Parameters.Add("@EncHat_Color", SqlDbType.VarChar).Value = cipherText
+            cmdCommand.Connection.Open()
+            cmdCommand.ExecuteNonQuery()
+        End Using
+        popUserList()
+        tbUserId.Text = ""
+        tbUserFN.Text = ""
+        tbHat_Color.Text = ""
+    End Sub
+ 
+    Protected Sub btnLoad_Click(sender As Object, e As EventArgs)
+        Dim idSelected = ddlUsers.SelectedValue
+        Dim wrapper As New Simple3Des("123")
+        Dim strConn As String = ConfigurationManager.ConnectionStrings("Conn").ConnectionString
+        Using connection As New SqlConnection(strConn)
+            Dim dtUserList As DataTable
+            Dim strInlineQuery As String = "SELECT TOP 1 Id, Userid, firstname,EncHat_Color from TEST_Encryption WHERE Id=@Id order by firstname"
+            Dim objDataSet As New DataSet()
+            Dim cmd As New SqlCommand()
+            cmd.Connection = connection
+            cmd.CommandText = strInlineQuery
+            cmd.CommandTimeout = 30
+            cmd.CommandType = CommandType.Text
+            cmd.Parameters.Add("@Id", SqlDbType.VarChar).Value = idSelected
+            Using adapter As New SqlDataAdapter()
+                adapter.SelectCommand = cmd
+                adapter.Fill(objDataSet)
+                dtUserList = objDataSet.Tables(0)
+                For Each rowView As DataRowView In dtUserList.DefaultView()
+                    Dim myRow As DataRow = rowView.Row
+                    tbUserId.Text = myRow.Item("Userid")
+                    tbUserFN.Text = myRow.Item("firstname")
+                    Try
+                        tbHat_Color.Text = wrapper.DecryptData(myRow.Item("EncHat_Color"))
+                    Catch ex As Exception
+                        tbHat_Color.Text = "Could not load Hat_Color"
+                    End Try
+                Next
+            End Using
+        End Using
+    End Sub
+</script>
+ 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Simple Triple DES Encoding/Decoding example</title>
+</head>
+<body>
+<form id="form1" runat="server">
+        <asp:Label ID="lblUsers" runat="server" Text="Users:"></asp:Label> <asp:DropDownList ID="ddlUsers" runat="server"></asp:DropDownList>
+        <asp:Button ID="btnLoad" runat="server" Text="Load" OnClick="btnLoad_Click" />
+ 
+<hr />
+ 
+        <asp:Label ID="Label1" runat="server" Text="User Id: "></asp:Label><asp:TextBox ID="tbUserId" runat="server"></asp:TextBox>
+         
+<asp:Label ID="Label2" runat="server" Text="User First Name: "></asp:Label><asp:TextBox ID="tbUserFN" runat="server"></asp:TextBox>
+         
+<asp:Label ID="Label3" runat="server" Text="Hat_Color: "></asp:Label><asp:TextBox ID="tbHat_Color" runat="server"></asp:TextBox>
+         
+        <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
+    </form>
+ 
+</body>
+</html>

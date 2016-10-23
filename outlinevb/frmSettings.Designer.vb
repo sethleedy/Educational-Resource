@@ -53,6 +53,24 @@ Partial Class frmSettings
         Me.Label1 = New System.Windows.Forms.Label()
         Me.strDBServerAddress = New System.Windows.Forms.TextBox()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.btnChangePassword = New System.Windows.Forms.Button()
+        Me.btnDeleteAccount = New System.Windows.Forms.Button()
+        Me.listAccounts = New System.Windows.Forms.ListBox()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.chkAdminType = New System.Windows.Forms.CheckBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.btnCreateAccount = New System.Windows.Forms.Button()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtPassword = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtUsername = New System.Windows.Forms.TextBox()
+        Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.chkRunWithSecurity = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -62,6 +80,12 @@ Partial Class frmSettings
         Me.TabPage2.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
+        Me.GroupBox6.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
+        Me.TabPage4.SuspendLayout()
+        Me.GroupBox7.SuspendLayout()
+        Me.GroupBox8.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -95,6 +119,7 @@ Partial Class frmSettings
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage3)
+        Me.TabControl1.Controls.Add(Me.TabPage4)
         Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl1.HotTrack = True
         Me.TabControl1.Location = New System.Drawing.Point(0, 25)
@@ -364,12 +389,197 @@ Partial Class frmSettings
         '
         'TabPage3
         '
+        Me.TabPage3.Controls.Add(Me.GroupBox6)
+        Me.TabPage3.Controls.Add(Me.GroupBox5)
         Me.TabPage3.Location = New System.Drawing.Point(4, 26)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(696, 344)
+        Me.TabPage3.Size = New System.Drawing.Size(696, 307)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "User accounts"
         Me.TabPage3.UseVisualStyleBackColor = True
+        '
+        'GroupBox6
+        '
+        Me.GroupBox6.Controls.Add(Me.btnChangePassword)
+        Me.GroupBox6.Controls.Add(Me.btnDeleteAccount)
+        Me.GroupBox6.Controls.Add(Me.listAccounts)
+        Me.GroupBox6.Location = New System.Drawing.Point(8, 195)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(680, 104)
+        Me.GroupBox6.TabIndex = 1
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "Change an account"
+        '
+        'btnChangePassword
+        '
+        Me.btnChangePassword.Location = New System.Drawing.Point(524, 54)
+        Me.btnChangePassword.Name = "btnChangePassword"
+        Me.btnChangePassword.Size = New System.Drawing.Size(150, 30)
+        Me.btnChangePassword.TabIndex = 2
+        Me.btnChangePassword.Text = "Change password"
+        Me.btnChangePassword.UseVisualStyleBackColor = True
+        '
+        'btnDeleteAccount
+        '
+        Me.btnDeleteAccount.Location = New System.Drawing.Point(524, 18)
+        Me.btnDeleteAccount.Name = "btnDeleteAccount"
+        Me.btnDeleteAccount.Size = New System.Drawing.Size(150, 30)
+        Me.btnDeleteAccount.TabIndex = 1
+        Me.btnDeleteAccount.Text = "Delete account"
+        Me.btnDeleteAccount.UseVisualStyleBackColor = True
+        '
+        'listAccounts
+        '
+        Me.listAccounts.FormattingEnabled = True
+        Me.listAccounts.ItemHeight = 17
+        Me.listAccounts.Location = New System.Drawing.Point(6, 25)
+        Me.listAccounts.Name = "listAccounts"
+        Me.listAccounts.Size = New System.Drawing.Size(200, 72)
+        Me.listAccounts.TabIndex = 0
+        '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.chkAdminType)
+        Me.GroupBox5.Controls.Add(Me.Label11)
+        Me.GroupBox5.Controls.Add(Me.TextBox1)
+        Me.GroupBox5.Controls.Add(Me.btnCreateAccount)
+        Me.GroupBox5.Controls.Add(Me.Label10)
+        Me.GroupBox5.Controls.Add(Me.txtPassword)
+        Me.GroupBox5.Controls.Add(Me.Label9)
+        Me.GroupBox5.Controls.Add(Me.txtUsername)
+        Me.GroupBox5.Location = New System.Drawing.Point(8, 3)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(680, 186)
+        Me.GroupBox5.TabIndex = 0
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Create an account"
+        '
+        'chkAdminType
+        '
+        Me.chkAdminType.AutoSize = True
+        Me.chkAdminType.Location = New System.Drawing.Point(7, 122)
+        Me.chkAdminType.Name = "chkAdminType"
+        Me.chkAdminType.Size = New System.Drawing.Size(223, 23)
+        Me.chkAdminType.TabIndex = 15
+        Me.chkAdminType.Text = "Is this an admin account ?"
+        Me.chkAdminType.UseVisualStyleBackColor = True
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(212, 93)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(54, 19)
+        Me.Label11.TabIndex = 13
+        Me.Label11.Text = "Name"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(7, 90)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(199, 26)
+        Me.TextBox1.TabIndex = 12
+        '
+        'btnCreateAccount
+        '
+        Me.btnCreateAccount.Location = New System.Drawing.Point(524, 17)
+        Me.btnCreateAccount.Name = "btnCreateAccount"
+        Me.btnCreateAccount.Size = New System.Drawing.Size(150, 30)
+        Me.btnCreateAccount.TabIndex = 2
+        Me.btnCreateAccount.Text = "Create account"
+        Me.btnCreateAccount.UseVisualStyleBackColor = True
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(211, 60)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(79, 19)
+        Me.Label10.TabIndex = 10
+        Me.Label10.Text = "Password"
+        '
+        'txtPassword
+        '
+        Me.txtPassword.Location = New System.Drawing.Point(6, 57)
+        Me.txtPassword.Name = "txtPassword"
+        Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9578)
+        Me.txtPassword.Size = New System.Drawing.Size(200, 26)
+        Me.txtPassword.TabIndex = 9
+        Me.txtPassword.UseSystemPasswordChar = True
+        Me.txtPassword.WordWrap = False
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(211, 28)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(86, 19)
+        Me.Label9.TabIndex = 8
+        Me.Label9.Text = "Username"
+        '
+        'txtUsername
+        '
+        Me.txtUsername.Location = New System.Drawing.Point(6, 25)
+        Me.txtUsername.Name = "txtUsername"
+        Me.txtUsername.Size = New System.Drawing.Size(200, 26)
+        Me.txtUsername.TabIndex = 7
+        Me.ToolTip1.SetToolTip(Me.txtUsername, "Please ensure that the user has 'dbcreator' permission to create the database.")
+        Me.txtUsername.WordWrap = False
+        '
+        'TabPage4
+        '
+        Me.TabPage4.Controls.Add(Me.GroupBox7)
+        Me.TabPage4.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage4.Name = "TabPage4"
+        Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage4.Size = New System.Drawing.Size(696, 307)
+        Me.TabPage4.TabIndex = 3
+        Me.TabPage4.Text = "Misc"
+        Me.TabPage4.UseVisualStyleBackColor = True
+        '
+        'GroupBox7
+        '
+        Me.GroupBox7.Controls.Add(Me.GroupBox8)
+        Me.GroupBox7.Location = New System.Drawing.Point(8, 6)
+        Me.GroupBox7.Name = "GroupBox7"
+        Me.GroupBox7.Size = New System.Drawing.Size(680, 145)
+        Me.GroupBox7.TabIndex = 17
+        Me.GroupBox7.TabStop = False
+        Me.GroupBox7.Text = "Security"
+        '
+        'GroupBox8
+        '
+        Me.GroupBox8.Controls.Add(Me.Label12)
+        Me.GroupBox8.Controls.Add(Me.chkRunWithSecurity)
+        Me.GroupBox8.Location = New System.Drawing.Point(6, 25)
+        Me.GroupBox8.Name = "GroupBox8"
+        Me.GroupBox8.Size = New System.Drawing.Size(668, 116)
+        Me.GroupBox8.TabIndex = 0
+        Me.GroupBox8.TabStop = False
+        Me.GroupBox8.Text = "Login on load ?"
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(6, 22)
+        Me.Label12.MaximumSize = New System.Drawing.Size(600, 0)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(488, 38)
+        Me.Label12.TabIndex = 16
+        Me.Label12.Text = "This will allow anyone to load the program to view information." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Upon trying to s" &
+    "ave, it will still require the user to login."
+        '
+        'chkRunWithSecurity
+        '
+        Me.chkRunWithSecurity.AutoSize = True
+        Me.chkRunWithSecurity.Checked = True
+        Me.chkRunWithSecurity.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkRunWithSecurity.Location = New System.Drawing.Point(10, 63)
+        Me.chkRunWithSecurity.Name = "chkRunWithSecurity"
+        Me.chkRunWithSecurity.Size = New System.Drawing.Size(249, 23)
+        Me.chkRunWithSecurity.TabIndex = 15
+        Me.chkRunWithSecurity.Text = "Load program without login ?"
+        Me.chkRunWithSecurity.UseVisualStyleBackColor = True
         '
         'ToolTip1
         '
@@ -405,6 +615,14 @@ Partial Class frmSettings
         Me.GroupBox4.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
+        Me.TabPage3.ResumeLayout(False)
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
+        Me.TabPage4.ResumeLayout(False)
+        Me.GroupBox7.ResumeLayout(False)
+        Me.GroupBox8.ResumeLayout(False)
+        Me.GroupBox8.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -440,4 +658,22 @@ Partial Class frmSettings
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents Label8 As Label
     Friend WithEvents strDBInstance As TextBox
+    Friend WithEvents GroupBox6 As GroupBox
+    Friend WithEvents listAccounts As ListBox
+    Friend WithEvents GroupBox5 As GroupBox
+    Friend WithEvents btnCreateAccount As Button
+    Friend WithEvents Label10 As Label
+    Friend WithEvents txtPassword As TextBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents txtUsername As TextBox
+    Friend WithEvents btnDeleteAccount As Button
+    Friend WithEvents Label11 As Label
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents btnChangePassword As Button
+    Friend WithEvents chkAdminType As CheckBox
+    Friend WithEvents TabPage4 As TabPage
+    Friend WithEvents GroupBox7 As GroupBox
+    Friend WithEvents GroupBox8 As GroupBox
+    Friend WithEvents Label12 As Label
+    Friend WithEvents chkRunWithSecurity As CheckBox
 End Class

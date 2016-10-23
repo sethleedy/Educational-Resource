@@ -49,7 +49,7 @@ Module commonFunctions
 
         Try
             'For Each tmpSheetName In sheetNames1
-            MyCommand = New System.Data.OleDb.OleDbDataAdapter("SELECT * FROM [" + tmpSheetName + "]", OLEConnection)
+            MyCommand = New System.Data.OleDb.OleDbDataAdapter("SELECT * FROM [" & tmpSheetName & "]", OLEConnection)
 
             dataSet = New System.Data.DataSet
             MyCommand.Fill(dataSet)
