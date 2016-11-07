@@ -1,4 +1,6 @@
-﻿Public Class frmSettings
+﻿Imports System.ComponentModel
+
+Public Class frmSettings
 
     Private Sub frmSettings_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
 
@@ -21,7 +23,8 @@
 
         ' All good ?
 
-        ' Load form values.
+        '''' Load form values.
+        ' Database connection info
         strDBServerAddress.Text = My.Settings.strDBServerAddress
         strDBUsername.Text = My.Settings.strDBUserName
         strDBPassword.Text = My.Settings.strDBPassword
@@ -33,6 +36,10 @@
         ' Set and fill Semester combobox on tab Semesters
         ' Call function to fill in combobox with all the semesters in SQL server.
         listSemestersInDB(Me.semesterComboBox1)
+
+        ' Security login on load ?
+        chkRunWithoutSecurity.Checked = My.Settings.chkRunWithoutSecurity
+
 
     End Sub
 
@@ -91,7 +98,11 @@
         Dim testReturn As Boolean = SQL_Functions.SQLTestConnection()
 
         ' True if the settings worked and the connection is open.
-        MsgBox(testReturn)
+        If (testReturn = True) Then
+            MsgBox("Connection was successful.", MsgBoxStyle.OkOnly, "Database Connection Test")
+        Else
+            MsgBox("Connection unsuccessful.", MsgBoxStyle.Exclamation, "Database Connection Test")
+        End If
 
 
 
@@ -111,5 +122,35 @@
 
     End Sub
 
+    Private Sub btnCreateAccount_Click(sender As Object, e As EventArgs) Handles btnCreateAccount.Click
 
+        ' Check if the account exists.
+
+        ' If exists, alert user to change the username.
+        'Else, INSERT to DB the username in the username table.
+
+        ' Encrypt the password and INSERT it into the passwords table.
+
+
+    End Sub
+
+
+    Private Sub frmSettings_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+
+        My.Settings.Save()
+
+    End Sub
+
+    Private Sub chkRunWithoutSecurity_CheckedChanged(sender As Object, e As EventArgs) Handles chkRunWithoutSecurity.CheckedChanged
+
+    End Sub
+
+    Private Sub chkRunWithoutSecurity_Click(sender As Object, e As EventArgs) Handles chkRunWithoutSecurity.Click
+        ' Set the value from the checkbox
+        My.Settings.chkRunWithoutSecurity = chkRunWithoutSecurity.Checked
+
+        ' Save settings
+        'MsgBox("Saving Settings")
+        My.Settings.Save()
+    End Sub
 End Class

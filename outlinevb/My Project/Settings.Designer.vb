@@ -332,6 +332,18 @@ Namespace My
                 Me("strDBPrefix") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property chkRunWithoutSecurity() As Boolean
+            Get
+                Return CType(Me("chkRunWithoutSecurity"),Boolean)
+            End Get
+            Set
+                Me("chkRunWithoutSecurity") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

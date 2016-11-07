@@ -79,6 +79,9 @@
     <ApplicationIcon>Splash Logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MindFusion.Scheduling">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\MindFusion\MindFusion.Scheduling for WinForms\CLR4 (.NET 4.0 and .NET 4.5)\MindFusion.Scheduling.dll</HintPath>
+    </Reference>
     <Reference Include="ObjectDumper, Version=1.0.0.12, Culture=neutral, PublicKeyToken=9e2fabf3af85dba9, processorArchitecture=MSIL">
       <HintPath>..\packages\ObjectDumper.1.0.0.12\lib\net35-Client\ObjectDumper.dll</HintPath>
       <Private>True</Private>
@@ -91,6 +94,7 @@
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.IO.Log" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -167,6 +171,7 @@
     <Compile Include="scheduler.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Settings.vb" />
     <Compile Include="Simple3DES.vb" />
     <Compile Include="SQLFunctions.vb" />
   </ItemGroup>
@@ -207,7 +212,9 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

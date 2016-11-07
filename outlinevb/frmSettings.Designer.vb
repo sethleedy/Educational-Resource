@@ -70,7 +70,7 @@ Partial Class frmSettings
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.chkRunWithSecurity = New System.Windows.Forms.CheckBox()
+        Me.chkRunWithoutSecurity = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -100,8 +100,9 @@ Partial Class frmSettings
         '
         'ToolStripMenuItem1
         '
+        Me.ToolStripMenuItem1.Font = New System.Drawing.Font("Lucida Calligraphy", 8.0!)
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(122, 19)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(136, 19)
         Me.ToolStripMenuItem1.Text = "Return to scheduler"
         '
         'browseSpreadSheet
@@ -223,16 +224,16 @@ Partial Class frmSettings
         Me.comboSelectSemester.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboSelectSemester.FormattingEnabled = True
         Me.comboSelectSemester.Items.AddRange(New Object() {"Spring", "Summer", "Fall"})
-        Me.comboSelectSemester.Location = New System.Drawing.Point(459, 22)
+        Me.comboSelectSemester.Location = New System.Drawing.Point(467, 22)
         Me.comboSelectSemester.Name = "comboSelectSemester"
-        Me.comboSelectSemester.Size = New System.Drawing.Size(134, 25)
+        Me.comboSelectSemester.Size = New System.Drawing.Size(126, 25)
         Me.comboSelectSemester.TabIndex = 4
         Me.ToolTip1.SetToolTip(Me.comboSelectSemester, "Choose the new Semester to setup in a database.")
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(87, 58)
+        Me.Label4.Location = New System.Drawing.Point(162, 68)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(163, 19)
         Me.Label4.TabIndex = 3
@@ -241,7 +242,7 @@ Partial Class frmSettings
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(87, 29)
+        Me.Label3.Location = New System.Drawing.Point(162, 32)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(299, 19)
         Me.Label3.TabIndex = 2
@@ -249,9 +250,9 @@ Partial Class frmSettings
         '
         'DBBackup
         '
-        Me.DBBackup.Location = New System.Drawing.Point(6, 54)
+        Me.DBBackup.Location = New System.Drawing.Point(6, 61)
         Me.DBBackup.Name = "DBBackup"
-        Me.DBBackup.Size = New System.Drawing.Size(75, 23)
+        Me.DBBackup.Size = New System.Drawing.Size(150, 30)
         Me.DBBackup.TabIndex = 1
         Me.DBBackup.Text = "Go!"
         Me.ToolTip1.SetToolTip(Me.DBBackup, "The backup will goto a yet to be chosen folder")
@@ -261,7 +262,7 @@ Partial Class frmSettings
         '
         Me.DBReset.Location = New System.Drawing.Point(6, 25)
         Me.DBReset.Name = "DBReset"
-        Me.DBReset.Size = New System.Drawing.Size(75, 23)
+        Me.DBReset.Size = New System.Drawing.Size(150, 30)
         Me.DBReset.TabIndex = 0
         Me.DBReset.Text = "Reset"
         Me.ToolTip1.SetToolTip(Me.DBReset, "This will create a new database with the name containing the semester and year se" &
@@ -307,9 +308,9 @@ Partial Class frmSettings
         '
         'DBTestConnection
         '
-        Me.DBTestConnection.Location = New System.Drawing.Point(599, 28)
+        Me.DBTestConnection.Location = New System.Drawing.Point(524, 17)
         Me.DBTestConnection.Name = "DBTestConnection"
-        Me.DBTestConnection.Size = New System.Drawing.Size(75, 23)
+        Me.DBTestConnection.Size = New System.Drawing.Size(150, 30)
         Me.DBTestConnection.TabIndex = 8
         Me.DBTestConnection.Text = "Test"
         Me.ToolTip1.SetToolTip(Me.DBTestConnection, "Test the connection to MSSQL server.")
@@ -550,13 +551,13 @@ Partial Class frmSettings
         'GroupBox8
         '
         Me.GroupBox8.Controls.Add(Me.Label12)
-        Me.GroupBox8.Controls.Add(Me.chkRunWithSecurity)
+        Me.GroupBox8.Controls.Add(Me.chkRunWithoutSecurity)
         Me.GroupBox8.Location = New System.Drawing.Point(6, 25)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(668, 116)
         Me.GroupBox8.TabIndex = 0
         Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = "Login on load ?"
+        Me.GroupBox8.Text = "Security login on load"
         '
         'Label12
         '
@@ -569,17 +570,17 @@ Partial Class frmSettings
         Me.Label12.Text = "This will allow anyone to load the program to view information." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Upon trying to s" &
     "ave, it will still require the user to login."
         '
-        'chkRunWithSecurity
+        'chkRunWithoutSecurity
         '
-        Me.chkRunWithSecurity.AutoSize = True
-        Me.chkRunWithSecurity.Checked = True
-        Me.chkRunWithSecurity.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkRunWithSecurity.Location = New System.Drawing.Point(10, 63)
-        Me.chkRunWithSecurity.Name = "chkRunWithSecurity"
-        Me.chkRunWithSecurity.Size = New System.Drawing.Size(249, 23)
-        Me.chkRunWithSecurity.TabIndex = 15
-        Me.chkRunWithSecurity.Text = "Load program without login ?"
-        Me.chkRunWithSecurity.UseVisualStyleBackColor = True
+        Me.chkRunWithoutSecurity.AutoSize = True
+        Me.chkRunWithoutSecurity.Checked = True
+        Me.chkRunWithoutSecurity.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkRunWithoutSecurity.Location = New System.Drawing.Point(10, 63)
+        Me.chkRunWithoutSecurity.Name = "chkRunWithoutSecurity"
+        Me.chkRunWithoutSecurity.Size = New System.Drawing.Size(371, 23)
+        Me.chkRunWithoutSecurity.TabIndex = 15
+        Me.chkRunWithoutSecurity.Text = "Load the program without the security login ?"
+        Me.chkRunWithoutSecurity.UseVisualStyleBackColor = True
         '
         'ToolTip1
         '
@@ -602,7 +603,6 @@ Partial Class frmSettings
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "frmSettings"
-        Me.TopMost = True
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.TabControl1.ResumeLayout(False)
@@ -675,5 +675,5 @@ Partial Class frmSettings
     Friend WithEvents GroupBox7 As GroupBox
     Friend WithEvents GroupBox8 As GroupBox
     Friend WithEvents Label12 As Label
-    Friend WithEvents chkRunWithSecurity As CheckBox
+    Friend WithEvents chkRunWithoutSecurity As CheckBox
 End Class

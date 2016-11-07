@@ -83,7 +83,7 @@ Module SQL_Functions
             Return False
         Finally
             If (sqlConn.State = ConnectionState.Open) Then
-                closeSQL(sqlConn)
+                closeCompletelySQL(sqlConn)
             End If
 
         End Try
@@ -144,7 +144,7 @@ Module SQL_Functions
 
         Finally
             If (sqlConn.State = ConnectionState.Open) Then
-                closeSQL(sqlConn)
+                closeCompletelySQL(sqlConn)
             End If
         End Try
 
@@ -152,7 +152,7 @@ Module SQL_Functions
 
     End Function
 
-    Function CheckDatabaseExists(database As String) As Boolean
+    Private Function CheckDatabaseExists(database As String) As Boolean
 
         Dim cmdText As String = "select * from master.dbo.sysdatabases where name LIKE '" & database & "%'"
         Dim sqlConn As SqlConnection = openSQL()
@@ -179,67 +179,91 @@ Module SQL_Functions
 
         If testconn.State = ConnectionState.Closed Then
             Return False
-        Else
+        ElseIf testconn.State = ConnectionState.Open Then
+            closeCompletelySQL(testconn)
+
             Return True
         End If
 
+        MsgBox("Undetermined connection state: " & testconn.State.ToString)
+        Return False
 
     End Function
 
     Function openSQL(Optional test As Boolean = False, Optional DBCreation As Boolean = False) As SqlConnection
 
-        Dim sqlConnBuilder As New SqlConnectionStringBuilder()
+        ' Test for flag saying we have tested SQL settings. Eg: username, password. From the Database Test Button in Settings Form.
+        'If () = True Then
 
-        ' All information should be coming from My.Settings which are updated from frmSettings.
-        ' https://msdn.microsoft.com/en-us/library/system.data.sqlclient.sqlconnection.connectionstring(v=vs.110).aspx
+        ' Test for network connection
+        If checkForNetworkConnection() = True Then
 
-        ' We can connect with an Instance or just the normal port number.
-        If My.Settings.strDBInstance <> "" Then
-            ' Instance with port
-            sqlConnBuilder.DataSource = My.Settings.strDBServerAddress & "\" & My.Settings.strDBInstance & "," & My.Settings.intDBPort
-        Else
-            ' Normal connection
-            sqlConnBuilder.DataSource = My.Settings.strDBServerAddress
+            Dim sqlConnBuilder As New SqlConnectionStringBuilder()
 
-        End If
+            ' All information should be coming from My.Settings which are updated from frmSettings.
+            ' https://msdn.microsoft.com/en-us/library/system.data.sqlclient.sqlconnection.connectionstring(v=vs.110).aspx
 
-        If DBCreation = False Then
-            sqlConnBuilder.InitialCatalog = My.Settings.strDBPrefix & My.Settings.strInitialCatalog ' Like EduResSch-summer2018
-        End If
+            ' We can connect with an Instance or just the normal port number.
+            If My.Settings.strDBInstance <> "" Then
+                ' Instance with port
+                sqlConnBuilder.DataSource = My.Settings.strDBServerAddress & "\" & My.Settings.strDBInstance & "," & My.Settings.intDBPort
+            Else
+                ' Normal connection
+                sqlConnBuilder.DataSource = My.Settings.strDBServerAddress
 
-        sqlConnBuilder.IntegratedSecurity = True
-        sqlConnBuilder.ConnectTimeout = 10
-        sqlConnBuilder.Encrypt = False ' What are the requirements for True ?
-        sqlConnBuilder.TrustServerCertificate = True
-        sqlConnBuilder.ApplicationIntent = ApplicationIntent.ReadWrite
+            End If
 
-        ' Get auth info and use it here to open SQL server
-        sqlConnBuilder.UserID = My.Settings.strDBUserName
-        sqlConnBuilder.Password = My.Settings.strDBPassword
+            If DBCreation = False Then
+                sqlConnBuilder.InitialCatalog = My.Settings.strDBPrefix & My.Settings.strInitialCatalog ' Like EduResSch-summer2018
+            End If
+
+            sqlConnBuilder.IntegratedSecurity = False
+            sqlConnBuilder.ConnectTimeout = 10
+            sqlConnBuilder.Encrypt = False ' What are the requirements for True ?
+            sqlConnBuilder.TrustServerCertificate = True
+            sqlConnBuilder.ApplicationIntent = ApplicationIntent.ReadWrite
+
+            ' Get auth info and use it here to open SQL server
+            sqlConnBuilder.UserID = My.Settings.strDBUserName
+            sqlConnBuilder.Password = My.Settings.strDBPassword
 
 
-        Try
-            sqlConn = New SqlConnection(sqlConnBuilder.ToString)
-            sqlConn.Open()
+            Try
+                sqlConn = New SqlConnection(sqlConnBuilder.ToString)
+                sqlConn.Open()
 
-        Catch ex As Exception
+            Catch ex As Exception
 
-            'If test = False Then
-            MsgBox("Error opening the MSSQL connection: " + ex.Message)
-            'End If
+                If test = False Then
+                    MsgBox("Error opening the MSSQL connection: " + ex.Message)
+                End If
 
+                ' Connection Failed. Return something..
+                Return sqlConn
+            End Try
+
+            ' It opened and everything is good.
             Return sqlConn
-        End Try
 
+        Else
 
-        Return sqlConn
+            'Return sqlConn
+
+        End If
 
     End Function
-    Function closeSQL(connection As SqlConnection) As Boolean
+    Function closeCompletelySQL(connection As SqlConnection) As Boolean
 
+        connection.ClearAllPools()
         connection.Close()
+        connection.Dispose()
 
-        Return True
+        If connection.State = ConnectionState.Closed Then
+            Return True
+        Else
+            MsgBox("Connection did not close as expected.", MsgBoxStyle.Exclamation, "SQL Connection")
+            Return False
+        End If
 
     End Function
 
@@ -256,7 +280,7 @@ Module SQL_Functions
 
         Catch ex As Exception
 
-            closeSQL(sqlCommand.Connection)
+            closeCompletelySQL(sqlCommand.Connection)
             MsgBox("Can not execute sqlCommand.ExecuteNonQuery() !: " & ex.Message)
             Return -1
         End Try
@@ -287,7 +311,7 @@ Module SQL_Functions
         Catch ex As Exception
 
             sqlReader.Close()
-            closeSQL(sqlCommand.Connection)
+            closeCompletelySQL(sqlCommand.Connection)
 
             MsgBox("Can not open connection!: " & ex.Message)
 
@@ -296,7 +320,7 @@ Module SQL_Functions
         End Try
 
         sqlReader.Close()
-        closeSQL(sqlCommand.Connection)
+        closeCompletelySQL(sqlCommand.Connection)
 
         Return sqlDataSet.Tables(sqlDataSet.Tables.Count - 1).Rows.Count
 
@@ -377,7 +401,24 @@ Module SQL_Functions
         cBox.ValueMember = "dbid"
         cBox.DisplayMember = "name"
 
+
+        closeCompletelySQL(sqlConnList)
+
         Return True
 
     End Function
+
+    Private Function checkForNetworkConnection(Optional hostToPing As String = "8.8.8.8") As Boolean
+
+        If My.Computer.Network.Ping(hostToPing) Then
+
+            'MsgBox("Computer is connected.")
+            Return True
+        Else
+            Return False
+
+        End If
+
+    End Function
+
 End Module

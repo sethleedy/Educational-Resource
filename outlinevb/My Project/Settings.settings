@@ -436,5 +436,8 @@ GO</Value>
     <Setting Name="strDBPrefix" Type="System.String" Scope="User">
       <Value Profile="(Default)">EduResSch-</Value>
     </Setting>
+    <Setting Name="chkRunWithoutSecurity" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

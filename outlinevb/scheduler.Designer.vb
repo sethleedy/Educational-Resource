@@ -31,18 +31,21 @@ Partial Class scheduler
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AuthorsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DataGridViewTest1 = New MindFusion.Scheduling.WinForms.Calendar()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
+        CType(Me.DataGridViewTest1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DataGridView1
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(10, 200)
+        Me.DataGridView1.Location = New System.Drawing.Point(9, 48)
         Me.DataGridView1.Margin = New System.Windows.Forms.Padding(0, 4, 0, 4)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(920, 100)
+        Me.DataGridView1.Size = New System.Drawing.Size(920, 72)
         Me.DataGridView1.TabIndex = 3
+        Me.DataGridView1.Visible = False
         '
         'MenuStrip1
         '
@@ -94,11 +97,26 @@ Partial Class scheduler
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(51, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
+        'DataGridViewTest1
+        '
+        Me.DataGridViewTest1.CurrentView = MindFusion.Scheduling.WinForms.CalendarView.Timetable
+        Me.DataGridViewTest1.Date = New Date(2016, 10, 27, 0, 0, 0, 0)
+        Me.DataGridViewTest1.DateTimeFormat = CType(resources.GetObject("DataGridViewTest1.DateTimeFormat"), System.Globalization.DateTimeFormatInfo)
+        Me.DataGridViewTest1.EndDate = New Date(2016, 11, 26, 0, 0, 0, 0)
+        Me.DataGridViewTest1.LicenseKey = Nothing
+        Me.DataGridViewTest1.Location = New System.Drawing.Point(12, 161)
+        Me.DataGridViewTest1.Name = "DataGridViewTest1"
+        Me.DataGridViewTest1.Size = New System.Drawing.Size(920, 279)
+        Me.DataGridViewTest1.SystemCalendar = Nothing
+        Me.DataGridViewTest1.TabIndex = 5
+        Me.DataGridViewTest1.Theme = MindFusion.Scheduling.WinForms.ThemeType.Windows2003
+        '
         'scheduler
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(944, 452)
+        Me.Controls.Add(Me.DataGridViewTest1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.DataGridView1)
         Me.Font = New System.Drawing.Font("Lucida Calligraphy", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -111,6 +129,7 @@ Partial Class scheduler
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        CType(Me.DataGridViewTest1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -123,4 +142,5 @@ Partial Class scheduler
     Friend WithEvents AuthorsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents DataGridViewTest1 As MindFusion.Scheduling.WinForms.Calendar
 End Class
