@@ -100,9 +100,8 @@ Partial Class frmSettings
         '
         'ToolStripMenuItem1
         '
-        Me.ToolStripMenuItem1.Font = New System.Drawing.Font("Lucida Calligraphy", 8.0!)
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(136, 19)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(122, 19)
         Me.ToolStripMenuItem1.Text = "Return to scheduler"
         '
         'browseSpreadSheet

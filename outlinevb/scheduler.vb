@@ -43,6 +43,7 @@ Public Class scheduler
 
         frmSettings.ShowDialog(Me)
 
+
     End Sub
 
 
@@ -63,10 +64,12 @@ Public Class scheduler
 
     End Sub
 
-    Private Sub DataGridViewTest1_DateClick(sender As Object, e As MindFusion.Scheduling.WinForms.ResourceDateEventArgs) Handles DataGridViewTest1.DateClick
-
+    Private Sub scheduler_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        listCampusesInListBox(Me.lbCampus)
     End Sub
 
+    Private Sub lbCampus_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbCampus.SelectedIndexChanged
 
+    End Sub
 End Class
 

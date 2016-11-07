@@ -83,7 +83,7 @@ Module SQL_Functions
             Return False
         Finally
             If (sqlConn.State = ConnectionState.Open) Then
-                closeCompletelySQL(sqlConn)
+                closeSQL(sqlConn)
             End If
 
         End Try
@@ -144,7 +144,7 @@ Module SQL_Functions
 
         Finally
             If (sqlConn.State = ConnectionState.Open) Then
-                closeCompletelySQL(sqlConn)
+                closeSQL(sqlConn)
             End If
         End Try
 
@@ -152,7 +152,7 @@ Module SQL_Functions
 
     End Function
 
-    Private Function CheckDatabaseExists(database As String) As Boolean
+    Function CheckDatabaseExists(database As String) As Boolean
 
         Dim cmdText As String = "select * from master.dbo.sysdatabases where name LIKE '" & database & "%'"
         Dim sqlConn As SqlConnection = openSQL()
@@ -180,8 +180,6 @@ Module SQL_Functions
         If testconn.State = ConnectionState.Closed Then
             Return False
         ElseIf testconn.State = ConnectionState.Open Then
-            closeCompletelySQL(testconn)
-
             Return True
         End If
 
@@ -192,78 +190,58 @@ Module SQL_Functions
 
     Function openSQL(Optional test As Boolean = False, Optional DBCreation As Boolean = False) As SqlConnection
 
-        ' Test for flag saying we have tested SQL settings. Eg: username, password. From the Database Test Button in Settings Form.
-        'If () = True Then
+        Dim sqlConnBuilder As New SqlConnectionStringBuilder()
 
-        ' Test for network connection
-        If checkForNetworkConnection() = True Then
+        ' All information should be coming from My.Settings which are updated from frmSettings.
+        ' https://msdn.microsoft.com/en-us/library/system.data.sqlclient.sqlconnection.connectionstring(v=vs.110).aspx
 
-            Dim sqlConnBuilder As New SqlConnectionStringBuilder()
-
-            ' All information should be coming from My.Settings which are updated from frmSettings.
-            ' https://msdn.microsoft.com/en-us/library/system.data.sqlclient.sqlconnection.connectionstring(v=vs.110).aspx
-
-            ' We can connect with an Instance or just the normal port number.
-            If My.Settings.strDBInstance <> "" Then
-                ' Instance with port
-                sqlConnBuilder.DataSource = My.Settings.strDBServerAddress & "\" & My.Settings.strDBInstance & "," & My.Settings.intDBPort
-            Else
-                ' Normal connection
-                sqlConnBuilder.DataSource = My.Settings.strDBServerAddress
-
-            End If
-
-            If DBCreation = False Then
-                sqlConnBuilder.InitialCatalog = My.Settings.strDBPrefix & My.Settings.strInitialCatalog ' Like EduResSch-summer2018
-            End If
-
-            sqlConnBuilder.IntegratedSecurity = False
-            sqlConnBuilder.ConnectTimeout = 10
-            sqlConnBuilder.Encrypt = False ' What are the requirements for True ?
-            sqlConnBuilder.TrustServerCertificate = True
-            sqlConnBuilder.ApplicationIntent = ApplicationIntent.ReadWrite
-
-            ' Get auth info and use it here to open SQL server
-            sqlConnBuilder.UserID = My.Settings.strDBUserName
-            sqlConnBuilder.Password = My.Settings.strDBPassword
-
-
-            Try
-                sqlConn = New SqlConnection(sqlConnBuilder.ToString)
-                sqlConn.Open()
-
-            Catch ex As Exception
-
-                If test = False Then
-                    MsgBox("Error opening the MSSQL connection: " + ex.Message)
-                End If
-
-                ' Connection Failed. Return something..
-                Return sqlConn
-            End Try
-
-            ' It opened and everything is good.
-            Return sqlConn
-
+        ' We can connect with an Instance or just the normal port number.
+        If My.Settings.strDBInstance <> "" Then
+            ' Instance with port
+            sqlConnBuilder.DataSource = My.Settings.strDBServerAddress & "\" & My.Settings.strDBInstance & "," & My.Settings.intDBPort
         Else
-
-            'Return sqlConn
+            ' Normal connection
+            sqlConnBuilder.DataSource = My.Settings.strDBServerAddress
 
         End If
+
+        If DBCreation = False Then
+            sqlConnBuilder.InitialCatalog = My.Settings.strDBPrefix & My.Settings.strInitialCatalog ' Like EduResSch-summer2018
+        End If
+
+        sqlConnBuilder.IntegratedSecurity = True
+        sqlConnBuilder.ConnectTimeout = 10
+        sqlConnBuilder.Encrypt = False ' What are the requirements for True ?
+        sqlConnBuilder.TrustServerCertificate = True
+        sqlConnBuilder.ApplicationIntent = ApplicationIntent.ReadWrite
+
+        ' Get auth info and use it here to open SQL server
+        sqlConnBuilder.UserID = My.Settings.strDBUserName
+        sqlConnBuilder.Password = My.Settings.strDBPassword
+
+
+        Try
+            sqlConn = New SqlConnection(sqlConnBuilder.ToString)
+            sqlConn.Open()
+
+        Catch ex As Exception
+
+            'If test = False Then
+            MsgBox("Error opening the MSSQL connection: " + ex.Message)
+            'End If
+
+            Return sqlConn
+        End Try
+
+
+        Return sqlConn
 
     End Function
-    Function closeCompletelySQL(connection As SqlConnection) As Boolean
+    Function closeSQL(connection As SqlConnection) As Boolean
 
-        connection.ClearAllPools()
         connection.Close()
-        connection.Dispose()
 
-        If connection.State = ConnectionState.Closed Then
-            Return True
-        Else
-            MsgBox("Connection did not close as expected.", MsgBoxStyle.Exclamation, "SQL Connection")
-            Return False
-        End If
+        Return True
 
     End Function
 
@@ -280,7 +258,7 @@ Module SQL_Functions
 
         Catch ex As Exception
 
-            closeCompletelySQL(sqlCommand.Connection)
+            closeSQL(sqlCommand.Connection)
             MsgBox("Can not execute sqlCommand.ExecuteNonQuery() !: " & ex.Message)
             Return -1
         End Try
@@ -311,7 +289,7 @@ Module SQL_Functions
         Catch ex As Exception
 
             sqlReader.Close()
-            closeCompletelySQL(sqlCommand.Connection)
+            closeSQL(sqlCommand.Connection)
 
             MsgBox("Can not open connection!: " & ex.Message)
 
@@ -320,7 +298,7 @@ Module SQL_Functions
         End Try
 
         sqlReader.Close()
-        closeCompletelySQL(sqlCommand.Connection)
+        closeSQL(sqlCommand.Connection)
 
         Return sqlDataSet.Tables(sqlDataSet.Tables.Count - 1).Rows.Count
 
@@ -400,25 +378,88 @@ Module SQL_Functions
         cBox.DataSource = ds1.Tables(0)
         cBox.ValueMember = "dbid"
         cBox.DisplayMember = "name"
-
-
-        closeCompletelySQL(sqlConnList)
-
+        sqlConnList.Close()
         Return True
 
     End Function
 
-    Private Function checkForNetworkConnection(Optional hostToPing As String = "8.8.8.8") As Boolean
 
-        If My.Computer.Network.Ping(hostToPing) Then
 
-            'MsgBox("Computer is connected.")
-            Return True
-        Else
+    Function listCampusesInListBox(lbox As ListBox) As Boolean
+
+        ' Dataset that the combobox is going to tie into.
+        Dim ds1 As New DataSet()
+        Dim ds2 As New DataSet()
+        Dim ds3 As New DataSet()
+        Dim command As SqlCommand
+        Dim adapter As New SqlDataAdapter()
+
+        ' Open connection to Master
+        Dim sqlConnList As SqlConnection = openSQL(False, True) ' True, to skip connecting to a specific database
+
+        ' Three searches, one for each semester.
+        Dim Sql1 = "select dbid, name from master.dbo.sysdatabases where name LIKE '" & My.Settings.strDBPrefix & "spring%'"
+        Dim Sql2 = "select dbid, name from master.dbo.sysdatabases where name LIKE '" & My.Settings.strDBPrefix & "summer%'"
+        Dim Sql3 = "select dbid, name from master.dbo.sysdatabases where name LIKE '" & My.Settings.strDBPrefix & "fall%'"
+
+        ' SQL1 to DS1
+        Try
+            command = New SqlCommand(Sql1, sqlConnList)
+            adapter.SelectCommand = command
+            adapter.Fill(ds1)
+
+            adapter.Dispose()
+            command.Dispose()
+
+
+        Catch ex As Exception
+            MessageBox.Show("Error in listing semesters for a combobox: " & ex.Message.ToString)
+
             Return False
+        End Try
 
-        End If
+        ' SQL2 to DS2
+        Try
+            command = New SqlCommand(Sql2, sqlConnList)
+            adapter.SelectCommand = command
+            adapter.Fill(ds2)
+
+            adapter.Dispose()
+            command.Dispose()
+
+
+        Catch ex As Exception
+            MessageBox.Show("Error in listing semesters for a combobox: " & ex.Message.ToString)
+
+            Return False
+        End Try
+
+        ' SQL3 to DS3
+        Try
+            command = New SqlCommand(Sql3, sqlConnList)
+            adapter.SelectCommand = command
+            adapter.Fill(ds3)
+
+            adapter.Dispose()
+            command.Dispose()
+
+
+        Catch ex As Exception
+            MessageBox.Show("Error in listing semesters for a combobox: " & ex.Message.ToString)
+
+            Return False
+        End Try
+
+        ' Merge our three search results
+        ds1.Merge(ds2)
+        ds1.Merge(ds3)
+
+        ' Setup the passed combobox for displaying our dataset
+        lbox.DataSource = ds1.Tables(0)
+        lbox.ValueMember = "dbid"
+        lbox.DisplayMember = "name"
+        sqlConnList.Close()
+        Return True
 
     End Function
-
 End Module

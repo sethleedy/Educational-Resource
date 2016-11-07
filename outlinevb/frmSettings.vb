@@ -38,6 +38,7 @@ Public Class frmSettings
         listSemestersInDB(Me.semesterComboBox1)
 
         ' Security login on load ?
+        MsgBox(My.Settings.chkRunWithoutSecurity)
         chkRunWithoutSecurity.Checked = My.Settings.chkRunWithoutSecurity
 
 
@@ -153,4 +154,6 @@ Public Class frmSettings
         'MsgBox("Saving Settings")
         My.Settings.Save()
     End Sub
+
+
 End Class

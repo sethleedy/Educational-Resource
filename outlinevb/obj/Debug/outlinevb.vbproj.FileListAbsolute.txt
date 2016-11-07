@@ -1,0 +1,61 @@
+c:\users\ryan\documents\visual studio 2015\Projects\outlinevb\outlinevb\bin\Debug\outlinevb.exe.config
+c:\users\ryan\documents\visual studio 2015\Projects\outlinevb\outlinevb\obj\Debug\outlinevb.vbprojResolveAssemblyReference.cache
+c:\users\ryan\documents\visual studio 2015\Projects\outlinevb\outlinevb\obj\Debug\outlinevb.Form1.resources
+c:\users\ryan\documents\visual studio 2015\Projects\outlinevb\outlinevb\obj\Debug\outlinevb.Resources.resources
+c:\users\ryan\documents\visual studio 2015\Projects\outlinevb\outlinevb\obj\Debug\outlinevb.vbproj.GenerateResource.Cache
+c:\users\ryan\documents\visual studio 2015\Projects\outlinevb\outlinevb\bin\Debug\outlinevb.exe
+c:\users\ryan\documents\visual studio 2015\Projects\outlinevb\outlinevb\bin\Debug\outlinevb.pdb
+c:\users\ryan\documents\visual studio 2015\Projects\outlinevb\outlinevb\bin\Debug\outlinevb.xml
+c:\users\ryan\documents\visual studio 2015\Projects\outlinevb\outlinevb\obj\Debug\outlinevb.exe
+c:\users\ryan\documents\visual studio 2015\Projects\outlinevb\outlinevb\obj\Debug\outlinevb.xml
+c:\users\ryan\documents\visual studio 2015\Projects\outlinevb\outlinevb\obj\Debug\outlinevb.pdb
+c:\users\ryan\documents\visual studio 2015\Projects\outlinevb\outlinevb\obj\Debug\outlinevb.Help.resources
+c:\users\ryan\documents\visual studio 2015\Projects\outlinevb\outlinevb\obj\Debug\outlinevb.About.resources
+c:\users\ryan\documents\visual studio 2015\Projects\outlinevb\outlinevb\obj\Debug\outlinevb.Options.resources
+c:\users\ryan\documents\visual studio 2015\Projects\outlinevb\outlinevb\obj\Debug\outlinevb.scheduler.resources
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\outlinevb\outlinevb\bin\Debug\outlinevb.exe.config
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\outlinevb\outlinevb\obj\Debug\outlinevb.exe
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\outlinevb\outlinevb\obj\Debug\outlinevb.xml
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\outlinevb\outlinevb\obj\Debug\outlinevb.pdb
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\outlinevb\outlinevb\bin\Debug\outlinevb.exe
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\outlinevb\outlinevb\bin\Debug\outlinevb.pdb
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\outlinevb\outlinevb\bin\Debug\outlinevb.xml
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\outlinevb\outlinevb\obj\Debug\outlinevb.vbprojResolveAssemblyReference.cache
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\outlinevb\outlinevb\obj\Debug\outlinevb.About.resources
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\outlinevb\outlinevb\obj\Debug\outlinevb.Form1.resources
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\outlinevb\outlinevb\obj\Debug\outlinevb.Help.resources
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\outlinevb\outlinevb\obj\Debug\outlinevb.Resources.resources
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\outlinevb\outlinevb\obj\Debug\outlinevb.Options.resources
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\outlinevb\outlinevb\obj\Debug\outlinevb.scheduler.resources
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\outlinevb\outlinevb\obj\Debug\outlinevb.vbproj.GenerateResource.Cache
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\seths vb copy\outlinevb\obj\Debug\outlinevb.vbprojResolveAssemblyReference.cache
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\seths vb copy\outlinevb\obj\Debug\outlinevb.vbproj.GenerateResource.Cache
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\seths vb copy\outlinevb\bin\Debug\Educational Resource Scheduler.exe.config
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\seths vb copy\outlinevb\obj\Debug\scheduler.About.resources
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\seths vb copy\outlinevb\obj\Debug\scheduler.Help.resources
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\seths vb copy\outlinevb\obj\Debug\scheduler.Resources.resources
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\seths vb copy\outlinevb\obj\Debug\scheduler.Options.resources
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\seths vb copy\outlinevb\obj\Debug\scheduler.scheduler.resources
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\seths vb copy\outlinevb\obj\Debug\Educational Resource Scheduler.xml
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\seths vb copy\outlinevb\bin\Debug\Educational Resource Scheduler.exe
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\seths vb copy\outlinevb\bin\Debug\Educational Resource Scheduler.pdb
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\seths vb copy\outlinevb\bin\Debug\Educational Resource Scheduler.xml
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\seths vb copy\outlinevb\obj\Debug\Educational Resource Scheduler.exe
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\seths vb copy\outlinevb\obj\Debug\Educational Resource Scheduler.pdb
+C:\Users\Seth\Documents\Syncs\WindowsShare\Schooling Resources\Stark State 2016\Fall\ANLYZNG SFTWRE REQ AND DEV SOL\Project todo\seths vb copy\outlinevb\obj\Debug\scheduler.splashFrm.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\bin\Debug\Educational Resource Scheduler.exe.config
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\bin\Debug\Educational Resource Scheduler.exe
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\bin\Debug\Educational Resource Scheduler.pdb
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\bin\Debug\Educational Resource Scheduler.xml
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\outlinevb.vbprojResolveAssemblyReference.cache
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\scheduler.About.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\scheduler.Help.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\scheduler.Resources.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\scheduler.Options.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\scheduler.splashFrm.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\scheduler.scheduler.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\outlinevb.vbproj.GenerateResource.Cache
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\Educational Resource Scheduler.exe
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\Educational Resource Scheduler.xml
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\Educational Resource Scheduler.pdb
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\bin\Debug\ObjectDumper.dll
