@@ -1,0 +1,103 @@
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\bin\Debug\Educational Resource Scheduler.exe.config
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\bin\Debug\Educational Resource Scheduler.exe
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\bin\Debug\Educational Resource Scheduler.pdb
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\bin\Debug\Educational Resource Scheduler.xml
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\bin\Debug\ObjectDumper.dll
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\Educational Resource Scheduler.vbprojResolveAssemblyReference.cache
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\scheduler.About.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\scheduler.Help.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\scheduler.Resources.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\scheduler.Options.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\scheduler.splashFrm.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\scheduler.scheduler.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\Educational Resource Scheduler.vbproj.GenerateResource.Cache
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\Educational Resource Scheduler.exe
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\Educational Resource Scheduler.xml
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\seths vb copy\outlinevb\obj\Debug\Educational Resource Scheduler.pdb
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\Educational Resource Scheduler\outlinevb\bin\Debug\Educational Resource Scheduler.exe.config
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\Educational Resource Scheduler\outlinevb\bin\Debug\Educational Resource Scheduler.exe
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\Educational Resource Scheduler\outlinevb\bin\Debug\Educational Resource Scheduler.pdb
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\Educational Resource Scheduler\outlinevb\bin\Debug\Educational Resource Scheduler.xml
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\Educational Resource Scheduler\outlinevb\bin\Debug\ObjectDumper.dll
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\Educational Resource Scheduler\outlinevb\obj\Debug\Educational Resource Scheduler.vbprojResolveAssemblyReference.cache
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\Educational Resource Scheduler\outlinevb\obj\Debug\scheduler.About.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\Educational Resource Scheduler\outlinevb\obj\Debug\scheduler.Help.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\Educational Resource Scheduler\outlinevb\obj\Debug\scheduler.Resources.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\Educational Resource Scheduler\outlinevb\obj\Debug\scheduler.splashFrm.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\Educational Resource Scheduler\outlinevb\obj\Debug\scheduler.scheduler.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\Educational Resource Scheduler\outlinevb\obj\Debug\Educational Resource Scheduler.vbproj.GenerateResource.Cache
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\Educational Resource Scheduler\outlinevb\obj\Debug\Educational Resource Scheduler.exe
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\Educational Resource Scheduler\outlinevb\obj\Debug\Educational Resource Scheduler.xml
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\Educational Resource Scheduler\outlinevb\obj\Debug\Educational Resource Scheduler.pdb
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\Educational Resource Scheduler\outlinevb\obj\Debug\scheduler.frmSettings.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\bin\Debug\Educational Resource Scheduler.exe.config
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\bin\Debug\Educational Resource Scheduler.exe
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\bin\Debug\Educational Resource Scheduler.pdb
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\bin\Debug\Educational Resource Scheduler.xml
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\bin\Debug\ObjectDumper.dll
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\obj\Debug\scheduler.About.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\obj\Debug\scheduler.frmSettings.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\obj\Debug\scheduler.Help.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\obj\Debug\scheduler.Resources.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\obj\Debug\scheduler.splashFrm.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\obj\Debug\scheduler.scheduler.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\obj\Debug\Educational Resource Scheduler.vbproj.GenerateResource.Cache
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\obj\Debug\Educational Resource Scheduler.exe
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\obj\Debug\Educational Resource Scheduler.xml
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\obj\Debug\Educational Resource Scheduler.pdb
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\bin\Debug\Educational Resource Scheduler.exe.CodeAnalysisLog.xml
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\bin\Debug\Educational Resource Scheduler.exe.lastcodeanalysissucceeded
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\obj\Debug\scheduler.login.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\obj\Debug\Educational Resource Scheduler.vbprojResolveAssemblyReference.cache
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\bin\Debug\App.config
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\bin\Debug\MindFusion.Scheduling.dll
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\bin\Debug\MindFusion.Common.dll
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\bin\Debug\MindFusion.Licensing.dll
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler\outlinevb\bin\Debug\MindFusion.Scheduling.xml
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\bin\Debug\App.config
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\bin\Debug\Educational Resource Scheduler.exe.config
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\bin\Debug\Educational Resource Scheduler.exe
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\bin\Debug\Educational Resource Scheduler.pdb
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\bin\Debug\Educational Resource Scheduler.xml
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\bin\Debug\Educational Resource Scheduler.exe.CodeAnalysisLog.xml
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\bin\Debug\Educational Resource Scheduler.exe.lastcodeanalysissucceeded
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\bin\Debug\ObjectDumper.dll
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\bin\Debug\MindFusion.Common.dll
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\bin\Debug\MindFusion.Licensing.dll
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\bin\Debug\MindFusion.Scheduling.xml
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\obj\Debug\Educational Resource Scheduler.vbprojResolveAssemblyReference.cache
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\obj\Debug\scheduler.About.resources
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\obj\Debug\scheduler.frmSettings.resources
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\obj\Debug\scheduler.Help.resources
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\obj\Debug\scheduler.login.resources
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\obj\Debug\scheduler.Resources.resources
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\obj\Debug\scheduler.splashFrm.resources
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\obj\Debug\scheduler.scheduler.resources
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\obj\Debug\Educational Resource Scheduler.vbproj.GenerateResource.Cache
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\obj\Debug\Educational Resource Scheduler.exe
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\obj\Debug\Educational Resource Scheduler.xml
+C:\Users\Ryan\Downloads\2\3\Educational-Resource-Scheduler\outlinevb\obj\Debug\Educational Resource Scheduler.pdb
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\bin\Debug\App.config
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\bin\Debug\Educational Resource Scheduler.exe.config
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\bin\Debug\Educational Resource Scheduler.exe
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\bin\Debug\Educational Resource Scheduler.pdb
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\bin\Debug\Educational Resource Scheduler.xml
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\bin\Debug\Educational Resource Scheduler.exe.CodeAnalysisLog.xml
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\bin\Debug\Educational Resource Scheduler.exe.lastcodeanalysissucceeded
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\bin\Debug\MindFusion.Scheduling.dll
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\bin\Debug\ObjectDumper.dll
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\bin\Debug\MindFusion.Common.dll
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\bin\Debug\MindFusion.Licensing.dll
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\bin\Debug\MindFusion.Scheduling.xml
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\obj\Debug\Educational Resource Scheduler.vbprojResolveAssemblyReference.cache
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\obj\Debug\scheduler.About.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\obj\Debug\scheduler.frmSettings.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\obj\Debug\scheduler.Help.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\obj\Debug\scheduler.login.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\obj\Debug\scheduler.Resources.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\obj\Debug\scheduler.splashFrm.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\obj\Debug\scheduler.scheduler.resources
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\obj\Debug\Educational Resource Scheduler.vbproj.GenerateResource.Cache
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\obj\Debug\Educational Resource Scheduler.exe
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\obj\Debug\Educational Resource Scheduler.xml
+C:\Users\Seth\Documents\Syncs\Research_and_Dev\VSGitHub\Educational-Resource-Scheduler-import\outlinevb\obj\Debug\Educational Resource Scheduler.pdb
