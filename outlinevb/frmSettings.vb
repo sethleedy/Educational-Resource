@@ -30,12 +30,16 @@ Public Class frmSettings
         strDBPassword.Text = My.Settings.strDBPassword
         intDBPort.Text = CStr(My.Settings.intDBPort)
 
-        ' Set the default index on the semester selection on tab Database Information
-        comboSelectSemester.SelectedIndex = 0
+        ' Check if the DB exists
+        If checkForProgramDB1() Then
 
-        ' Set and fill Semester combobox on tab Semesters
-        ' Call function to fill in combobox with all the semesters in SQL server.
-        listSemestersInDB(Me.semesterComboBox1)
+            ' Set and fill Semester combobox on tab Semesters
+            ' Call function to fill in combobox with all the semesters in SQL server.
+            listSemestersInDB(Me.semesterComboBox1)
+            ' Set the default index on the semester selection on tab Database Information
+            comboSelectSemester.SelectedIndex = 0
+
+        End If
 
         ' Security login on load ?
         chkRunWithoutSecurity.Checked = My.Settings.chkRunWithoutSecurity
@@ -132,6 +136,10 @@ Public Class frmSettings
             ' Tell program we can use the DB created
             My.Settings.DBCreated = True
             My.Settings.Save()
+
+            ' Call function to fill in combobox with all the semesters in SQL server.
+            SQL_Functions.listSemestersInDB(Me.semesterComboBox1)
+
         Else
             MsgBox("Error creating the Databases", MsgBoxStyle.Critical, "Creating Databases Failed")
         End If

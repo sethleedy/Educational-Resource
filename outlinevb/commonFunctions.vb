@@ -3,6 +3,7 @@ Imports System.Data.SqlClient ' Test
 Imports System.Net.NetworkInformation ' For checking local DNS Info
 Module commonFunctions
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Function openSpreadSheet(path As String) As Boolean
 
         Dim OLEConnection As OleDbConnection
@@ -143,8 +144,18 @@ Module commonFunctions
     End Function
     Public Sub reloadSchedulerGUI() ' Reload the GUI data
 
-        ' Load the Campus Listbox
-        listCampusesInListBox(scheduler.lbCampus)
+        ' Check if the DB exists
+        If checkForProgramDB1() Then
+
+            ' Load the Campus Listbox
+            listCampusesInListBox(scheduler.lbCampus)
+
+            ' Load Buildings
+
+            ' Load Rooms
+
+
+        End If
 
     End Sub
 End Module

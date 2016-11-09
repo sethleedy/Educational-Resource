@@ -49,6 +49,7 @@ Module SQL_Functions
 
     End Function
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Function SQLCreateSemesterDB() As Boolean
 
         '''' Database template1 for Semesters
@@ -101,6 +102,7 @@ Module SQL_Functions
 
     End Function
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Function sqlCreateAuthDB() As Boolean
 
         '''' Database template2 for Username/Passwords
@@ -111,7 +113,7 @@ Module SQL_Functions
 
         ' We do NOT want to overwrite this database.
         ' Check if exists and return false if so.
-        If CheckDatabaseExists(dbname) Then
+        If checkDatabaseExists(dbname) Then
             ' Make a note in the log...
 
 
@@ -160,7 +162,8 @@ Module SQL_Functions
 
     End Function
 
-    Private Function CheckDatabaseExists(database As String) As Boolean
+    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
+    Private Function checkDatabaseExists(database As String) As Boolean
 
         Dim cmdText As String = "select * from master.dbo.sysdatabases where name LIKE '" & database & "%'"
         Dim sqlConn As SqlConnection = openSQL()
@@ -173,9 +176,7 @@ Module SQL_Functions
                     bRet = reader.HasRows
                 End Using
             End Using
-        End Using
-
-        sqlConn.Close()
+        End Using ' Closes SQL Connection when done looping
 
         Return bRet
 
@@ -253,6 +254,11 @@ Module SQL_Functions
                     If test = False Then
                         MsgBox("Error opening the MSSQL connection: " + ex.Message, MsgBoxStyle.Critical, "Connection did not succeed.")
                     End If
+
+                    ' Say our DB connection settings are bad. Use the Test DB button in Settings to reset.
+                    My.Settings.goodDBSettings = False
+                    My.Settings.Save()
+
 
                     ' Connection Failed. Return something..
                     Return sqlConn
@@ -343,6 +349,35 @@ Module SQL_Functions
 
     End Function
 
+    Public Function checkForProgramDB1() As Boolean
+        ' Test if the DB is even created yet.
+        If My.Settings.goodDBSettings = True Then
+
+            ' Open connection to Master DB
+            Dim sqlConnList As SqlConnection = openSQL(False, True) ' #2 True, to skip connecting to a specific database
+
+            ' Test if the connection opened!
+            If sqlConnList.State = ConnectionState.Open Then
+
+                ' Three searches, one for each semester.
+                Dim db1 = checkDatabaseExists(My.Settings.strDBPrefix & "spring") ' % is tacked on within the function.
+                Dim db2 = checkDatabaseExists(My.Settings.strDBPrefix & "summer")
+                Dim db3 = checkDatabaseExists(My.Settings.strDBPrefix & "fall")
+
+                ' Test for a true on any of the three.
+                If db1 Or db2 Or db3 Then
+                    Return True
+                Else
+                    Return False
+                End If
+            End If
+
+        End If
+
+        'MsgBox("Unable to test for program database", MsgBoxStyle.Exclamation, "Educational Resource Scheduler")
+        Return False
+
+    End Function
     Function listSemestersInDB(cBox As ComboBox) As Boolean
 
         ' Test if the DB is even created yet.
