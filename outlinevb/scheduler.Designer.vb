@@ -29,6 +29,10 @@ Partial Class scheduler
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.AboutToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AuthorsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataGridViewTest1 = New MindFusion.Scheduling.WinForms.Calendar()
         Me.lbRooms = New System.Windows.Forms.ListBox()
         Me.lbBuilding = New System.Windows.Forms.ListBox()
@@ -42,10 +46,6 @@ Partial Class scheduler
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtCapacity = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.AboutToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AuthorsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.DataGridViewTest1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupScope.SuspendLayout()
@@ -74,13 +74,13 @@ Partial Class scheduler
         'SettingsToolStripMenuItem
         '
         Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.SettingsToolStripMenuItem.Text = "Settings"
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'SearchToolStripMenuItem
@@ -95,6 +95,30 @@ Partial Class scheduler
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(51, 20)
         Me.HelpToolStripMenuItem.Text = "&Help"
+        '
+        'ToolStripMenuItem2
+        '
+        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(136, 22)
+        Me.ToolStripMenuItem2.Text = "Help File"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(133, 6)
+        '
+        'AboutToolStripMenuItem1
+        '
+        Me.AboutToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AuthorsToolStripMenuItem1})
+        Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
+        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(136, 22)
+        Me.AboutToolStripMenuItem1.Text = "&About"
+        '
+        'AuthorsToolStripMenuItem1
+        '
+        Me.AuthorsToolStripMenuItem1.Name = "AuthorsToolStripMenuItem1"
+        Me.AuthorsToolStripMenuItem1.Size = New System.Drawing.Size(128, 22)
+        Me.AuthorsToolStripMenuItem1.Text = "Authors"
         '
         'DataGridViewTest1
         '
@@ -225,30 +249,6 @@ Partial Class scheduler
         Me.Label1.Size = New System.Drawing.Size(111, 19)
         Me.Label1.TabIndex = 23
         Me.Label1.Text = "Seat Capacity"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
-        '
-        'AboutToolStripMenuItem1
-        '
-        Me.AboutToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AuthorsToolStripMenuItem1})
-        Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
-        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
-        Me.AboutToolStripMenuItem1.Text = "&About"
-        '
-        'AuthorsToolStripMenuItem1
-        '
-        Me.AuthorsToolStripMenuItem1.Name = "AuthorsToolStripMenuItem1"
-        Me.AuthorsToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
-        Me.AuthorsToolStripMenuItem1.Text = "Authors"
-        '
-        'ToolStripMenuItem2
-        '
-        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(152, 22)
-        Me.ToolStripMenuItem2.Text = "Help File"
         '
         'scheduler
         '

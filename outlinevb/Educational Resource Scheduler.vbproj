@@ -173,7 +173,7 @@
     </Compile>
     <Compile Include="Settings.vb" />
     <Compile Include="Simple3DES.vb" />
-    <Compile Include="SQLFunctions.vb" />
+    <Compile Include="SQL_Functions.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="About.resx">

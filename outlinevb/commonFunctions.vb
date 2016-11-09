@@ -1,5 +1,6 @@
 ﻿Imports System.IO ' Test﻿
 Imports System.Data.SqlClient ' Test
+Imports System.Net.NetworkInformation ' For checking local DNS Info
 Module commonFunctions
 
     Function openSpreadSheet(path As String) As Boolean
@@ -110,7 +111,7 @@ Module commonFunctions
         'End Using
     End Function
 
-    Private Function checkForNetworkConnection(Optional hostToPing As String = "8.8.8.8") As Boolean
+    Public Function checkForInternetNetworkConnection(Optional hostToPing As String = "8.8.8.8") As Boolean
 
         If My.Computer.Network.Ping(hostToPing) Then
 
@@ -122,17 +123,29 @@ Module commonFunctions
         End If
 
     End Function
+    Public Function checkForLocalNetworkConnection(Optional IPAddress As String = "8.8.8.8") As Boolean
 
-    'Function saveSettings() As Boolean
-    '    ' Save all the settings before closing the form
-    '    Try
-    '        My.Settings.Save() ' Needed for the controls on this form
-    '        Return False
-    '    Catch ex As Exception
-    '        MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-    '        Return True
-    '    End Try
+        For Each networkCard As NetworkInterface In NetworkInterface.GetAllNetworkInterfaces
+            For Each address In networkCard.GetIPProperties.DnsAddresses
+                If My.Computer.Network.Ping(address.ToString) Then
 
-    'End Function
+                    'MsgBox("Computer is connected.")
+                    Return True
+                Else
+                    Return False
+
+                End If
+
+            Next
+        Next
+
+        Return False
+    End Function
+    Public Sub reloadSchedulerGUI() ' Reload the GUI data
+
+        ' Load the Campus Listbox
+        listCampusesInListBox(scheduler.lbCampus)
+
+    End Sub
 End Module
 

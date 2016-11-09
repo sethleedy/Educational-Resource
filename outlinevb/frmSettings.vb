@@ -90,6 +90,7 @@ Public Class frmSettings
         My.Settings.intDBPort = CInt(intDBPort.Text)
         My.Settings.strDBUserName = strDBUsername.Text
         My.Settings.strDBPassword = strDBPassword.Text
+        My.Settings.goodDBSettings = False ' Reset to false to test the new settings. If settings prove to be good, set to true.
 
         ' Save settings
         My.Settings.Save()
@@ -99,6 +100,12 @@ Public Class frmSettings
 
         ' True if the settings worked and the connection is open.
         If (testReturn = True) Then
+            ' Flag to rest of the program, we can use the DB. It has been tested.
+            My.Settings.goodDBSettings = True
+
+            ' Call function to fill in combobox with all the semesters in SQL server.
+            SQL_Functions.listSemestersInDB(Me.semesterComboBox1)
+
             MsgBox("Connection was successful.", MsgBoxStyle.OkOnly, "Database Connection Test")
         Else
             MsgBox("Connection unsuccessful.", MsgBoxStyle.Exclamation, "Database Connection Test")
@@ -111,13 +118,24 @@ Public Class frmSettings
     Private Sub DBReset_Click(sender As Object, e As EventArgs) Handles DBReset.Click
 
         ' Create the database for the selected semester
-        SQLCreateSemesterDB()
+        Dim a As Boolean = SQLCreateSemesterDB()
 
         ' Important, create the Auth DB LAST!
         ' Both for the sake of SQL DB creation errors(errors out and we can still login to fix it/try again), but also for setting the Semester within the code when the SemesterDB gets created.
 
         ' Create it if it does not exists. Function will check and will not overwrite.
-        sqlCreateAuthDB()
+        Dim b As Boolean = sqlCreateAuthDB()
+
+        ' Test if db created ok, then flag it as done
+        If a And b Then
+
+            ' Tell program we can use the DB created
+            My.Settings.DBCreated = True
+            My.Settings.Save()
+        Else
+            MsgBox("Error creating the Databases", MsgBoxStyle.Critical, "Creating Databases Failed")
+        End If
+
 
 
     End Sub

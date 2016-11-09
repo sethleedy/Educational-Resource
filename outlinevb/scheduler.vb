@@ -57,5 +57,11 @@ Public Class scheduler
 
     End Sub
 
+    Private Sub scheduler_Load(sender As Object, e As EventArgs) Handles Me.Load
+
+        ' Call the refresh sub to update the GUI data. Like the ListBoxes in changing the Selected Database.
+        reloadSchedulerGUI()
+
+    End Sub
 End Class
 
