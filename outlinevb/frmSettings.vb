@@ -139,9 +139,8 @@ Public Class frmSettings
 
         My.Settings.Save()
 
-    End Sub
-
-    Private Sub chkRunWithoutSecurity_CheckedChanged(sender As Object, e As EventArgs) Handles chkRunWithoutSecurity.CheckedChanged
+        ' Close DB connection ?
+        'SQL_Functions.closeCompletelySQL()
 
     End Sub
 
@@ -151,6 +150,14 @@ Public Class frmSettings
 
         ' Save settings
         'MsgBox("Saving Settings")
+        My.Settings.Save()
+    End Sub
+
+    Private Sub semesterComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles semesterComboBox1.SelectedIndexChanged
+        Dim selectedDB As String = semesterComboBox1.Text
+
+        My.Settings.CurrentDB = selectedDB
+
         My.Settings.Save()
     End Sub
 End Class

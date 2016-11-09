@@ -103,11 +103,24 @@ Module commonFunctions
         If (strColumnName.Count = 0) Then
             Throw New Exception("Unable to detect the spreadsheet tab names.")
         Else
-            ObjectDumper.ObjectDumperExtensions.DumpToString(strColumnName, "strColumnName") ' https://objectdumper.codeplex.com/ | https://www.nuget.org/packages/ObjectDumper/
+            'ObjectDumper.ObjectDumperExtensions.DumpToString(strColumnName, "strColumnName") ' https://objectdumper.codeplex.com/ | https://www.nuget.org/packages/ObjectDumper/
             Return strColumnName
         End If
 
         'End Using
+    End Function
+
+    Private Function checkForNetworkConnection(Optional hostToPing As String = "8.8.8.8") As Boolean
+
+        If My.Computer.Network.Ping(hostToPing) Then
+
+            'MsgBox("Computer is connected.")
+            Return True
+        Else
+            Return False
+
+        End If
+
     End Function
 
     'Function saveSettings() As Boolean
