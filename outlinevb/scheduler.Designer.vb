@@ -46,10 +46,12 @@ Partial Class scheduler
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtCapacity = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.DataGridViewTest1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupScope.SuspendLayout()
         Me.GroupFeatures.SuspendLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -133,6 +135,7 @@ Partial Class scheduler
         Me.DataGridViewTest1.SystemCalendar = Nothing
         Me.DataGridViewTest1.TabIndex = 5
         Me.DataGridViewTest1.Theme = MindFusion.Scheduling.WinForms.ThemeType.Windows2003
+        Me.DataGridViewTest1.Visible = False
         '
         'lbRooms
         '
@@ -250,11 +253,20 @@ Partial Class scheduler
         Me.Label1.TabIndex = 23
         Me.Label1.Text = "Seat Capacity"
         '
+        'DataGridView1
+        '
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Location = New System.Drawing.Point(20, 255)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.Size = New System.Drawing.Size(859, 185)
+        Me.DataGridView1.TabIndex = 29
+        '
         'scheduler
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(917, 452)
+        Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.GroupFeatures)
         Me.Controls.Add(Me.GroupScope)
         Me.Controls.Add(Me.DataGridViewTest1)
@@ -273,6 +285,7 @@ Partial Class scheduler
         Me.GroupScope.PerformLayout()
         Me.GroupFeatures.ResumeLayout(False)
         Me.GroupFeatures.PerformLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -300,4 +313,5 @@ Partial Class scheduler
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents AboutToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents AuthorsToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents DataGridView1 As DataGridView
 End Class

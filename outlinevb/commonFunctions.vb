@@ -57,12 +57,13 @@ Module commonFunctions
             MyCommand.Fill(dataSet)
 
             ' Set DataGrid to display data from this SheetName, overriding prev because of loop. Need to hold all. Append function ?
-            'DataGridView1.DataSource = dataSet.Tables(0)
-            'MsgBox("Data Opened")
+            'scheduler.DataGridViewTest1.DataSource = dataSet.Tables(0)
+            scheduler.DataGridView1.DataSource = dataSet.Tables(0)
+
+            MsgBox("Data Opened")
 
             ' Goto this function to parse the records and place into the SQL.
             returnValue = SQL_Functions.parseSpreadSheet()
-
 
             'Next
 

@@ -59,6 +59,11 @@ Public Class scheduler
 
     Private Sub scheduler_Load(sender As Object, e As EventArgs) Handles Me.Load
 
+        ' Do we have to login ?
+
+        ' Check security level of user
+
+
         ' Call the refresh sub to update the GUI data. Like the ListBoxes in changing the Selected Database.
         reloadSchedulerGUI()
 
