@@ -32,18 +32,26 @@ Module SQL_Functions
 
     End Function
 
-    Function parseSpreadSheet() As Boolean
+    Function parseSpreadSheet(dataSet As DataSet) As Boolean
 
         ' Open SQL
+        sqlCommand.Connection = openSQL() ' sqlCommand can hold the connection object, as returned by the function openSQL.
 
-        ' Loop spreadsheet
+        ' Option? Grab the unique entries of Courses and Subjects and put them into the proper tables.
+        ' Option? Remember the entries to hook up later insertions.
+
+        ' Loop spreadsheet dataset
+        Dim collection As DataTableCollection = dataSet.Tables(0)
+        For Each item In collection
+
+        Next
 
         ' Insert into SQL
 
         ' Close SQL
 
         ' Test
-        SQLTest()
+        'SQLTest()
 
         Return True
 

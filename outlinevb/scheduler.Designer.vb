@@ -33,7 +33,6 @@ Partial Class scheduler
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.AboutToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.AuthorsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DataGridViewTest1 = New MindFusion.Scheduling.WinForms.Calendar()
         Me.lbRooms = New System.Windows.Forms.ListBox()
         Me.lbBuilding = New System.Windows.Forms.ListBox()
         Me.lbCampus = New System.Windows.Forms.ListBox()
@@ -47,11 +46,12 @@ Partial Class scheduler
         Me.txtCapacity = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTest1 = New MindFusion.Scheduling.WinForms.Calendar()
         Me.MenuStrip1.SuspendLayout()
-        CType(Me.DataGridViewTest1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupScope.SuspendLayout()
         Me.GroupFeatures.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DataGridViewTest1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -121,21 +121,6 @@ Partial Class scheduler
         Me.AuthorsToolStripMenuItem1.Name = "AuthorsToolStripMenuItem1"
         Me.AuthorsToolStripMenuItem1.Size = New System.Drawing.Size(128, 22)
         Me.AuthorsToolStripMenuItem1.Text = "Authors"
-        '
-        'DataGridViewTest1
-        '
-        Me.DataGridViewTest1.CurrentView = MindFusion.Scheduling.WinForms.CalendarView.Timetable
-        Me.DataGridViewTest1.Date = New Date(2016, 10, 27, 0, 0, 0, 0)
-        Me.DataGridViewTest1.DateTimeFormat = CType(resources.GetObject("DataGridViewTest1.DateTimeFormat"), System.Globalization.DateTimeFormatInfo)
-        Me.DataGridViewTest1.EndDate = New Date(2016, 11, 26, 0, 0, 0, 0)
-        Me.DataGridViewTest1.LicenseKey = Nothing
-        Me.DataGridViewTest1.Location = New System.Drawing.Point(12, 247)
-        Me.DataGridViewTest1.Name = "DataGridViewTest1"
-        Me.DataGridViewTest1.Size = New System.Drawing.Size(892, 193)
-        Me.DataGridViewTest1.SystemCalendar = Nothing
-        Me.DataGridViewTest1.TabIndex = 5
-        Me.DataGridViewTest1.Theme = MindFusion.Scheduling.WinForms.ThemeType.Windows2003
-        Me.DataGridViewTest1.Visible = False
         '
         'lbRooms
         '
@@ -261,6 +246,21 @@ Partial Class scheduler
         Me.DataGridView1.Size = New System.Drawing.Size(859, 185)
         Me.DataGridView1.TabIndex = 29
         '
+        'DataGridViewTest1
+        '
+        Me.DataGridViewTest1.CurrentView = MindFusion.Scheduling.WinForms.CalendarView.Timetable
+        Me.DataGridViewTest1.Date = New Date(2016, 10, 27, 0, 0, 0, 0)
+        Me.DataGridViewTest1.DateTimeFormat = CType(resources.GetObject("DataGridViewTest1.DateTimeFormat"), System.Globalization.DateTimeFormatInfo)
+        Me.DataGridViewTest1.EndDate = New Date(2016, 11, 26, 0, 0, 0, 0)
+        Me.DataGridViewTest1.LicenseKey = Nothing
+        Me.DataGridViewTest1.Location = New System.Drawing.Point(12, 247)
+        Me.DataGridViewTest1.Name = "DataGridViewTest1"
+        Me.DataGridViewTest1.Size = New System.Drawing.Size(892, 193)
+        Me.DataGridViewTest1.SystemCalendar = Nothing
+        Me.DataGridViewTest1.TabIndex = 5
+        Me.DataGridViewTest1.Theme = MindFusion.Scheduling.WinForms.ThemeType.Windows2003
+        Me.DataGridViewTest1.Visible = False
+        '
         'scheduler
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 17.0!)
@@ -280,12 +280,12 @@ Partial Class scheduler
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        CType(Me.DataGridViewTest1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupScope.ResumeLayout(False)
         Me.GroupScope.PerformLayout()
         Me.GroupFeatures.ResumeLayout(False)
         Me.GroupFeatures.PerformLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DataGridViewTest1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -295,7 +295,6 @@ Partial Class scheduler
     Friend WithEvents SettingsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents DataGridViewTest1 As MindFusion.Scheduling.WinForms.Calendar
     Public WithEvents lbRooms As ListBox
     Friend WithEvents lbBuilding As ListBox
     Friend WithEvents lbCampus As ListBox
@@ -314,4 +313,5 @@ Partial Class scheduler
     Friend WithEvents AboutToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents AuthorsToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents DataGridViewTest1 As MindFusion.Scheduling.WinForms.Calendar
 End Class

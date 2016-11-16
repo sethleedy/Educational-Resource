@@ -60,10 +60,10 @@ Module commonFunctions
             'scheduler.DataGridViewTest1.DataSource = dataSet.Tables(0)
             scheduler.DataGridView1.DataSource = dataSet.Tables(0)
 
-            MsgBox("Data Opened")
+            'MsgBox("Data Opened")
 
             ' Goto this function to parse the records and place into the SQL.
-            returnValue = SQL_Functions.parseSpreadSheet()
+            returnValue = SQL_Functions.parseSpreadSheet(dataSet) ' Pass dataset containing all the data to put into the SQL database.
 
             'Next
 
