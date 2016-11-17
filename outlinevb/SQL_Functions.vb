@@ -541,4 +541,8 @@ Module SQL_Functions
 
     End Function
 
+    Function test2() As String
+        Return "Hey:"
+    End Function
+
 End Module
