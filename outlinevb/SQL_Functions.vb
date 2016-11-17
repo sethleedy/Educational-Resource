@@ -536,4 +536,9 @@ Module SQL_Functions
         End If
     End Function
 
+    Function test() As Boolean
+
+
+    End Function
+
 End Module
