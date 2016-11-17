@@ -538,6 +538,10 @@ Module SQL_Functions
 
     Function test() As Boolean
 
+        Return True
+    End Function
+
+    Function test2() As Boolean
 
     End Function
 
