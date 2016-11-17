@@ -46,7 +46,6 @@ Partial Class scheduler
         Me.txtCapacity = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupScope.SuspendLayout()
         Me.GroupFeatures.SuspendLayout()
@@ -245,21 +244,11 @@ Partial Class scheduler
         Me.DataGridView1.Size = New System.Drawing.Size(859, 185)
         Me.DataGridView1.TabIndex = 29
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(234, 192)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 30
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'scheduler
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(917, 452)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.GroupFeatures)
         Me.Controls.Add(Me.GroupScope)
@@ -305,5 +294,4 @@ Partial Class scheduler
     Friend WithEvents AboutToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents AuthorsToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents Button1 As Button
 End Class
