@@ -538,7 +538,7 @@ Module SQL_Functions
 
     Function test() As Boolean
 
-
+        Return True
     End Function
 
 End Module
