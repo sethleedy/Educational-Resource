@@ -41,8 +41,9 @@ Module SQL_Functions
         ' Option? Remember the entries to hook up later insertions.
 
         ' Loop spreadsheet dataset
-        Dim collection As DataTableCollection = dataSet.Tables(0)
-        For Each item In collection
+        Dim collection As DataTableCollection = dataSet.Tables
+        For Each tbleItem In collection
+            Dim table As DataTable = collection(0)
 
         Next
 
