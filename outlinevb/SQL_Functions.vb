@@ -541,4 +541,8 @@ Module SQL_Functions
         Return True
     End Function
 
+    Function test2() As Boolean
+
+    End Function
+
 End Module
