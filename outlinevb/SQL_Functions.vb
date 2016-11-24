@@ -34,16 +34,27 @@ Module SQL_Functions
 
     Function parseSpreadSheet(dataSet As DataSet) As Boolean
 
+        sqlCommand = New SqlCommand
+
         ' Open SQL
         sqlCommand.Connection = openSQL() ' sqlCommand can hold the connection object, as returned by the function openSQL.
+        Dim DataInString As String = ""
 
         ' Option? Grab the unique entries of Courses and Subjects and put them into the proper tables.
         ' Option? Remember the entries to hook up later insertions.
 
         ' Loop spreadsheet dataset
         Dim collection As DataTableCollection = dataSet.Tables
-        For Each tbleItem In collection
-            Dim table As DataTable = collection(0)
+        For Each tbleItem As DataTable In collection
+            For Each FoundRow As DataRow In tbleItem.Rows
+                For Each FoundCol As DataColumn In tbleItem.Columns
+                    If FoundRow(FoundCol.ColumnName) IsNot DBNull.Value Then
+                        ' FoundRow(FoundCol.ColumnName) is where the data comes from to insert into the MSSQL DB
+                        DataInString += FoundRow(FoundCol.ColumnName).ToString
+                        MsgBox(DataInString)
+                    End If
+                Next
+            Next
 
         Next
 
@@ -174,21 +185,28 @@ Module SQL_Functions
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Private Function checkDatabaseExists(database As String) As Boolean
 
-        Dim cmdText As String = "select * from master.dbo.sysdatabases where name LIKE '" & database & "%'"
         Dim sqlConn As SqlConnection = openSQL()
-        Dim bRet As Boolean = False
 
-        Using sqlConn
+        If sqlConn.State = ConnectionState.Open Then
 
-            Using sqlCmd As SqlCommand = New SqlCommand(cmdText, sqlConn)
-                Using reader As SqlDataReader = sqlCmd.ExecuteReader
-                    bRet = reader.HasRows
+            Dim cmdText As String = "select * from master.dbo.sysdatabases where name LIKE '" & database & "%'"
+            Dim bRet As Boolean = False
+
+            Using sqlConn
+
+                Using sqlCmd As SqlCommand = New SqlCommand(cmdText, sqlConn)
+                    Using reader As SqlDataReader = sqlCmd.ExecuteReader
+                        bRet = reader.HasRows
+                    End Using
                 End Using
-            End Using
-        End Using ' Closes SQL Connection when done looping
+            End Using ' Closes SQL Connection when done looping
 
-        Return bRet
+            Return bRet
 
+        Else
+
+            Return False
+        End If
     End Function
 
     Function SQLTestConnection() As Boolean
@@ -237,6 +255,7 @@ Module SQL_Functions
                         sqlConnBuilder.InitialCatalog = My.Settings.CurrentDB ' Like EduResSch-spring2017
 
                     Else
+                        '?
                     End If
                 ElseIf test = True Or skipInitalCatalog = True Then
                     sqlConnBuilder.InitialCatalog = "" ' My.Settings.strDBPrefix & My.Settings.strInitialCatalog
@@ -536,13 +555,5 @@ Module SQL_Functions
         End If
     End Function
 
-    Function test() As Boolean
-
-        Return True
-    End Function
-
-    Function test2() As Boolean
-
-    End Function
 
 End Module

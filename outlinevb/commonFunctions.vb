@@ -28,7 +28,7 @@ Module commonFunctions
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message.ToString)
+            MsgBox("Error opening spread sheet file: " & ex.Message.ToString)
             Return False
         End Try
 
@@ -62,17 +62,18 @@ Module commonFunctions
 
             'MsgBox("Data Opened")
 
-            ' Goto this function to parse the records and place into the SQL.
-            returnValue = SQL_Functions.parseSpreadSheet(dataSet) ' Pass dataset containing all the data to put into the SQL database.
-
-            'Next
-
+        Catch ex As Exception
+            MsgBox("Error filling dataset: " & ex.Message.ToString)
 
             OLEConnection.Close()
-        Catch ex As Exception
-            MsgBox(ex.Message.ToString)
+
             Return False
         End Try
+
+        ' Goto this function to parse the records and place into the SQL.
+        returnValue = SQL_Functions.parseSpreadSheet(dataSet) ' Pass dataset containing all the data to put into the SQL database.
+
+        OLEConnection.Close()
 
         Return True
 
@@ -115,33 +116,79 @@ Module commonFunctions
 
     Public Function checkForInternetNetworkConnection(Optional hostToPing As String = "8.8.8.8") As Boolean
 
-        If My.Computer.Network.Ping(hostToPing) Then
+        'If My.Computer.Network.Ping(hostToPing) Then
 
-            'MsgBox("Computer is connected.")
-            Return True
-        Else
-            Return False
+        '    'MsgBox("Computer is connected.")
+        '    Return True
+        'Else
+        '    Return False
 
-        End If
+        'End If
+
+
+        Dim rv As Boolean = False
+        Dim ping As New Net.NetworkInformation.Ping
+        Dim reply As Net.NetworkInformation.PingReply
+        Dim options As New Net.NetworkInformation.PingOptions
+        options.Ttl = 3 'adjust this depending on the size of YOUR network
+
+        Try
+            Dim buf(4) As Byte
+            reply = ping.Send(hostToPing, 100, buf, options)
+            If reply.Status = Net.NetworkInformation.IPStatus.TtlExpired Then
+                rv = True
+            End If
+        Catch ex As Exception
+
+            MsgBox("Could not ping to determin Internet Connection. " + ex.Message)
+
+            'a lot of reasons to be here, but they all mean
+            'your internet connection is down
+        End Try
+
+        Return rv
 
     End Function
     Public Function checkForLocalNetworkConnection(Optional IPAddress As String = "8.8.8.8") As Boolean
 
-        For Each networkCard As NetworkInterface In NetworkInterface.GetAllNetworkInterfaces
-            For Each address In networkCard.GetIPProperties.DnsAddresses
-                If My.Computer.Network.Ping(address.ToString) Then
+        'For Each networkCard As NetworkInterface In NetworkInterface.GetAllNetworkInterfaces
+        '    For Each address In networkCard.GetIPProperties.DnsAddresses
+        '        If My.Computer.Network.Ping(address.ToString) Then
 
-                    'MsgBox("Computer is connected.")
-                    Return True
-                Else
-                    Return False
+        '            'MsgBox("Computer is connected.")
+        '            Return True
+        '        Else
+        '            Return False
 
-                End If
+        '        End If
 
-            Next
-        Next
+        '    Next
+        'Next
 
-        Return False
+        'Return False
+
+        Dim rv As Boolean = False
+        Dim ping As New Net.NetworkInformation.Ping
+        Dim reply As Net.NetworkInformation.PingReply
+        Dim options As New Net.NetworkInformation.PingOptions
+        options.Ttl = 3 'adjust this depending on the size of YOUR network
+
+        Try
+            Dim buf(4) As Byte
+            reply = ping.Send(IPAddress, 100, buf, options)
+            If reply.Status = Net.NetworkInformation.IPStatus.TtlExpired Then
+                rv = True
+            End If
+        Catch ex As Exception
+
+            MsgBox("Could not ping to determin Internet Connection. " + ex.Message)
+
+            'a lot of reasons to be here, but they all mean
+            'your internet connection is down
+        End Try
+
+        Return rv
+
     End Function
     Public Sub reloadSchedulerGUI() ' Reload the GUI data
 
