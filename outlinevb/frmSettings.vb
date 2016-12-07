@@ -167,6 +167,7 @@ Public Class frmSettings
 
         ' Close DB connection ?
         'SQL_Functions.closeCompletelySQL()
+        'hello
 
     End Sub
 
