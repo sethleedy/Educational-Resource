@@ -46,6 +46,7 @@ Partial Class scheduler
         Me.txtCapacity = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.btnPopCampus = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupScope.SuspendLayout()
         Me.GroupFeatures.SuspendLayout()
@@ -126,6 +127,7 @@ Partial Class scheduler
         Me.lbRooms.ItemHeight = 17
         Me.lbRooms.Location = New System.Drawing.Point(538, 22)
         Me.lbRooms.Name = "lbRooms"
+        Me.lbRooms.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
         Me.lbRooms.Size = New System.Drawing.Size(145, 72)
         Me.lbRooms.TabIndex = 23
         '
@@ -135,6 +137,7 @@ Partial Class scheduler
         Me.lbBuilding.ItemHeight = 17
         Me.lbBuilding.Location = New System.Drawing.Point(314, 24)
         Me.lbBuilding.Name = "lbBuilding"
+        Me.lbBuilding.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
         Me.lbBuilding.Size = New System.Drawing.Size(145, 72)
         Me.lbBuilding.TabIndex = 24
         '
@@ -144,6 +147,7 @@ Partial Class scheduler
         Me.lbCampus.ItemHeight = 17
         Me.lbCampus.Location = New System.Drawing.Point(88, 24)
         Me.lbCampus.Name = "lbCampus"
+        Me.lbCampus.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
         Me.lbCampus.Size = New System.Drawing.Size(141, 72)
         Me.lbCampus.TabIndex = 25
         '
@@ -244,11 +248,21 @@ Partial Class scheduler
         Me.DataGridView1.Size = New System.Drawing.Size(859, 185)
         Me.DataGridView1.TabIndex = 29
         '
+        'btnPopCampus
+        '
+        Me.btnPopCampus.Location = New System.Drawing.Point(41, 142)
+        Me.btnPopCampus.Name = "btnPopCampus"
+        Me.btnPopCampus.Size = New System.Drawing.Size(75, 23)
+        Me.btnPopCampus.TabIndex = 30
+        Me.btnPopCampus.Text = "Button1"
+        Me.btnPopCampus.UseVisualStyleBackColor = True
+        '
         'scheduler
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(917, 452)
+        Me.Controls.Add(Me.btnPopCampus)
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.GroupFeatures)
         Me.Controls.Add(Me.GroupScope)
@@ -294,4 +308,5 @@ Partial Class scheduler
     Friend WithEvents AboutToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents AuthorsToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents btnPopCampus As Button
 End Class

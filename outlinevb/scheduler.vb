@@ -64,7 +64,122 @@ Public Class scheduler
 
 
         ' Call the refresh sub to update the GUI data. Like the ListBoxes in changing the Selected Database.
-        reloadSchedulerGUI()
+        'reloadSchedulerGUI()
+
+    End Sub
+
+    Private Sub lbCampus_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbCampus.SelectedIndexChanged
+
+        Dim campusId As Integer
+        Dim campusRowViewSTR As String
+        ' Work on a copy to avoid an error from popping up that complains about the list being changed while looping it.
+        ' Good practice anyways.
+        Dim loopCopy As ListBox.SelectedObjectCollection = lbCampus.SelectedItems
+
+        ' Loop through the selected items
+        For Each item As DataRowView In loopCopy
+            campusRowViewSTR = item.Item("campusName").ToString()
+            campusId = Convert.ToInt32(CType(item, DataRowView).Item("campusId"))
+
+            'MessageBox.Show(campusId.ToString)
+            'MessageBox.Show(campusRowViewSTR)
+        Next
+
+        listBuildingsInListBox(Me.lbBuilding, campusId)
+
+    End Sub
+
+    Private Sub lbBuilding_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbBuilding.SelectedIndexChanged
+
+        Dim buildingId As Integer
+        Dim buildingRowViewSTR As String
+        ' Work on a copy to avoid an error from popping up that complains about the list being changed while looping it.
+        ' Good practice anyways.
+        Dim loopCopy As ListBox.SelectedObjectCollection = lbBuilding.SelectedItems
+
+        ' Loop through the selected items
+        For Each item As DataRowView In loopCopy
+            buildingRowViewSTR = item.Item("buildingName").ToString()
+            buildingId = Convert.ToInt32(CType(item, DataRowView).Item("dbBuildingID"))
+
+            'MessageBox.Show(campusId.ToString)
+            'MessageBox.Show(campusRowViewSTR)
+        Next
+
+        listRoomsInListBox(Me.lbBuilding, buildingId)
+
+    End Sub
+
+    Private Sub btnPopCampus_Click_1(sender As Object, e As EventArgs) Handles btnPopCampus.Click
+
+        ' Disable events to prevent combobox from freaking out on the loading of the data
+        RemoveHandler lbBuilding.ValueMemberChanged, AddressOf lbBuilding_ValueMemberChanged
+        RemoveHandler lbCampus.SelectedIndexChanged, AddressOf lbCampus_SelectedIndexChanged
+        RemoveHandler lbBuilding.SelectedIndexChanged, AddressOf lbBuilding_SelectedIndexChanged
+        RemoveHandler lbRooms.SelectedIndexChanged, AddressOf lbRooms_SelectedIndexChanged
+
+        listCampusesInListBox(Me.lbCampus)
+
+        ' Reenable the events
+        AddHandler lbBuilding.ValueMemberChanged, AddressOf lbBuilding_ValueMemberChanged
+        AddHandler lbCampus.SelectedIndexChanged, AddressOf lbCampus_SelectedIndexChanged
+        AddHandler lbBuilding.SelectedIndexChanged, AddressOf lbBuilding_SelectedIndexChanged
+        AddHandler lbRooms.SelectedIndexChanged, AddressOf lbRooms_SelectedIndexChanged
+
+
+    End Sub
+
+    Private Sub lbCampus_ValueMemberChanged(sender As Object, e As EventArgs) Handles lbCampus.ValueMemberChanged
+
+        Dim campusId As Integer
+        Dim campusRowViewSTR As String
+
+        ' Loop through the selected items
+        For Each item As DataRowView In lbCampus.SelectedItems
+            campusRowViewSTR = item.Item("campusName").ToString()
+            campusId = Convert.ToInt32(CType(item, DataRowView).Item("campusId"))
+
+            'MessageBox.Show(campusId.ToString)
+            'MessageBox.Show(campusRowViewSTR)
+        Next
+
+        listBuildingsInListBox(Me.lbBuilding, campusId)
+    End Sub
+
+
+    Private Sub lbBuilding_ValueMemberChanged(sender As Object, e As EventArgs) Handles lbBuilding.ValueMemberChanged
+
+        Dim buildingsId As Integer
+        Dim buildingsRowViewSTR As String
+
+        ' Loop through the selected items
+        For Each item As DataRowView In lbBuilding.SelectedItems
+            buildingsRowViewSTR = item.Item("buildingName").ToString()
+            buildingsId = Convert.ToInt32(CType(item, DataRowView).Item("dbBuildingID"))
+
+            'MessageBox.Show(buildingsId.ToString)
+            'MessageBox.Show(buildingsRowViewSTR)
+        Next
+
+        listRoomsInListBox(Me.lbBuilding, buildingsId)
+    End Sub
+
+    Private Sub lbRooms_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbRooms.SelectedIndexChanged
+        Dim buildingId As Integer
+        Dim buildingRowViewSTR As String
+        ' Work on a copy to avoid an error from popping up that complains about the list being changed while looping it.
+        ' Good practice anyways.
+        Dim loopCopy As ListBox.SelectedObjectCollection = lbBuilding.SelectedItems
+
+        ' Loop through the selected items
+        For Each item As DataRowView In loopCopy
+            buildingRowViewSTR = item.Item("buildingName").ToString()
+            buildingId = Convert.ToInt32(CType(item, DataRowView).Item("dbBuildingID"))
+
+            'MessageBox.Show(campusId.ToString)
+            'MessageBox.Show(campusRowViewSTR)
+        Next
+
 
     End Sub
 End Class

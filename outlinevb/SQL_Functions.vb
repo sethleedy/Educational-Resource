@@ -50,8 +50,8 @@ Module SQL_Functions
                 For Each FoundCol As DataColumn In tbleItem.Columns
                     If FoundRow(FoundCol.ColumnName) IsNot DBNull.Value Then
                         ' FoundRow(FoundCol.ColumnName) is where the data comes from to insert into the MSSQL DB
-                        DataInString += FoundRow(FoundCol.ColumnName).ToString
-                        MsgBox(DataInString)
+                        DataInString = FoundRow(FoundCol.ColumnName).ToString
+                        MsgBox(FoundCol.ColumnName & ": " & DataInString)
                     End If
                 Next
             Next
@@ -499,65 +499,122 @@ Module SQL_Functions
     End Function
     Function listCampusesInListBox(lbox As ListBox) As Boolean
 
-        ' Test if the DB is even created yet.
-        If My.Settings.DBCreated = True Then
+        ' Dataset that the combobox is going to tie into.
+        Dim ds1 As New DataSet()
+        Dim command As SqlCommand
+        Dim adapter As New SqlDataAdapter()
 
-            ' Dataset that the combobox is going to tie into.
-            Dim ds1 As New DataSet()
-            Dim command As SqlCommand
-            Dim adapter As New SqlDataAdapter()
+        ' Open connection to Master
+        Dim sqlConnList As SqlConnection = openSQL(False, False) ' True, to skip connecting to a specific database
+        Dim sql = "SELECT campusId, campusName FROM campus"
 
-            ' Open connection to Master
-            Dim sqlConnList As SqlConnection = openSQL(False, False) ' #2 True, to skip connecting to a specific database
+        ' SQL to DS1
+        Try
+            command = New SqlCommand(sql, sqlConnList)
+            adapter.SelectCommand = command
+            adapter.Fill(ds1, "campus")
 
-            ' Test if the connection opened!
-            If sqlConnList.State = ConnectionState.Open Then
-
-                ' Test if the table exists !
-
-
-                ' search for all campuses in selected database.
-                '"Select campusId, campusName from campus"
+            adapter.Dispose()
+            command.Dispose()
 
 
-                Dim sql = "Select campusId, campusName from campus"
+        Catch ex As Exception
+            MessageBox.Show("Error in listing campuses for a listbox: " & ex.Message.ToString)
+
+            Return False
+        End Try
 
 
-                ' SQL to DS1
-                Try
-                    command = New SqlCommand(sql, sqlConnList)
-                    adapter.SelectCommand = command
-                    adapter.Fill(ds1)
+        ' Setup the passed combobox for displaying our dataset
+        lbox.DataSource = ds1.Tables("campus")
+        lbox.ValueMember = "campusId"
+        lbox.DisplayMember = "campusName"
 
-                    adapter.Dispose()
-                    command.Dispose()
+        sqlConnList.Close()
 
+        Return True
 
-                Catch ex As Exception
-                    MessageBox.Show("Error in listing campuses for a listbox: " & ex.Message.ToString)
-
-                    Return False
-                End Try
-
-
-                ' Setup the passed combobox for displaying our dataset
-                lbox.DataSource = ds1.Tables(0)
-                lbox.ValueMember = "campusId"
-                lbox.DisplayMember = "campusName"
-
-                closeCompletelySQL(sqlConnList)
-
-                Return True
-
-            Else
-                Return False
-            End If
-        End If
     End Function
 
+    Function listBuildingsInListBox(lbox As ListBox, campusId As Integer) As Boolean
 
-    Function test2() As String
-        Return "Hey:"
+        ' Dataset that the combobox is going to tie into.
+        Dim ds1 As New DataSet()
+        Dim command As SqlCommand
+        Dim adapter As New SqlDataAdapter()
+
+        ' Open connection to Master
+        Dim sqlConnList As SqlConnection = openSQL(False, False) ' True, to skip connecting to a specific database
+        Dim sql = "SELECT dbBuildingID, buildingName FROM buildings WHERE campusId = @campusId"
+
+
+        ' SQL to DS1
+        Try
+            command = New SqlCommand(sql, sqlConnList)
+            command.Parameters.AddWithValue("@campusId", campusId)
+            adapter.SelectCommand = command
+            adapter.Fill(ds1, "buildings")
+
+            adapter.Dispose()
+            command.Dispose()
+
+
+        Catch ex As Exception
+            MessageBox.Show("Error in listing buildings for a listbox: " & ex.Message.ToString)
+
+            Return False
+        End Try
+
+
+        ' Setup the passed combobox for displaying our dataset
+        lbox.DataSource = ds1.Tables("buildings")
+        lbox.ValueMember = "dbBuildingID"
+        lbox.DisplayMember = "buildingName"
+
+        sqlConnList.Close()
+
+        Return True
+
     End Function
+
+    Function listRoomsInListBox(lbox As ListBox, dbBuildingId As Integer) As Boolean
+
+        Dim ds1 As New DataSet()
+        Dim command As SqlCommand
+        Dim adapter As New SqlDataAdapter()
+
+        ' Open connection to Master
+        Dim sqlConnList As SqlConnection = openSQL(False, False) ' True, to skip connecting to a specific database
+        Dim sql = "SELECT dbRoomID, roomNum FROM rooms WHERE dbBuildingId = @buildingId"
+
+
+        ' SQL to DS1
+        Try
+            command = New SqlCommand(sql, sqlConnList)
+            'command.Parameters.AddWithValue("@roomID", roomId)
+            command.Parameters.AddWithValue("@buildingId", dbBuildingId)
+            adapter.SelectCommand = command
+            adapter.Fill(ds1)
+
+            adapter.Dispose()
+            command.Dispose()
+
+
+        Catch ex As Exception
+            MessageBox.Show("Error in listing rooms for a listbox: " & ex.Message.ToString)
+
+            Return False
+        End Try
+
+        lbox.DataSource = ds1.Tables(0)
+        lbox.ValueMember = "dbRoomID"
+        lbox.DisplayMember = "roomNum"
+
+        sqlConnList.Close()
+
+        Return True
+
+    End Function
+
 
 End Module
