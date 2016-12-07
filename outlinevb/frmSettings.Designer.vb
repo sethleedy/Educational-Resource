@@ -71,6 +71,15 @@ Partial Class frmSettings
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.chkRunWithoutSecurity = New System.Windows.Forms.CheckBox()
+        Me.TabPage5 = New System.Windows.Forms.TabPage()
+        Me.btnDeleteSubject = New System.Windows.Forms.Button()
+        Me.btnUpdateSubject = New System.Windows.Forms.Button()
+        Me.btnAddSubject = New System.Windows.Forms.Button()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.txtSubjectName = New System.Windows.Forms.TextBox()
+        Me.txtSubjectNickName = New System.Windows.Forms.TextBox()
+        Me.dgvSubjects = New System.Windows.Forms.DataGridView()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -86,6 +95,8 @@ Partial Class frmSettings
         Me.TabPage4.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
+        Me.TabPage5.SuspendLayout()
+        CType(Me.dgvSubjects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -121,6 +132,7 @@ Partial Class frmSettings
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage3)
         Me.TabControl1.Controls.Add(Me.TabPage4)
+        Me.TabControl1.Controls.Add(Me.TabPage5)
         Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl1.HotTrack = True
         Me.TabControl1.Location = New System.Drawing.Point(0, 25)
@@ -582,6 +594,97 @@ Partial Class frmSettings
         Me.chkRunWithoutSecurity.Text = "Load the program without the security login ?"
         Me.chkRunWithoutSecurity.UseVisualStyleBackColor = True
         '
+        'TabPage5
+        '
+        Me.TabPage5.Controls.Add(Me.btnDeleteSubject)
+        Me.TabPage5.Controls.Add(Me.btnUpdateSubject)
+        Me.TabPage5.Controls.Add(Me.btnAddSubject)
+        Me.TabPage5.Controls.Add(Me.Label14)
+        Me.TabPage5.Controls.Add(Me.Label13)
+        Me.TabPage5.Controls.Add(Me.txtSubjectName)
+        Me.TabPage5.Controls.Add(Me.txtSubjectNickName)
+        Me.TabPage5.Controls.Add(Me.dgvSubjects)
+        Me.TabPage5.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage5.Name = "TabPage5"
+        Me.TabPage5.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage5.Size = New System.Drawing.Size(696, 307)
+        Me.TabPage5.TabIndex = 4
+        Me.TabPage5.Text = "Subjects"
+        Me.TabPage5.UseVisualStyleBackColor = True
+        '
+        'btnDeleteSubject
+        '
+        Me.btnDeleteSubject.Location = New System.Drawing.Point(423, 59)
+        Me.btnDeleteSubject.Name = "btnDeleteSubject"
+        Me.btnDeleteSubject.Size = New System.Drawing.Size(126, 23)
+        Me.btnDeleteSubject.TabIndex = 7
+        Me.btnDeleteSubject.Text = "Delete Subject"
+        Me.btnDeleteSubject.UseVisualStyleBackColor = True
+        '
+        'btnUpdateSubject
+        '
+        Me.btnUpdateSubject.Location = New System.Drawing.Point(249, 59)
+        Me.btnUpdateSubject.Name = "btnUpdateSubject"
+        Me.btnUpdateSubject.Size = New System.Drawing.Size(131, 23)
+        Me.btnUpdateSubject.TabIndex = 6
+        Me.btnUpdateSubject.Text = "Update Subject"
+        Me.btnUpdateSubject.UseVisualStyleBackColor = True
+        '
+        'btnAddSubject
+        '
+        Me.btnAddSubject.Location = New System.Drawing.Point(89, 59)
+        Me.btnAddSubject.Name = "btnAddSubject"
+        Me.btnAddSubject.Size = New System.Drawing.Size(108, 23)
+        Me.btnAddSubject.TabIndex = 5
+        Me.btnAddSubject.Text = "Add Subject"
+        Me.btnAddSubject.UseVisualStyleBackColor = True
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(264, 26)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(153, 19)
+        Me.Label14.TabIndex = 4
+        Me.Label14.Text = "Subject NickName:"
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(20, 26)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(117, 19)
+        Me.Label13.TabIndex = 3
+        Me.Label13.Text = "Subject Name:"
+        '
+        'txtSubjectName
+        '
+        Me.txtSubjectName.Location = New System.Drawing.Point(139, 23)
+        Me.txtSubjectName.MaxLength = 50
+        Me.txtSubjectName.Name = "txtSubjectName"
+        Me.txtSubjectName.Size = New System.Drawing.Size(100, 26)
+        Me.txtSubjectName.TabIndex = 2
+        '
+        'txtSubjectNickName
+        '
+        Me.txtSubjectNickName.Location = New System.Drawing.Point(423, 23)
+        Me.txtSubjectNickName.MaxLength = 50
+        Me.txtSubjectNickName.Name = "txtSubjectNickName"
+        Me.txtSubjectNickName.Size = New System.Drawing.Size(100, 26)
+        Me.txtSubjectNickName.TabIndex = 1
+        '
+        'dgvSubjects
+        '
+        Me.dgvSubjects.AllowUserToAddRows = False
+        Me.dgvSubjects.AllowUserToDeleteRows = False
+        Me.dgvSubjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvSubjects.Location = New System.Drawing.Point(89, 88)
+        Me.dgvSubjects.Name = "dgvSubjects"
+        Me.dgvSubjects.ReadOnly = True
+        Me.dgvSubjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvSubjects.Size = New System.Drawing.Size(460, 213)
+        Me.dgvSubjects.TabIndex = 0
+        '
         'ToolTip1
         '
         Me.ToolTip1.IsBalloon = True
@@ -623,6 +726,9 @@ Partial Class frmSettings
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox8.ResumeLayout(False)
         Me.GroupBox8.PerformLayout()
+        Me.TabPage5.ResumeLayout(False)
+        Me.TabPage5.PerformLayout()
+        CType(Me.dgvSubjects, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -676,4 +782,13 @@ Partial Class frmSettings
     Friend WithEvents GroupBox8 As GroupBox
     Friend WithEvents Label12 As Label
     Friend WithEvents chkRunWithoutSecurity As CheckBox
+    Friend WithEvents TabPage5 As TabPage
+    Friend WithEvents btnDeleteSubject As Button
+    Friend WithEvents btnUpdateSubject As Button
+    Friend WithEvents btnAddSubject As Button
+    Friend WithEvents Label14 As Label
+    Friend WithEvents Label13 As Label
+    Friend WithEvents txtSubjectName As TextBox
+    Friend WithEvents txtSubjectNickName As TextBox
+    Friend WithEvents dgvSubjects As DataGridView
 End Class

@@ -115,34 +115,81 @@ Module commonFunctions
 
     Public Function checkForInternetNetworkConnection(Optional hostToPing As String = "8.8.8.8") As Boolean
 
-        If My.Computer.Network.Ping(hostToPing) Then
+        'If My.Computer.Network.Ping(hostToPing) Then
 
-            'MsgBox("Computer is connected.")
-            Return True
-        Else
-            Return False
+        '    'MsgBox("Computer is connected.")
+        '    Return True
+        'Else
+        '    Return False
 
-        End If
+        'End If
+
+
+        Dim rv As Boolean = False
+        Dim ping As New Net.NetworkInformation.Ping
+        Dim reply As Net.NetworkInformation.PingReply
+        Dim options As New Net.NetworkInformation.PingOptions
+        options.Ttl = 3 'adjust this depending on the size of YOUR network
+
+        Try
+            Dim buf(4) As Byte
+            reply = ping.Send(hostToPing, 100, buf, options)
+            If reply.Status = Net.NetworkInformation.IPStatus.TtlExpired Then
+                rv = True
+            End If
+        Catch ex As Exception
+
+            MsgBox("Could not ping to determin Internet Connection. " + ex.Message)
+
+            'a lot of reasons to be here, but they all mean
+            'your internet connection is down
+        End Try
+
+        Return rv
 
     End Function
     Public Function checkForLocalNetworkConnection(Optional IPAddress As String = "8.8.8.8") As Boolean
 
-        For Each networkCard As NetworkInterface In NetworkInterface.GetAllNetworkInterfaces
-            For Each address In networkCard.GetIPProperties.DnsAddresses
-                If My.Computer.Network.Ping(address.ToString) Then
+        'For Each networkCard As NetworkInterface In NetworkInterface.GetAllNetworkInterfaces
+        '    For Each address In networkCard.GetIPProperties.DnsAddresses
+        '        If My.Computer.Network.Ping(address.ToString) Then
 
-                    'MsgBox("Computer is connected.")
-                    Return True
-                Else
-                    Return False
+        '            'MsgBox("Computer is connected.")
+        '            Return True
+        '        Else
+        '            Return False
 
-                End If
+        '        End If
 
-            Next
-        Next
+        '    Next
+        'Next
 
-        Return False
+        'Return False
+
+        Dim rv As Boolean = False
+        Dim ping As New Net.NetworkInformation.Ping
+        Dim reply As Net.NetworkInformation.PingReply
+        Dim options As New Net.NetworkInformation.PingOptions
+        options.Ttl = 3 'adjust this depending on the size of YOUR network
+
+        Try
+            Dim buf(4) As Byte
+            reply = ping.Send(IPAddress, 100, buf, options)
+            If reply.Status = Net.NetworkInformation.IPStatus.TtlExpired Then
+                rv = True
+            End If
+        Catch ex As Exception
+
+            MsgBox("Could not ping to determin Internet Connection. " + ex.Message)
+
+            'a lot of reasons to be here, but they all mean
+            'your internet connection is down
+        End Try
+
+        Return rv
+
     End Function
+
     Public Sub reloadSchedulerGUI() ' Reload the GUI data
 
         ' Check if the DB exists

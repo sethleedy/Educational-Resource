@@ -40,12 +40,23 @@ Partial Class scheduler
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupScope = New System.Windows.Forms.GroupBox()
+        Me.btnPopCampus = New System.Windows.Forms.Button()
         Me.GroupFeatures = New System.Windows.Forms.GroupBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtCapacity = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.dtpStart = New System.Windows.Forms.DateTimePicker()
+        Me.dtpEnd = New System.Windows.Forms.DateTimePicker()
+        Me.lblRoom = New System.Windows.Forms.Label()
+        Me.btnAddTime = New System.Windows.Forms.Button()
+        Me.btnUpdateTime = New System.Windows.Forms.Button()
+        Me.btnDeleteTime = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupScope.SuspendLayout()
         Me.GroupFeatures.SuspendLayout()
@@ -176,6 +187,7 @@ Partial Class scheduler
         '
         'GroupScope
         '
+        Me.GroupScope.Controls.Add(Me.btnPopCampus)
         Me.GroupScope.Controls.Add(Me.lbRooms)
         Me.GroupScope.Controls.Add(Me.Label2)
         Me.GroupScope.Controls.Add(Me.Label3)
@@ -184,10 +196,19 @@ Partial Class scheduler
         Me.GroupScope.Controls.Add(Me.lbCampus)
         Me.GroupScope.Location = New System.Drawing.Point(12, 29)
         Me.GroupScope.Name = "GroupScope"
-        Me.GroupScope.Size = New System.Drawing.Size(693, 107)
+        Me.GroupScope.Size = New System.Drawing.Size(693, 141)
         Me.GroupScope.TabIndex = 27
         Me.GroupScope.TabStop = False
         Me.GroupScope.Text = "Scope:"
+        '
+        'btnPopCampus
+        '
+        Me.btnPopCampus.Location = New System.Drawing.Point(88, 102)
+        Me.btnPopCampus.Name = "btnPopCampus"
+        Me.btnPopCampus.Size = New System.Drawing.Size(141, 23)
+        Me.btnPopCampus.TabIndex = 26
+        Me.btnPopCampus.Text = "Load Campuses"
+        Me.btnPopCampus.UseVisualStyleBackColor = True
         '
         'GroupFeatures
         '
@@ -197,7 +218,7 @@ Partial Class scheduler
         Me.GroupFeatures.Controls.Add(Me.Label1)
         Me.GroupFeatures.Location = New System.Drawing.Point(711, 29)
         Me.GroupFeatures.Name = "GroupFeatures"
-        Me.GroupFeatures.Size = New System.Drawing.Size(193, 205)
+        Me.GroupFeatures.Size = New System.Drawing.Size(193, 141)
         Me.GroupFeatures.TabIndex = 28
         Me.GroupFeatures.TabStop = False
         Me.GroupFeatures.Text = "Room Features:"
@@ -238,17 +259,122 @@ Partial Class scheduler
         '
         'DataGridView1
         '
+        Me.DataGridView1.AllowUserToAddRows = False
+        Me.DataGridView1.AllowUserToDeleteRows = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(20, 255)
+        Me.DataGridView1.Location = New System.Drawing.Point(29, 343)
         Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.ReadOnly = True
+        Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.Size = New System.Drawing.Size(859, 185)
         Me.DataGridView1.TabIndex = 29
+        '
+        'Label6
+        '
+        Me.Label6.Location = New System.Drawing.Point(31, 183)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(65, 19)
+        Me.Label6.TabIndex = 36
+        Me.Label6.Text = "Course"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(8, 213)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(88, 19)
+        Me.Label7.TabIndex = 37
+        Me.Label7.Text = "Start Time"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(15, 243)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(80, 19)
+        Me.Label8.TabIndex = 38
+        Me.Label8.Text = "End Time"
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.Font = New System.Drawing.Font("Consolas", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Location = New System.Drawing.Point(100, 180)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(235, 23)
+        Me.ComboBox1.TabIndex = 46
+        '
+        'dtpStart
+        '
+        Me.dtpStart.Font = New System.Drawing.Font("Consolas", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpStart.Location = New System.Drawing.Point(102, 211)
+        Me.dtpStart.Name = "dtpStart"
+        Me.dtpStart.Size = New System.Drawing.Size(202, 23)
+        Me.dtpStart.TabIndex = 48
+        Me.dtpStart.Value = New Date(2017, 8, 29, 8, 0, 0, 0)
+        '
+        'dtpEnd
+        '
+        Me.dtpEnd.Font = New System.Drawing.Font("Consolas", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpEnd.Location = New System.Drawing.Point(102, 243)
+        Me.dtpEnd.Name = "dtpEnd"
+        Me.dtpEnd.Size = New System.Drawing.Size(202, 23)
+        Me.dtpEnd.TabIndex = 49
+        Me.dtpEnd.Value = New Date(2017, 8, 29, 9, 55, 0, 0)
+        '
+        'lblRoom
+        '
+        Me.lblRoom.AutoSize = True
+        Me.lblRoom.Font = New System.Drawing.Font("Lucida Console", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblRoom.Location = New System.Drawing.Point(25, 306)
+        Me.lblRoom.Name = "lblRoom"
+        Me.lblRoom.Size = New System.Drawing.Size(0, 24)
+        Me.lblRoom.TabIndex = 50
+        '
+        'btnAddTime
+        '
+        Me.btnAddTime.Location = New System.Drawing.Point(198, 272)
+        Me.btnAddTime.Name = "btnAddTime"
+        Me.btnAddTime.Size = New System.Drawing.Size(106, 23)
+        Me.btnAddTime.TabIndex = 51
+        Me.btnAddTime.Text = "Add Time"
+        Me.btnAddTime.UseVisualStyleBackColor = True
+        '
+        'btnUpdateTime
+        '
+        Me.btnUpdateTime.Location = New System.Drawing.Point(310, 272)
+        Me.btnUpdateTime.Name = "btnUpdateTime"
+        Me.btnUpdateTime.Size = New System.Drawing.Size(124, 23)
+        Me.btnUpdateTime.TabIndex = 52
+        Me.btnUpdateTime.Text = "Update Time"
+        Me.btnUpdateTime.UseVisualStyleBackColor = True
+        '
+        'btnDeleteTime
+        '
+        Me.btnDeleteTime.Location = New System.Drawing.Point(440, 272)
+        Me.btnDeleteTime.Name = "btnDeleteTime"
+        Me.btnDeleteTime.Size = New System.Drawing.Size(113, 23)
+        Me.btnDeleteTime.TabIndex = 53
+        Me.btnDeleteTime.Text = "Delete Time"
+        Me.btnDeleteTime.UseVisualStyleBackColor = True
         '
         'scheduler
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(917, 452)
+        Me.ClientSize = New System.Drawing.Size(917, 620)
+        Me.Controls.Add(Me.btnDeleteTime)
+        Me.Controls.Add(Me.btnUpdateTime)
+        Me.Controls.Add(Me.btnAddTime)
+        Me.Controls.Add(Me.lblRoom)
+        Me.Controls.Add(Me.dtpEnd)
+        Me.Controls.Add(Me.dtpStart)
+        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.Label7)
+        Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.GroupFeatures)
         Me.Controls.Add(Me.GroupScope)
@@ -294,4 +420,15 @@ Partial Class scheduler
     Friend WithEvents AboutToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents AuthorsToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents btnPopCampus As Button
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Label8 As Label
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents dtpStart As DateTimePicker
+    Friend WithEvents dtpEnd As DateTimePicker
+    Friend WithEvents lblRoom As Label
+    Friend WithEvents btnAddTime As Button
+    Friend WithEvents btnUpdateTime As Button
+    Friend WithEvents btnDeleteTime As Button
 End Class
