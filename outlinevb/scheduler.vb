@@ -57,130 +57,95 @@ Public Class scheduler
     End Sub
 
     Private Sub scheduler_Load(sender As Object, e As EventArgs) Handles Me.Load
-
+        listCoursesInComboBox(Me.ComboBox1) 'does not load on first run
+        dtpStart.CustomFormat = "MM/dd/yyyy h:mm tt "
+        dtpEnd.CustomFormat = "MM/dd/yyyy h:mm tt "
         ' Do we have to login ?
 
         ' Check security level of user
 
 
         ' Call the refresh sub to update the GUI data. Like the ListBoxes in changing the Selected Database.
-        'reloadSchedulerGUI()
+        ' reloadSchedulerGUI()
 
     End Sub
 
-    Private Sub lbCampus_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbCampus.SelectedIndexChanged
-
-        Dim campusId As Integer
-        Dim campusRowViewSTR As String
-        ' Work on a copy to avoid an error from popping up that complains about the list being changed while looping it.
-        ' Good practice anyways.
-        Dim loopCopy As ListBox.SelectedObjectCollection = lbCampus.SelectedItems
-
-        ' Loop through the selected items
-        For Each item As DataRowView In loopCopy
-            campusRowViewSTR = item.Item("campusName").ToString()
-            campusId = Convert.ToInt32(CType(item, DataRowView).Item("campusId"))
-
-            'MessageBox.Show(campusId.ToString)
-            'MessageBox.Show(campusRowViewSTR)
-        Next
-
-        listBuildingsInListBox(Me.lbBuilding, campusId)
-
-    End Sub
-
-    Private Sub lbBuilding_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbBuilding.SelectedIndexChanged
-
-        Dim buildingId As Integer
-        Dim buildingRowViewSTR As String
-        ' Work on a copy to avoid an error from popping up that complains about the list being changed while looping it.
-        ' Good practice anyways.
-        Dim loopCopy As ListBox.SelectedObjectCollection = lbBuilding.SelectedItems
-
-        ' Loop through the selected items
-        For Each item As DataRowView In loopCopy
-            buildingRowViewSTR = item.Item("buildingName").ToString()
-            buildingId = Convert.ToInt32(CType(item, DataRowView).Item("dbBuildingID"))
-
-            'MessageBox.Show(campusId.ToString)
-            'MessageBox.Show(campusRowViewSTR)
-        Next
-
-        listRoomsInListBox(Me.lbBuilding, buildingId)
-
-    End Sub
-
-    Private Sub btnPopCampus_Click_1(sender As Object, e As EventArgs) Handles btnPopCampus.Click
-
-        ' Disable events to prevent combobox from freaking out on the loading of the data
-        RemoveHandler lbBuilding.ValueMemberChanged, AddressOf lbBuilding_ValueMemberChanged
-        RemoveHandler lbCampus.SelectedIndexChanged, AddressOf lbCampus_SelectedIndexChanged
-        RemoveHandler lbBuilding.SelectedIndexChanged, AddressOf lbBuilding_SelectedIndexChanged
-        RemoveHandler lbRooms.SelectedIndexChanged, AddressOf lbRooms_SelectedIndexChanged
-
+    Private Sub btnPopCampus_Click(sender As Object, e As EventArgs) Handles btnPopCampus.Click
         listCampusesInListBox(Me.lbCampus)
+    End Sub
+    ' Private Sub lbCampus_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbCampus.SelectedIndexChanged
+    '    Dim campus = lbCampus.SelectedValue.ToString()
 
-        ' Reenable the events
-        AddHandler lbBuilding.ValueMemberChanged, AddressOf lbBuilding_ValueMemberChanged
-        AddHandler lbCampus.SelectedIndexChanged, AddressOf lbCampus_SelectedIndexChanged
-        AddHandler lbBuilding.SelectedIndexChanged, AddressOf lbBuilding_SelectedIndexChanged
-        AddHandler lbRooms.SelectedIndexChanged, AddressOf lbRooms_SelectedIndexChanged
+
+    '    listBuildingsInListBox(Me.lbBuilding, campus)
+    'End Sub
+
+    'Private Sub lbBuilding_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbBuilding.SelectedIndexChanged
+    '    Dim building = lbBuilding.SelectedValue.ToString()
+
+    '    listRoomsInListBox(Me.lbRooms, building)
+    'End Sub
+
+    Private Sub lbCampus_Click(sender As Object, e As EventArgs) Handles lbCampus.Click
+        Dim campus = lbCampus.SelectedValue.ToString()
+
+
+        listBuildingsInListBox(Me.lbBuilding, campus)
+    End Sub
+
+    Private Sub lbBuilding_Click(sender As Object, e As EventArgs) Handles lbBuilding.Click
+        Dim building = lbBuilding.SelectedValue.ToString()
+
+        listRoomsInListBox(Me.lbRooms, building)
+    End Sub
+
+    Private Sub lbRooms_Click(sender As Object, e As EventArgs) Handles lbRooms.Click
+        Dim room = lbRooms.SelectedValue.ToString()
+        displayDateTimeBlocks(Me.DataGridView1, room)
+        DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+        lblRoom.Text = lbCampus.Text + ": " + lbBuilding.Text + lbRooms.Text
+    End Sub
+
+    Private Sub btnAddTime_Click(sender As Object, e As EventArgs) Handles btnAddTime.Click
+        If lbRooms.SelectedIndex >= 0 Then
+            If ComboBox1.SelectedIndex >= 0 Then
+                Dim room = lbRooms.SelectedValue.ToString()
+                Dim course = ComboBox1.SelectedValue.ToString()
+                Dim startTime = dtpStart.Text.ToString()
+                Dim endTime = dtpEnd.Text.ToString()
+                addDateTimeBlock(room, course, startTime, endTime)
+                displayDateTimeBlocks(Me.DataGridView1, room)
+            End If
+        End If
+
+
 
 
     End Sub
 
-    Private Sub lbCampus_ValueMemberChanged(sender As Object, e As EventArgs) Handles lbCampus.ValueMemberChanged
-
-        Dim campusId As Integer
-        Dim campusRowViewSTR As String
-
-        ' Loop through the selected items
-        For Each item As DataRowView In lbCampus.SelectedItems
-            campusRowViewSTR = item.Item("campusName").ToString()
-            campusId = Convert.ToInt32(CType(item, DataRowView).Item("campusId"))
-
-            'MessageBox.Show(campusId.ToString)
-            'MessageBox.Show(campusRowViewSTR)
-        Next
-
-        listBuildingsInListBox(Me.lbBuilding, campusId)
+    Private Sub btnUpdateTime_Click(sender As Object, e As EventArgs) Handles btnUpdateTime.Click
+        If lbRooms.SelectedIndex >= 0 Then
+            If ComboBox1.SelectedIndex >= 0 Then
+                Dim selected = DataGridView1.SelectedRows(0).Cells(0).Value.ToString
+                Dim room = lbRooms.SelectedValue.ToString()
+                Dim course = ComboBox1.SelectedValue.ToString()
+                Dim startTime = dtpStart.Text.ToString()
+                Dim endTime = dtpEnd.Text.ToString()
+                updateDateTimeBlock(selected, room, course, startTime, endTime)
+                displayDateTimeBlocks(Me.DataGridView1, room)
+            End If
+        End If
     End Sub
 
-
-    Private Sub lbBuilding_ValueMemberChanged(sender As Object, e As EventArgs) Handles lbBuilding.ValueMemberChanged
-
-        Dim buildingsId As Integer
-        Dim buildingsRowViewSTR As String
-
-        ' Loop through the selected items
-        For Each item As DataRowView In lbBuilding.SelectedItems
-            buildingsRowViewSTR = item.Item("buildingName").ToString()
-            buildingsId = Convert.ToInt32(CType(item, DataRowView).Item("dbBuildingID"))
-
-            'MessageBox.Show(buildingsId.ToString)
-            'MessageBox.Show(buildingsRowViewSTR)
-        Next
-
-        listRoomsInListBox(Me.lbBuilding, buildingsId)
-    End Sub
-
-    Private Sub lbRooms_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbRooms.SelectedIndexChanged
-        Dim buildingId As Integer
-        Dim buildingRowViewSTR As String
-        ' Work on a copy to avoid an error from popping up that complains about the list being changed while looping it.
-        ' Good practice anyways.
-        Dim loopCopy As ListBox.SelectedObjectCollection = lbBuilding.SelectedItems
-
-        ' Loop through the selected items
-        For Each item As DataRowView In loopCopy
-            buildingRowViewSTR = item.Item("buildingName").ToString()
-            buildingId = Convert.ToInt32(CType(item, DataRowView).Item("dbBuildingID"))
-
-            'MessageBox.Show(campusId.ToString)
-            'MessageBox.Show(campusRowViewSTR)
-        Next
-
-
+    Private Sub btnDeleteTime_Click(sender As Object, e As EventArgs) Handles btnDeleteTime.Click
+        If lbRooms.SelectedIndex >= 0 Then
+            If ComboBox1.SelectedIndex >= 0 Then
+                Dim room = lbRooms.SelectedValue.ToString()
+                Dim selected = DataGridView1.SelectedRows(0).Cells(0).Value.ToString
+                deleteDateTimeBlock(selected)
+                displayDateTimeBlocks(Me.DataGridView1, room)
+            End If
+        End If
     End Sub
 End Class
 

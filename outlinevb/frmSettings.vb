@@ -131,18 +131,18 @@ Public Class frmSettings
         Dim b As Boolean = sqlCreateAuthDB()
 
         ' Test if db created ok, then flag it as done
-        If a And b Then
+        '  If a And b Then ------------------------------------
 
-            ' Tell program we can use the DB created
-            My.Settings.DBCreated = True
+        ' Tell program we can use the DB created
+        My.Settings.DBCreated = True
             My.Settings.Save()
 
             ' Call function to fill in combobox with all the semesters in SQL server.
             SQL_Functions.listSemestersInDB(Me.semesterComboBox1)
 
-        Else
-            MsgBox("Error creating the Databases", MsgBoxStyle.Critical, "Creating Databases Failed")
-        End If
+        '  Else---------------------------
+        ' MsgBox("Error creating the Databases", MsgBoxStyle.Critical, "Creating Databases Failed") 'ERROR: If statement is skipped and goes straight to else statement---------------------------
+        '  End If--------------------------------------------------------------
 
 
 
@@ -167,6 +167,7 @@ Public Class frmSettings
 
         ' Close DB connection ?
         'SQL_Functions.closeCompletelySQL()
+        'hello
 
     End Sub
 
@@ -185,5 +186,41 @@ Public Class frmSettings
         My.Settings.CurrentDB = selectedDB
 
         My.Settings.Save()
+    End Sub
+
+    Private Sub btnAddSubject_Click(sender As Object, e As EventArgs) Handles btnAddSubject.Click
+        Dim subName = txtSubjectName.Text.ToString()
+        Dim subNickName = txtSubjectNickName.Text.ToString()
+
+        If subName <> "" Then
+            addSubject(subName, subNickName)
+            displaySubjects(Me.dgvSubjects)
+            dgvSubjects.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+        End If
+    End Sub
+
+    Private Sub TabControl1_Selecting(sender As Object, e As TabControlCancelEventArgs) Handles TabControl1.Selecting
+        If TabControl1.SelectedTab Is TabPage5 Then
+            displaySubjects(Me.dgvSubjects)
+            dgvSubjects.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+        End If
+    End Sub
+
+    Private Sub btnUpdateSubject_Click(sender As Object, e As EventArgs) Handles btnUpdateSubject.Click
+        Dim subName = txtSubjectName.Text.ToString()
+        Dim subNickName = txtSubjectNickName.Text.ToString()
+        Dim selected = dgvSubjects.SelectedRows(0).Cells(0).Value.ToString
+        If subName <> "" Then
+            updateSubject(selected, subName, subNickName)
+            displaySubjects(Me.dgvSubjects)
+            dgvSubjects.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+        End If
+    End Sub
+
+    Private Sub btnDeleteSubject_Click(sender As Object, e As EventArgs) Handles btnDeleteSubject.Click
+        Dim selected = dgvSubjects.SelectedRows(0).Cells(0).Value.ToString
+        deleteSubject(selected)
+            displaySubjects(Me.dgvSubjects)
+        dgvSubjects.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
     End Sub
 End Class

@@ -174,22 +174,23 @@ Module commonFunctions
         options.Ttl = 3 'adjust this depending on the size of YOUR network
 
         Try
-            Dim buf(4) As Byte
-            reply = ping.Send(IPAddress, 100, buf, options)
-            If reply.Status = Net.NetworkInformation.IPStatus.TtlExpired Then
-                rv = True
-            End If
-        Catch ex As Exception
+                        Dim buf(4) As Byte
+                        reply = Ping.Send(IPAddress, 100, buf, options)
+                        If reply.Status = Net.NetworkInformation.IPStatus.TtlExpired Then
+                            rv = True
+                        End If
+                    Catch ex As Exception
 
-            MsgBox("Could not ping to determin Internet Connection. " + ex.Message)
+                        MsgBox("Could not ping to determin Internet Connection. " + ex.Message)
 
-            'a lot of reasons to be here, but they all mean
-            'your internet connection is down
-        End Try
+                        'a lot of reasons to be here, but they all mean
+                        'your internet connection is down
+                    End Try
 
-        Return rv
+                    Return rv
 
     End Function
+
     Public Sub reloadSchedulerGUI() ' Reload the GUI data
 
         ' Check if the DB exists
