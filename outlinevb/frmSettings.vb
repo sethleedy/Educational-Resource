@@ -180,13 +180,13 @@ Public Class frmSettings
         My.Settings.Save()
     End Sub
 
-    Private Sub semesterComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles semesterComboBox1.SelectedIndexChanged
-        Dim selectedDB As String = semesterComboBox1.Text
+    'Private Sub semesterComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles semesterComboBox1.SelectedIndexChanged
+    '    Dim selectedDB As String = semesterComboBox1.Text
 
-        My.Settings.CurrentDB = selectedDB
+    '    My.Settings.CurrentDB = selectedDB
 
-        My.Settings.Save()
-    End Sub
+    '    My.Settings.Save()
+    'End Sub
 
     Private Sub btnAddSubject_Click(sender As Object, e As EventArgs) Handles btnAddSubject.Click
         Dim subName = txtSubjectName.Text.ToString()
@@ -195,7 +195,7 @@ Public Class frmSettings
         If subName <> "" Then
             addSubject(subName, subNickName)
             displaySubjects(Me.dgvSubjects)
-            dgvSubjects.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+
         End If
     End Sub
 
@@ -203,6 +203,12 @@ Public Class frmSettings
         If TabControl1.SelectedTab Is TabPage5 Then
             displaySubjects(Me.dgvSubjects)
             dgvSubjects.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+        End If
+
+        If TabControl1.SelectedTab Is TabPage6 Then
+            listSubjectsInComboBox(CBSubjects)
+            displayCourses(Me.DGVCourses)
+            DGVCourses.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
         End If
     End Sub
 
@@ -213,7 +219,7 @@ Public Class frmSettings
         If subName <> "" Then
             updateSubject(selected, subName, subNickName)
             displaySubjects(Me.dgvSubjects)
-            dgvSubjects.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+
         End If
     End Sub
 
@@ -221,6 +227,49 @@ Public Class frmSettings
         Dim selected = dgvSubjects.SelectedRows(0).Cells(0).Value.ToString
         deleteSubject(selected)
             displaySubjects(Me.dgvSubjects)
-        dgvSubjects.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+
+    End Sub
+
+    Private Sub btnSelectSemester_Click(sender As Object, e As EventArgs) Handles btnSelectSemester.Click
+        Dim selectedDB As String = semesterComboBox1.Text
+
+        My.Settings.CurrentDB = selectedDB
+
+        My.Settings.Save()
+    End Sub
+
+    Private Sub btnAddCourse_Click(sender As Object, e As EventArgs) Handles btnAddCourse.Click
+        If IsNumeric(txtCRN.Text) And IsNumeric(txtCourseNum.Text) Then
+            If txtCRN.Text <> "" And txtCourseNum.Text <> "" Then
+                If CBSubjects.SelectedIndex >= 0 Then
+                    Dim crnNum = txtCRN.Text
+                    Dim courseNum = txtCourseNum.Text
+                    Dim subjectsID = CBSubjects.SelectedValue.ToString()
+                    addCourse(courseNum, crnNum, subjectsID)
+                    displayCourses(Me.DGVCourses)
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub BtnUpdateCourse_Click(sender As Object, e As EventArgs) Handles BtnUpdateCourse.Click
+        If IsNumeric(txtCRN.Text) And IsNumeric(txtCourseNum.Text) Then
+            If txtCRN.Text <> "" And txtCourseNum.Text <> "" Then
+                If CBSubjects.SelectedIndex >= 0 Then
+                    Dim selected = DGVCourses.SelectedRows(0).Cells(0).Value.ToString
+                    Dim crnNum = txtCRN.Text
+                    Dim courseNum = txtCourseNum.Text
+                    Dim subjectsID = CBSubjects.SelectedValue.ToString()
+                    updateCourse(selected, courseNum, crnNum, subjectsID)
+                    displayCourses(Me.DGVCourses)
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub btnDeleteCourse_Click(sender As Object, e As EventArgs) Handles btnDeleteCourse.Click
+        Dim selected = DGVCourses.SelectedRows(0).Cells(0).Value.ToString
+        deleteCourse(selected)
+        displayCourses(Me.DGVCourses)
     End Sub
 End Class

@@ -873,4 +873,156 @@ Module SQL_Functions
         Return True
     End Function
 
+    Function listSubjectsInComboBox(cbox As ComboBox) As Boolean
+
+        Dim ds1 As New DataSet()
+        Dim command As SqlCommand
+        Dim adapter As New SqlDataAdapter()
+
+
+        Dim sqlConnList As SqlConnection = openSQL(False, False) ' True, to skip connecting to a specific database
+
+        Dim sql = "Select subjectsID, subjectName from Subjects"
+
+
+
+        Try
+            command = New SqlCommand(sql, sqlConnList)
+            adapter.SelectCommand = command
+            adapter.Fill(ds1)
+
+            adapter.Dispose()
+            command.Dispose()
+
+
+        Catch ex As Exception
+            MessageBox.Show("Error in listing Subjects for a combobox: " & ex.Message.ToString)
+
+            Return False
+        End Try
+
+
+        cbox.ValueMember = "subjectsID"
+        cbox.DisplayMember = "subjectName"
+        cbox.DataSource = ds1.Tables(0)
+        sqlConnList.Close()
+        Return True
+    End Function
+
+    Function displayCourses(dgv As DataGridView) As Boolean
+        Dim ds1 As New DataSet()
+        Dim command As SqlCommand
+        Dim adapter As New SqlDataAdapter()
+
+        Dim sql = "select c.courseID, c.courseNum, c.crnNum, s.subjectName from courses as c
+            join Subjects as s on s.subjectsId = c.subjectsId "
+
+        Dim sqlConnList As SqlConnection = openSQL(False, False)
+
+        Try
+            command = New SqlCommand(sql, sqlConnList)
+            adapter.SelectCommand = command
+            adapter.Fill(ds1)
+
+            adapter.Dispose()
+            command.Dispose()
+
+
+        Catch ex As Exception
+            MessageBox.Show("Error in listing courses in dgv: " & ex.Message.ToString)
+
+            Return False
+        End Try
+
+        dgv.DataSource = ds1.Tables(0)
+        sqlConnList.Close()
+        Return True
+    End Function
+
+    Function addCourse(courseNum As String, crnNum As String, subjectsID As String) As Boolean
+
+
+        Dim ds As New DataSet
+        Dim command As SqlCommand
+        Dim adapter As New SqlDataAdapter()
+
+        Dim sql = "insert into courses(courseNum, crnNum, subjectsID) values(@courseNum, @crnNum, @subjectsID)"
+
+        Dim sqlConnList As SqlConnection = openSQL(False, False)
+
+        Try
+            command = New SqlCommand(sql, sqlConnList)
+            command.Parameters.AddWithValue("@courseNum", courseNum)
+            command.Parameters.AddWithValue("@crnNum", crnNum)
+            command.Parameters.AddWithValue("@subjectsID", subjectsID)
+            adapter.SelectCommand = command
+            adapter.Fill(ds)
+
+            adapter.Dispose()
+            command.Dispose()
+
+        Catch ex As Exception
+            MessageBox.Show("Error adding new course: " & ex.Message.ToString())
+        End Try
+        sqlConnList.Close()
+        Return True
+    End Function
+
+    Function updateCourse(selected As String, courseNum As String, crnNum As String, subjectsID As String) As Boolean
+
+
+        Dim ds As New DataSet
+        Dim command As SqlCommand
+        Dim adapter As New SqlDataAdapter()
+
+        Dim sql = "update courses set courseNum = @courseNum, crnNum = @crnNum, subjectsID = @subjectsID
+                where courseID = @selected"
+
+        Dim sqlConnList As SqlConnection = openSQL(False, False)
+
+        Try
+            command = New SqlCommand(sql, sqlConnList)
+            command.Parameters.AddWithValue("@selected", selected)
+            command.Parameters.AddWithValue("@courseNum", courseNum)
+            command.Parameters.AddWithValue("@crnNum", crnNum)
+            command.Parameters.AddWithValue("@subjectsID", subjectsID)
+            adapter.SelectCommand = command
+            adapter.Fill(ds)
+
+            adapter.Dispose()
+            command.Dispose()
+
+        Catch ex As Exception
+            MessageBox.Show("Error updating Course: " & ex.Message.ToString())
+        End Try
+        sqlConnList.Close()
+        Return True
+    End Function
+
+    Function deleteCourse(selected As String) As Boolean
+
+
+        Dim ds As New DataSet
+        Dim command As SqlCommand
+        Dim adapter As New SqlDataAdapter()
+
+        Dim sql = "delete from courses where courseId = @selected"
+
+        Dim sqlConnList As SqlConnection = openSQL(False, False)
+
+        Try
+            command = New SqlCommand(sql, sqlConnList)
+            command.Parameters.AddWithValue("@selected", selected)
+            adapter.SelectCommand = command
+            adapter.Fill(ds)
+
+            adapter.Dispose()
+            command.Dispose()
+
+        Catch ex As Exception
+            MessageBox.Show("Error deleting Course: " & ex.Message.ToString())
+        End Try
+        sqlConnList.Close()
+        Return True
+    End Function
 End Module
