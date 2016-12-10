@@ -58,7 +58,7 @@ Module commonFunctions
 
             ' Set DataGrid to display data from this SheetName, overriding prev because of loop. Need to hold all. Append function ?
             'scheduler.DataGridViewTest1.DataSource = dataSet.Tables(0)
-            scheduler.DataGridView1.DataSource = dataSet.Tables(0)
+            'scheduler.DataGridView1.DataSource = dataSet.Tables(0)
 
             'MsgBox("Data Opened")
 
@@ -75,7 +75,7 @@ Module commonFunctions
 
         OLEConnection.Close()
 
-        Return True
+        Return returnValue
 
     End Function
 

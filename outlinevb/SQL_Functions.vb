@@ -34,38 +34,123 @@ Module SQL_Functions
 
     Function parseSpreadSheet(dataSet As DataSet) As Boolean
 
-        sqlCommand = New SqlCommand
+        ' Test if the DB is even created yet.
+        If My.Settings.DBCreated = True Then
 
-        ' Open SQL
-        sqlCommand.Connection = openSQL() ' sqlCommand can hold the connection object, as returned by the function openSQL.
-        Dim DataInString As String = ""
+            sqlCommand = New SqlCommand
 
-        ' Option? Grab the unique entries of Courses and Subjects and put them into the proper tables.
-        ' Option? Remember the entries to hook up later insertions.
+            ' Open SQL
+            sqlCommand.Connection = openSQL() ' sqlCommand can hold the connection object, as returned by the function openSQL.
+            If sqlCommand.Connection.State = ConnectionState.Open Then
 
-        ' Loop spreadsheet dataset
-        Dim collection As DataTableCollection = dataSet.Tables
-        For Each tbleItem As DataTable In collection
-            For Each FoundRow As DataRow In tbleItem.Rows
-                For Each FoundCol As DataColumn In tbleItem.Columns
-                    If FoundRow(FoundCol.ColumnName) IsNot DBNull.Value Then
-                        ' FoundRow(FoundCol.ColumnName) is where the data comes from to insert into the MSSQL DB
-                        DataInString = FoundRow(FoundCol.ColumnName).ToString
-                        MsgBox(FoundCol.ColumnName & ": " & DataInString)
-                    End If
+                ' To hold the values from the cells in the spreadsheet
+                Dim DataInString As String = ""
+                ' Arrays to hold the column names and inserted IDs for refrence to tables forign columns
+                Dim arrCampus As New Dictionary(Of String, Integer)
+                Dim arrBuildings As New Dictionary(Of String, Integer)
+
+
+                ' Option? Grab the unique entries of Courses and Subjects and put them into the proper tables.
+                ' Option? Remember the entries to hook up later insertions.
+
+                ' Loop spreadsheet dataset
+                Dim collection As DataTableCollection = dataSet.Tables
+                For Each tbleItem As DataTable In collection
+                    For Each FoundRow As DataRow In tbleItem.Rows
+                        For Each FoundCol As DataColumn In tbleItem.Columns
+                            If FoundRow(FoundCol.ColumnName) IsNot DBNull.Value Then
+                                ' FoundRow(FoundCol.ColumnName) is where the data comes from to insert into the MSSQL DB
+                                DataInString = FoundRow(FoundCol.ColumnName).ToString
+                                'MsgBox(FoundCol.ColumnName & ": " & DataInString)
+
+                                Select Case FoundCol.ColumnName
+                                    Case "Campus"
+                                        '       Record Campus. Grab it's ID and name, put into an array for later use on the Buildings table
+                                        '       Does the Campus name exist in the table ?
+                                        '           No: INSERT; Record Name, ID in Array. Set variable to ID
+                                        '           Yes: Skip INSERT; Set variable to ID in Array that matches.
+                                        If checkForValue(DataInString, "campusName", "campus") = True Then
+                                            ' INSERT
+                                            MsgBox("Found data")
+                                        Else
+                                            ' Grab the exiting entrys ID
+
+                                        End If
+                                    Case "Building"
+                                    '   "Buildings"
+                                    '       Fill in the building details with "campusID" set to the array's stored ID
+                                    '       Store Buildings ID in array too.
+                                    Case "Room"
+                                        '   "Rooms"
+                                        '       Ditto
+
+                                        '   "dateTimeStampStart"
+                                        '       Add columns "Begin and End Dates" and "Meeting Patterns" to a dateTime object matching the table
+                                        '       We need to then loop and insert for every day in the week specified on "Days" column, from first part of "Begin and End Dates", to the end of the semester(second part of "Begin and End Dates").
+
+                                End Select
+
+                            End If
+                        Next
+                    Next
+
                 Next
-            Next
 
-        Next
 
-        ' Insert into SQL
+                ' Close SQL
+                closeCompletelySQL(sqlCommand.Connection)
 
-        ' Close SQL
+                ' Test
+                'SQLTest()
 
-        ' Test
-        'SQLTest()
+                Return True
 
-        Return True
+            Else
+                MsgBox("Unable to use SQL Connection in parseSpreadSheet().", MsgBoxStyle.Critical)
+
+                Return False
+            End If
+
+        Else
+            ' No DB created yet.
+            Return False
+        End If
+    End Function
+
+    Function checkForValue(value As String, cColumn As String, cTable As String) As Boolean
+        ' Check for function parseSpreadSheet() if the table already has its value.
+
+
+        Dim sqlConn1 As SqlConnection = openSQL()
+
+        If sqlConn1.State = ConnectionState.Open Then
+
+            Dim cmdText As String = "SELECT " & cColumn & " FROM " + cTable & " WHERE " & cColumn + " = '" & value & "'"
+            Dim bRet As Boolean = False
+            Dim wID As Integer
+
+            Using sqlConn1
+
+                Using sqlCmd As SqlCommand = New SqlCommand(cmdText, sqlConn1)
+                    Using reader As SqlDataReader = sqlCmd.ExecuteReader
+                        bRet = reader.HasRows ' Yeah, it exists
+                        Console.WriteLine("Exists")
+
+                    End Using
+                End Using
+
+            End Using ' Closes SQL Connection when done looping
+
+            'closeCompletelySQL(sqlConn1)
+
+            Return bRet
+
+
+        Else
+            MsgBox("Unable to use SQL Connection in checkForValue().", MsgBoxStyle.Critical)
+
+            Return False
+        End If
 
     End Function
 
@@ -254,7 +339,6 @@ Module SQL_Functions
                 If skipInitalCatalog = False And test = False Then
                     If My.Settings.CurrentDB <> "" Then
                         sqlConnBuilder.InitialCatalog = My.Settings.CurrentDB ' Like EduResSch-spring2017
-
                     Else
                         '?
                     End If
@@ -303,7 +387,6 @@ Module SQL_Functions
     End Function
     Function closeCompletelySQL(connection As SqlConnection) As Boolean
 
-        connection.ClearAllPools()
         connection.Close()
         connection.Dispose()
 
@@ -495,72 +578,82 @@ Module SQL_Functions
                 Return False
             End If
 
+        Else
+            ' No DB created yet.
+            Return False
         End If
 
     End Function
     Function listCampusesInListBox(lbox As ListBox) As Boolean
 
-        ' Dataset that the combobox is going to tie into.
-        Dim ds1 As New DataSet()
-        Dim command As SqlCommand
-        Dim adapter As New SqlDataAdapter()
+        ' Test if the DB is even created yet.
+        If My.Settings.DBCreated = True Then
 
-        ' Open connection to Master
-        Dim sqlConnList As SqlConnection = openSQL(False, False) ' True, to skip connecting to a specific database
+            ' Dataset that the combobox is going to tie into.
+            Dim ds1 As New DataSet()
+            Dim command As SqlCommand
+            Dim adapter As New SqlDataAdapter()
 
+            ' Open connection to Master
+            Dim sqlConnList As SqlConnection = openSQL(False, False) ' True, to skip connecting to a specific database
 
-
-        Dim sql = "Select campusId, campusName from campus"
-
-
-        ' SQL to DS1
-        Try
-            command = New SqlCommand(sql, sqlConnList)
-            adapter.SelectCommand = command
-            adapter.Fill(ds1)
-
-            adapter.Dispose()
-            command.Dispose()
+            Dim sql = "Select campusId, campusName from campus"
 
 
-        Catch ex As Exception
-            MessageBox.Show("Error in listing campuses for a listbox: " & ex.Message.ToString)
+            ' SQL to DS1
+            Try
+                command = New SqlCommand(sql, sqlConnList)
+                adapter.SelectCommand = command
+                adapter.Fill(ds1)
 
+                adapter.Dispose()
+                command.Dispose()
+
+
+            Catch ex As Exception
+                MessageBox.Show("Error in listing campuses for a listbox: " & ex.Message.ToString)
+
+                Return False
+            End Try
+
+
+            ' Setup the passed combobox for displaying our dataset
+
+            lbox.ValueMember = "campusId"
+            lbox.DisplayMember = "campusName"
+            lbox.DataSource = ds1.Tables(0)
+            sqlConnList.Close()
+            Return True
+        Else
+            ' No DB created yet.
             Return False
-        End Try
-
-
-        ' Setup the passed combobox for displaying our dataset
-
-        lbox.ValueMember = "campusId"
-        lbox.DisplayMember = "campusName"
-        lbox.DataSource = ds1.Tables(0)
-        sqlConnList.Close()
-        Return True
-
+        End If
     End Function
 
     Function listBuildingsInListBox(lbox As ListBox, campus As String) As Boolean
 
-        ' Dataset that the combobox is going to tie into.
-        Dim ds1 As New DataSet()
-        Dim command As SqlCommand
-        Dim adapter As New SqlDataAdapter()
+        ' Test if the DB is even created yet.
+        If My.Settings.DBCreated = True Then
 
-        ' Open connection to Master
-        Dim sqlConnList As SqlConnection = openSQL(False, False) ' True, to skip connecting to a specific database
+            ' Dataset that the combobox is going to tie into.
+            Dim ds1 As New DataSet()
+            Dim command As SqlCommand
+            Dim adapter As New SqlDataAdapter()
 
-        Dim sql = "Select dbBuildingID, buildingName from building where campusID = @campusID"
+            ' Open connection to Master
+            Dim sqlConnList As SqlConnection = openSQL(False, False) ' True, to skip connecting to a specific database
+
+            Dim sql = "Select dbBuildingID, buildingName from building where campusID = @campusID"
 
 
-        ' SQL to DS1
-        Try
-            command = New SqlCommand(sql, sqlConnList)
-            command.Parameters.AddWithValue("@campusID", campus)
-            adapter.SelectCommand = command
-            adapter.Fill(ds1)
+            ' SQL to DS1
+            Try
+                command = New SqlCommand(sql, sqlConnList)
+                command.Parameters.AddWithValue("@campusID", campus)
+                adapter.SelectCommand = command
+                adapter.Fill(ds1)
 
-            adapter.Dispose()
+                adapter.Dispose()
                 command.Dispose()
 
 
@@ -571,89 +664,105 @@ Module SQL_Functions
             End Try
 
 
-        ' Setup the passed combobox for displaying our dataset
+            ' Setup the passed combobox for displaying our dataset
 
-        lbox.ValueMember = "dbBuildingID"
-        lbox.DisplayMember = "buildingName"
-        lbox.DataSource = ds1.Tables(0)
-        sqlConnList.Close()
-        Return True
+            lbox.ValueMember = "dbBuildingID"
+            lbox.DisplayMember = "buildingName"
+            lbox.DataSource = ds1.Tables(0)
+            sqlConnList.Close()
+            Return True
+        Else
+            ' No DB created yet.
+            Return False
+        End If
     End Function
 
     Function listRoomsInListBox(lbox As ListBox, building As String) As Boolean
 
-        Dim ds1 As New DataSet()
-        Dim command As SqlCommand
-        Dim adapter As New SqlDataAdapter()
+        ' Test if the DB is even created yet.
+        If My.Settings.DBCreated = True Then
 
-        ' Open connection to Master
-        Dim sqlConnList As SqlConnection = openSQL(False, False) ' True, to skip connecting to a specific database
+            Dim ds1 As New DataSet()
+            Dim command As SqlCommand
+            Dim adapter As New SqlDataAdapter()
 
-        Dim sql = "Select dbRoomID, roomNum from rooms where dbBuildingID = @buildingID"
+            ' Open connection to Master
+            Dim sqlConnList As SqlConnection = openSQL(False, False) ' True, to skip connecting to a specific database
 
-
-        ' SQL to DS1
-        Try
-            command = New SqlCommand(sql, sqlConnList)
-            command.Parameters.AddWithValue("@buildingID", building)
-            adapter.SelectCommand = command
-            adapter.Fill(ds1)
-
-            adapter.Dispose()
-            command.Dispose()
+            Dim sql = "Select dbRoomID, roomNum from rooms where dbBuildingID = @buildingID"
 
 
-        Catch ex As Exception
-            MessageBox.Show("Error in listing rooms for a listbox: " & ex.Message.ToString)
+            ' SQL to DS1
+            Try
+                command = New SqlCommand(sql, sqlConnList)
+                command.Parameters.AddWithValue("@buildingID", building)
+                adapter.SelectCommand = command
+                adapter.Fill(ds1)
 
+                adapter.Dispose()
+                command.Dispose()
+
+
+            Catch ex As Exception
+                MessageBox.Show("Error in listing rooms for a listbox: " & ex.Message.ToString)
+
+                Return False
+            End Try
+
+
+            lbox.ValueMember = "dbRoomID"
+            lbox.DisplayMember = "roomNum"
+            lbox.DataSource = ds1.Tables(0)
+            sqlConnList.Close()
+            Return True
+        Else
+            ' No DB created yet.
             Return False
-        End Try
-
-
-        lbox.ValueMember = "dbRoomID"
-        lbox.DisplayMember = "roomNum"
-        lbox.DataSource = ds1.Tables(0)
-        sqlConnList.Close()
-        Return True
-
+        End If
     End Function
 
     Function listCoursesInComboBox(cbox As ComboBox) As Boolean
 
-        Dim ds1 As New DataSet()
-        Dim command As SqlCommand
-        Dim adapter As New SqlDataAdapter()
+        ' Test if the DB is even created yet.
+        If My.Settings.DBCreated = True Then
 
-        ' Open connection to Master
-        Dim sqlConnList As SqlConnection = openSQL(False, False) ' True, to skip connecting to a specific database
+            Dim ds1 As New DataSet()
+            Dim command As SqlCommand
+            Dim adapter As New SqlDataAdapter()
 
-        Dim sql = "Select c.courseID, CONCAT('CRN: ', c.crnNum, ' | Course#: ', s.subjectName, c.courseNum ) as corn from courses as c
+            ' Open connection to Master
+            Dim sqlConnList As SqlConnection = openSQL(False, False) ' True, to skip connecting to a specific database
+
+            Dim sql = "Select c.courseID, CONCAT('CRN: ', c.crnNum, ' | Course#: ', s.subjectName, c.courseNum ) as corn from courses as c
             join subjects as s on c.subjectsId = s.subjectsID"
 
 
 
-        Try
-            command = New SqlCommand(sql, sqlConnList)
-            adapter.SelectCommand = command
-            adapter.Fill(ds1)
+            Try
+                command = New SqlCommand(sql, sqlConnList)
+                adapter.SelectCommand = command
+                adapter.Fill(ds1)
 
-            adapter.Dispose()
-            command.Dispose()
+                adapter.Dispose()
+                command.Dispose()
 
 
-        Catch ex As Exception
-            MessageBox.Show("Error in listing courses for a combobox: " & ex.Message.ToString)
+            Catch ex As Exception
+                MessageBox.Show("Error in listing courses for a combobox: " & ex.Message.ToString)
 
+                Return False
+            End Try
+
+
+            cbox.ValueMember = "courseID"
+            cbox.DisplayMember = "corn"
+            cbox.DataSource = ds1.Tables(0)
+            sqlConnList.Close()
+            Return True
+        Else
+            ' No DB created yet.
             Return False
-        End Try
-
-
-        cbox.ValueMember = "courseID"
-        cbox.DisplayMember = "corn"
-        cbox.DataSource = ds1.Tables(0)
-        sqlConnList.Close()
-        Return True
-
+        End If
     End Function
 
     Function displayDateTimeBlocks(dgv As DataGridView, room As String) As Boolean
@@ -726,7 +835,7 @@ Module SQL_Functions
         Dim command As SqlCommand
         Dim adapter As New SqlDataAdapter()
 
-        Dim sql = "update dateTimeBlocks set dbRoomId = @roomID, coursesID = @courseID, dateTimeStampStart = @startTime, dateTimeStampEnd = @endTime 
+        Dim sql = "update dateTimeBlocks set dbRoomId = @roomID, coursesID = @courseID, dateTimeStampStart = @startTime, dateTimeStampEnd = @endTime
                 where dateTimeBlocksId = @selected"
 
         Dim sqlConnList As SqlConnection = openSQL(False, False)
@@ -758,7 +867,7 @@ Module SQL_Functions
         Dim command As SqlCommand
         Dim adapter As New SqlDataAdapter()
 
-        Dim sql = "delete from dateTimeBlocks where dateTimeBlocksId = @selected"
+        Dim sql = "DELETE FROM dateTimeBlocks WHERE dateTimeBlocksId = @selected"
 
         Dim sqlConnList As SqlConnection = openSQL(False, False)
 
@@ -783,7 +892,7 @@ Module SQL_Functions
         Dim command As SqlCommand
         Dim adapter As New SqlDataAdapter()
 
-        Dim sql = "select * from subjects"
+        Dim sql = "SELECT * FROM subjects"
 
         Dim sqlConnList As SqlConnection = openSQL(False, False)
 
@@ -803,18 +912,20 @@ Module SQL_Functions
         End Try
 
         dgv.DataSource = ds1.Tables(0)
+
         sqlConnList.Close()
+
         Return True
+
     End Function
 
     Function addSubject(subName As String, subNickname As String) As Boolean
-
 
         Dim ds As New DataSet
         Dim command As SqlCommand
         Dim adapter As New SqlDataAdapter()
 
-        Dim sql = "insert into subjects(subjectName, subjectNickName) values(@subName, @subNickName)"
+        Dim sql = "INSERT into subjects(subjectName, subjectNickName) values(@subName, @subNickName)"
 
         Dim sqlConnList As SqlConnection = openSQL(False, False)
 
@@ -831,8 +942,11 @@ Module SQL_Functions
         Catch ex As Exception
             MessageBox.Show("Error adding new Subject: " & ex.Message.ToString())
         End Try
+
         sqlConnList.Close()
+
         Return True
+
     End Function
 
     Function updateSubject(selected As String, subName As String, subNickname As String) As Boolean
@@ -842,8 +956,7 @@ Module SQL_Functions
         Dim command As SqlCommand
         Dim adapter As New SqlDataAdapter()
 
-        Dim sql = "update subjects set subjectName = @subName, subjectNickName = @subNickName
-                where subjectsID = @selected"
+        Dim sql = "UPDATE subjects SET subjectName = @subName, subjectNickName = @subNickName WHERE subjectsID = @selected"
 
         Dim sqlConnList As SqlConnection = openSQL(False, False)
 
@@ -859,10 +972,13 @@ Module SQL_Functions
             command.Dispose()
 
         Catch ex As Exception
-        MessageBox.Show("Error updating Subject: " & ex.Message.ToString())
+            MessageBox.Show("Error updating Subject: " & ex.Message.ToString())
         End Try
+
         sqlConnList.Close()
+
         Return True
+
     End Function
 
     Function deleteSubject(selected As String) As Boolean

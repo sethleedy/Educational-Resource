@@ -20,8 +20,10 @@ Public Class frmSettings
     Private Sub frmSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ' Check Security
-
+        ' Security login on load ?
+        chkRunWithoutSecurity.Checked = My.Settings.chkRunWithoutSecurity
         ' All good ?
+
 
         '''' Load form values.
         ' Database connection info
@@ -36,14 +38,14 @@ Public Class frmSettings
             ' Set and fill Semester combobox on tab Semesters
             ' Call function to fill in combobox with all the semesters in SQL server.
             listSemestersInDB(Me.semesterComboBox1)
+
+
             ' Set the default index on the semester selection on tab Database Information
-            comboSelectSemester.SelectedIndex = 0
-
+            ' Check make sure we still have an index that is not above our count. It can happen by loading other content that the index variable is no longer pointing to a valid index
+            If My.Settings.CurrentDBIndex < comboSelectSemester.Items.Count Then ' 0 base vs 1 base comparison.
+                comboSelectSemester.SelectedIndex = My.Settings.CurrentDBIndex
+            End If
         End If
-
-        ' Security login on load ?
-        chkRunWithoutSecurity.Checked = My.Settings.chkRunWithoutSecurity
-
 
     End Sub
 
@@ -181,11 +183,13 @@ Public Class frmSettings
     End Sub
 
     Private Sub semesterComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles semesterComboBox1.SelectedIndexChanged
+        Dim selectedDBIndex As Integer = CType(semesterComboBox1.SelectedIndex, Integer)
         Dim selectedDB As String = semesterComboBox1.Text
 
-        My.Settings.CurrentDB = selectedDB
+        My.Settings.CurrentDBIndex = selectedDBIndex ' Remember index to restore it to
 
         My.Settings.Save()
+
     End Sub
 
     Private Sub btnAddSubject_Click(sender As Object, e As EventArgs) Handles btnAddSubject.Click
@@ -223,4 +227,6 @@ Public Class frmSettings
             displaySubjects(Me.dgvSubjects)
         dgvSubjects.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
     End Sub
+
+
 End Class

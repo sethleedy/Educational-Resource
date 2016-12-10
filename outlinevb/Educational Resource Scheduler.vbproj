@@ -213,7 +213,7 @@
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
-      <LastGenOutput>Settings1.Designer.vb</LastGenOutput>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
