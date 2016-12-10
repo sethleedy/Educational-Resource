@@ -71,7 +71,7 @@ Module SQL_Functions
                                         '           Yes: Skip INSERT; Set variable to ID in Array that matches.
                                         If checkForValue(DataInString, "campusName", "campus") = True Then
                                             ' INSERT
-                                            MsgBox("Found data")
+                                            'MsgBox("Found data")
                                         Else
                                             ' Grab the exiting entrys ID
 
@@ -134,17 +134,14 @@ Module SQL_Functions
                 Using sqlCmd As SqlCommand = New SqlCommand(cmdText, sqlConn1)
                     Using reader As SqlDataReader = sqlCmd.ExecuteReader
                         bRet = reader.HasRows ' Yeah, it exists
-                        Console.WriteLine("Exists")
+                        Console.WriteLine(bRet)
 
                     End Using
                 End Using
 
             End Using ' Closes SQL Connection when done looping
 
-            'closeCompletelySQL(sqlConn1)
-
             Return bRet
-
 
         Else
             MsgBox("Unable to use SQL Connection in checkForValue().", MsgBoxStyle.Critical)
