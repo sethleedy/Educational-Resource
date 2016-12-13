@@ -57,6 +57,11 @@ Partial Class scheduler
         Me.btnAddTime = New System.Windows.Forms.Button()
         Me.btnUpdateTime = New System.Windows.Forms.Button()
         Me.btnDeleteTime = New System.Windows.Forms.Button()
+        Me.addRange = New System.Windows.Forms.Button()
+        Me.endSemester = New System.Windows.Forms.DateTimePicker()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.cbMeeting = New System.Windows.Forms.ComboBox()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupScope.SuspendLayout()
         Me.GroupFeatures.SuspendLayout()
@@ -71,7 +76,7 @@ Partial Class scheduler
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(9, 3, 0, 3)
-        Me.MenuStrip1.Size = New System.Drawing.Size(917, 26)
+        Me.MenuStrip1.Size = New System.Drawing.Size(984, 26)
         Me.MenuStrip1.TabIndex = 4
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -85,13 +90,13 @@ Partial Class scheduler
         'SettingsToolStripMenuItem
         '
         Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.SettingsToolStripMenuItem.Text = "Settings"
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'SearchToolStripMenuItem
@@ -110,19 +115,19 @@ Partial Class scheduler
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(136, 22)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem2.Text = "Help File"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(133, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
         '
         'AboutToolStripMenuItem1
         '
         Me.AboutToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AuthorsToolStripMenuItem1})
         Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
-        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(136, 22)
+        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
         Me.AboutToolStripMenuItem1.Text = "&About"
         '
         'AuthorsToolStripMenuItem1
@@ -335,7 +340,7 @@ Partial Class scheduler
         '
         'btnAddTime
         '
-        Me.btnAddTime.Location = New System.Drawing.Point(198, 272)
+        Me.btnAddTime.Location = New System.Drawing.Point(12, 272)
         Me.btnAddTime.Name = "btnAddTime"
         Me.btnAddTime.Size = New System.Drawing.Size(106, 23)
         Me.btnAddTime.TabIndex = 51
@@ -344,7 +349,7 @@ Partial Class scheduler
         '
         'btnUpdateTime
         '
-        Me.btnUpdateTime.Location = New System.Drawing.Point(310, 272)
+        Me.btnUpdateTime.Location = New System.Drawing.Point(124, 272)
         Me.btnUpdateTime.Name = "btnUpdateTime"
         Me.btnUpdateTime.Size = New System.Drawing.Size(124, 23)
         Me.btnUpdateTime.TabIndex = 52
@@ -353,22 +358,73 @@ Partial Class scheduler
         '
         'btnDeleteTime
         '
-        Me.btnDeleteTime.Location = New System.Drawing.Point(440, 272)
+        Me.btnDeleteTime.Location = New System.Drawing.Point(254, 272)
         Me.btnDeleteTime.Name = "btnDeleteTime"
         Me.btnDeleteTime.Size = New System.Drawing.Size(113, 23)
         Me.btnDeleteTime.TabIndex = 53
         Me.btnDeleteTime.Text = "Delete Time"
         Me.btnDeleteTime.UseVisualStyleBackColor = True
         '
+        'addRange
+        '
+        Me.addRange.Location = New System.Drawing.Point(660, 282)
+        Me.addRange.Name = "addRange"
+        Me.addRange.Size = New System.Drawing.Size(106, 23)
+        Me.addRange.TabIndex = 54
+        Me.addRange.Text = "Add Range"
+        Me.addRange.UseVisualStyleBackColor = True
+        '
+        'endSemester
+        '
+        Me.endSemester.Font = New System.Drawing.Font("Consolas", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.endSemester.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.endSemester.Location = New System.Drawing.Point(564, 222)
+        Me.endSemester.Name = "endSemester"
+        Me.endSemester.Size = New System.Drawing.Size(202, 23)
+        Me.endSemester.TabIndex = 49
+        Me.endSemester.Value = New Date(2017, 12, 18, 9, 55, 0, 0)
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(444, 222)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(109, 19)
+        Me.Label10.TabIndex = 55
+        Me.Label10.Text = "Semester End"
+        '
+        'cbMeeting
+        '
+        Me.cbMeeting.FormattingEnabled = True
+        Me.cbMeeting.Items.AddRange(New Object() {"Ounce Per Week", "MW/TH", "MWF"})
+        Me.cbMeeting.Location = New System.Drawing.Point(608, 251)
+        Me.cbMeeting.Name = "cbMeeting"
+        Me.cbMeeting.Size = New System.Drawing.Size(158, 25)
+        Me.cbMeeting.TabIndex = 56
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(487, 254)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(115, 19)
+        Me.Label11.TabIndex = 57
+        Me.Label11.Text = "Meeting Days"
+        '
         'scheduler
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(917, 620)
+        Me.ClientSize = New System.Drawing.Size(984, 762)
+        Me.Controls.Add(Me.Label11)
+        Me.Controls.Add(Me.cbMeeting)
+        Me.Controls.Add(Me.Label10)
+        Me.Controls.Add(Me.addRange)
         Me.Controls.Add(Me.btnDeleteTime)
         Me.Controls.Add(Me.btnUpdateTime)
         Me.Controls.Add(Me.btnAddTime)
         Me.Controls.Add(Me.lblRoom)
+        Me.Controls.Add(Me.endSemester)
         Me.Controls.Add(Me.dtpEnd)
         Me.Controls.Add(Me.dtpStart)
         Me.Controls.Add(Me.ComboBox1)
@@ -382,6 +438,7 @@ Partial Class scheduler
         Me.Font = New System.Drawing.Font("Lucida Calligraphy", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.MinimumSize = New System.Drawing.Size(950, 800)
         Me.Name = "scheduler"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Educational Resource Scheduler"
@@ -431,4 +488,9 @@ Partial Class scheduler
     Friend WithEvents btnAddTime As Button
     Friend WithEvents btnUpdateTime As Button
     Friend WithEvents btnDeleteTime As Button
+    Friend WithEvents addRange As Button
+    Friend WithEvents endSemester As DateTimePicker
+    Friend WithEvents Label10 As Label
+    Friend WithEvents cbMeeting As ComboBox
+    Friend WithEvents Label11 As Label
 End Class

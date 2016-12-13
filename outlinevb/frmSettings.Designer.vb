@@ -29,6 +29,7 @@ Partial Class frmSettings
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.btnSelectSemester = New System.Windows.Forms.Button()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.semesterComboBox1 = New System.Windows.Forms.ComboBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -80,6 +81,17 @@ Partial Class frmSettings
         Me.txtSubjectName = New System.Windows.Forms.TextBox()
         Me.txtSubjectNickName = New System.Windows.Forms.TextBox()
         Me.dgvSubjects = New System.Windows.Forms.DataGridView()
+        Me.TabPage6 = New System.Windows.Forms.TabPage()
+        Me.btnDeleteCourse = New System.Windows.Forms.Button()
+        Me.BtnUpdateCourse = New System.Windows.Forms.Button()
+        Me.btnAddCourse = New System.Windows.Forms.Button()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.CBSubjects = New System.Windows.Forms.ComboBox()
+        Me.txtCourseNum = New System.Windows.Forms.TextBox()
+        Me.txtCRN = New System.Windows.Forms.TextBox()
+        Me.DGVCourses = New System.Windows.Forms.DataGridView()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -97,6 +109,8 @@ Partial Class frmSettings
         Me.GroupBox8.SuspendLayout()
         Me.TabPage5.SuspendLayout()
         CType(Me.dgvSubjects, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage6.SuspendLayout()
+        CType(Me.DGVCourses, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -133,6 +147,7 @@ Partial Class frmSettings
         Me.TabControl1.Controls.Add(Me.TabPage3)
         Me.TabControl1.Controls.Add(Me.TabPage4)
         Me.TabControl1.Controls.Add(Me.TabPage5)
+        Me.TabControl1.Controls.Add(Me.TabPage6)
         Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl1.HotTrack = True
         Me.TabControl1.Location = New System.Drawing.Point(0, 25)
@@ -156,6 +171,7 @@ Partial Class frmSettings
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.btnSelectSemester)
         Me.GroupBox2.Controls.Add(Me.Label7)
         Me.GroupBox2.Controls.Add(Me.semesterComboBox1)
         Me.GroupBox2.Location = New System.Drawing.Point(8, 112)
@@ -165,10 +181,19 @@ Partial Class frmSettings
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Select semester for use"
         '
+        'btnSelectSemester
+        '
+        Me.btnSelectSemester.Location = New System.Drawing.Point(212, 26)
+        Me.btnSelectSemester.Name = "btnSelectSemester"
+        Me.btnSelectSemester.Size = New System.Drawing.Size(75, 23)
+        Me.btnSelectSemester.TabIndex = 2
+        Me.btnSelectSemester.Text = "Select"
+        Me.btnSelectSemester.UseVisualStyleBackColor = True
+        '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(212, 28)
+        Me.Label7.Location = New System.Drawing.Point(294, 26)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(246, 19)
         Me.Label7.TabIndex = 1
@@ -685,6 +710,114 @@ Partial Class frmSettings
         Me.dgvSubjects.Size = New System.Drawing.Size(460, 213)
         Me.dgvSubjects.TabIndex = 0
         '
+        'TabPage6
+        '
+        Me.TabPage6.Controls.Add(Me.btnDeleteCourse)
+        Me.TabPage6.Controls.Add(Me.BtnUpdateCourse)
+        Me.TabPage6.Controls.Add(Me.btnAddCourse)
+        Me.TabPage6.Controls.Add(Me.Label17)
+        Me.TabPage6.Controls.Add(Me.Label16)
+        Me.TabPage6.Controls.Add(Me.Label15)
+        Me.TabPage6.Controls.Add(Me.CBSubjects)
+        Me.TabPage6.Controls.Add(Me.txtCourseNum)
+        Me.TabPage6.Controls.Add(Me.txtCRN)
+        Me.TabPage6.Controls.Add(Me.DGVCourses)
+        Me.TabPage6.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage6.Name = "TabPage6"
+        Me.TabPage6.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage6.Size = New System.Drawing.Size(696, 307)
+        Me.TabPage6.TabIndex = 5
+        Me.TabPage6.Text = "Courses"
+        Me.TabPage6.UseVisualStyleBackColor = True
+        '
+        'btnDeleteCourse
+        '
+        Me.btnDeleteCourse.Location = New System.Drawing.Point(447, 59)
+        Me.btnDeleteCourse.Name = "btnDeleteCourse"
+        Me.btnDeleteCourse.Size = New System.Drawing.Size(124, 23)
+        Me.btnDeleteCourse.TabIndex = 9
+        Me.btnDeleteCourse.Text = "Delete Course"
+        Me.btnDeleteCourse.UseVisualStyleBackColor = True
+        '
+        'BtnUpdateCourse
+        '
+        Me.BtnUpdateCourse.Location = New System.Drawing.Point(260, 59)
+        Me.BtnUpdateCourse.Name = "BtnUpdateCourse"
+        Me.BtnUpdateCourse.Size = New System.Drawing.Size(130, 23)
+        Me.BtnUpdateCourse.TabIndex = 8
+        Me.BtnUpdateCourse.Text = "Update Course"
+        Me.BtnUpdateCourse.UseVisualStyleBackColor = True
+        '
+        'btnAddCourse
+        '
+        Me.btnAddCourse.Location = New System.Drawing.Point(89, 59)
+        Me.btnAddCourse.Name = "btnAddCourse"
+        Me.btnAddCourse.Size = New System.Drawing.Size(121, 23)
+        Me.btnAddCourse.TabIndex = 7
+        Me.btnAddCourse.Text = "Add Course"
+        Me.btnAddCourse.UseVisualStyleBackColor = True
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(429, 9)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(67, 19)
+        Me.Label17.TabIndex = 6
+        Me.Label17.Text = "Subject:"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(212, 9)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(72, 19)
+        Me.Label16.TabIndex = 5
+        Me.Label16.Text = "Course#:"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(34, 9)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(49, 19)
+        Me.Label15.TabIndex = 4
+        Me.Label15.Text = "CRN:"
+        '
+        'CBSubjects
+        '
+        Me.CBSubjects.FormattingEnabled = True
+        Me.CBSubjects.Location = New System.Drawing.Point(498, 6)
+        Me.CBSubjects.Name = "CBSubjects"
+        Me.CBSubjects.Size = New System.Drawing.Size(121, 25)
+        Me.CBSubjects.TabIndex = 3
+        '
+        'txtCourseNum
+        '
+        Me.txtCourseNum.Location = New System.Drawing.Point(290, 6)
+        Me.txtCourseNum.Name = "txtCourseNum"
+        Me.txtCourseNum.Size = New System.Drawing.Size(100, 26)
+        Me.txtCourseNum.TabIndex = 2
+        '
+        'txtCRN
+        '
+        Me.txtCRN.Location = New System.Drawing.Point(89, 6)
+        Me.txtCRN.Name = "txtCRN"
+        Me.txtCRN.Size = New System.Drawing.Size(100, 26)
+        Me.txtCRN.TabIndex = 1
+        '
+        'DGVCourses
+        '
+        Me.DGVCourses.AllowUserToAddRows = False
+        Me.DGVCourses.AllowUserToDeleteRows = False
+        Me.DGVCourses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DGVCourses.Location = New System.Drawing.Point(89, 88)
+        Me.DGVCourses.Name = "DGVCourses"
+        Me.DGVCourses.ReadOnly = True
+        Me.DGVCourses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DGVCourses.Size = New System.Drawing.Size(482, 213)
+        Me.DGVCourses.TabIndex = 0
+        '
         'ToolTip1
         '
         Me.ToolTip1.IsBalloon = True
@@ -729,6 +862,9 @@ Partial Class frmSettings
         Me.TabPage5.ResumeLayout(False)
         Me.TabPage5.PerformLayout()
         CType(Me.dgvSubjects, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage6.ResumeLayout(False)
+        Me.TabPage6.PerformLayout()
+        CType(Me.DGVCourses, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -791,4 +927,16 @@ Partial Class frmSettings
     Friend WithEvents txtSubjectName As TextBox
     Friend WithEvents txtSubjectNickName As TextBox
     Friend WithEvents dgvSubjects As DataGridView
+    Friend WithEvents btnSelectSemester As Button
+    Friend WithEvents TabPage6 As TabPage
+    Friend WithEvents Label17 As Label
+    Friend WithEvents Label16 As Label
+    Friend WithEvents Label15 As Label
+    Friend WithEvents CBSubjects As ComboBox
+    Friend WithEvents txtCourseNum As TextBox
+    Friend WithEvents txtCRN As TextBox
+    Friend WithEvents DGVCourses As DataGridView
+    Friend WithEvents btnDeleteCourse As Button
+    Friend WithEvents BtnUpdateCourse As Button
+    Friend WithEvents btnAddCourse As Button
 End Class

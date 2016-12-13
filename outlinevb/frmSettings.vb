@@ -180,7 +180,66 @@ Public Class frmSettings
         My.Settings.Save()
     End Sub
 
-    Private Sub semesterComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles semesterComboBox1.SelectedIndexChanged
+    'Private Sub semesterComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles semesterComboBox1.SelectedIndexChanged
+    '    Dim selectedDB As String = semesterComboBox1.Text
+
+    '    My.Settings.CurrentDB = selectedDB
+
+    '    My.Settings.Save()
+    'End Sub
+
+    Private Sub btnAddSubject_Click(sender As Object, e As EventArgs) Handles btnAddSubject.Click
+        Dim subName = txtSubjectName.Text.ToString()
+        Dim subNickName = txtSubjectNickName.Text.ToString()
+        Dim sqlStringAdd As String = My.Settings.addSubject.ToString()
+        If subName <> "" Then
+            addToTable(sqlStringAdd, subName, subNickName)
+            Dim sqlStringDisplay As String = My.Settings.selectSub.ToString()
+            displayDGV(Me.dgvSubjects, sqlStringDisplay)
+        End If
+    End Sub
+
+    Private Sub TabControl1_Selecting(sender As Object, e As TabControlCancelEventArgs) Handles TabControl1.Selecting
+        If TabControl1.SelectedTab Is TabPage5 Then
+            Dim sqlString As String = My.Settings.selectSub.ToString()
+            displayDGV(Me.dgvSubjects, sqlString)
+            dgvSubjects.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+        End If
+
+        If TabControl1.SelectedTab Is TabPage6 Then
+            Dim sqlStringCombo As String = My.Settings.comboSubjects.ToString()
+            Dim value As String = "subjectsID"
+            Dim display As String = "subjectName"
+            displayItemsInComboBox(CBSubjects, sqlStringCombo, value, display)
+
+            Dim sqlStringDGV As String = My.Settings.selectCourse.ToString()
+            displayDGV(Me.DGVCourses, sqlStringDGV)
+            DGVCourses.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+        End If
+    End Sub
+
+    Private Sub btnUpdateSubject_Click(sender As Object, e As EventArgs) Handles btnUpdateSubject.Click
+        Dim sqlStringUpdate As String = My.Settings.updateSubject.ToString()
+        Dim subName = txtSubjectName.Text.ToString()
+        Dim subNickName = txtSubjectNickName.Text.ToString()
+        Dim selected = dgvSubjects.SelectedRows(0).Cells(0).Value.ToString
+        If subName <> "" Then
+            updateTable(sqlStringUpdate, selected, subName, subNickName)
+            Dim sqlStringDisplay As String = My.Settings.selectSub.ToString()
+            displayDGV(Me.dgvSubjects, sqlStringDisplay)
+
+        End If
+    End Sub
+
+    Private Sub btnDeleteSubject_Click(sender As Object, e As EventArgs) Handles btnDeleteSubject.Click
+        Dim sqlStringDelete As String = My.Settings.deleteSubject.ToString()
+        Dim selected = dgvSubjects.SelectedRows(0).Cells(0).Value.ToString
+        deleteFromTable(sqlstringdelete, selected)
+        Dim sqlStringDisplay As String = My.Settings.selectSub.ToString()
+        displayDGV(Me.dgvSubjects, sqlStringDisplay)
+    End Sub
+
+    Private Sub btnSelectSemester_Click(sender As Object, e As EventArgs) Handles btnSelectSemester.Click
         Dim selectedDB As String = semesterComboBox1.Text
 
         My.Settings.CurrentDB = selectedDB
@@ -188,39 +247,46 @@ Public Class frmSettings
         My.Settings.Save()
     End Sub
 
-    Private Sub btnAddSubject_Click(sender As Object, e As EventArgs) Handles btnAddSubject.Click
-        Dim subName = txtSubjectName.Text.ToString()
-        Dim subNickName = txtSubjectNickName.Text.ToString()
+    Private Sub btnAddCourse_Click(sender As Object, e As EventArgs) Handles btnAddCourse.Click
+        If IsNumeric(txtCRN.Text) And IsNumeric(txtCourseNum.Text) Then
+            If txtCRN.Text <> "" And txtCourseNum.Text <> "" Then
+                If CBSubjects.SelectedIndex >= 0 Then
+                    Dim sqlStringAdd As String = My.Settings.addCourse.ToString()
+                    Dim crnNum = txtCRN.Text
+                    Dim courseNum = txtCourseNum.Text
+                    Dim subjectsID = CBSubjects.SelectedValue.ToString()
+                    addToTable(sqlStringAdd, courseNum, crnNum, subjectsID)
 
-        If subName <> "" Then
-            addSubject(subName, subNickName)
-            displaySubjects(Me.dgvSubjects)
-            dgvSubjects.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+                    Dim sqlStringDisplay As String = My.Settings.selectCourse.ToString()
+                    displayDGV(Me.DGVCourses, sqlStringDisplay)
+                End If
+            End If
         End If
     End Sub
 
-    Private Sub TabControl1_Selecting(sender As Object, e As TabControlCancelEventArgs) Handles TabControl1.Selecting
-        If TabControl1.SelectedTab Is TabPage5 Then
-            displaySubjects(Me.dgvSubjects)
-            dgvSubjects.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+    Private Sub BtnUpdateCourse_Click(sender As Object, e As EventArgs) Handles BtnUpdateCourse.Click
+        If IsNumeric(txtCRN.Text) And IsNumeric(txtCourseNum.Text) Then
+            If txtCRN.Text <> "" And txtCourseNum.Text <> "" Then
+                If CBSubjects.SelectedIndex >= 0 Then
+                    Dim sqlStringUpdate As String = My.Settings.updateCourse.ToString()
+                    Dim selected = DGVCourses.SelectedRows(0).Cells(0).Value.ToString
+                    Dim crnNum = txtCRN.Text
+                    Dim courseNum = txtCourseNum.Text
+                    Dim subjectsID = CBSubjects.SelectedValue.ToString()
+                    updateTable(sqlStringUpdate, selected, courseNum, crnNum, subjectsID)
+
+                    Dim sqlString As String = My.Settings.selectCourse.ToString()
+                    displayDGV(Me.DGVCourses, sqlString)
+                End If
+            End If
         End If
     End Sub
 
-    Private Sub btnUpdateSubject_Click(sender As Object, e As EventArgs) Handles btnUpdateSubject.Click
-        Dim subName = txtSubjectName.Text.ToString()
-        Dim subNickName = txtSubjectNickName.Text.ToString()
-        Dim selected = dgvSubjects.SelectedRows(0).Cells(0).Value.ToString
-        If subName <> "" Then
-            updateSubject(selected, subName, subNickName)
-            displaySubjects(Me.dgvSubjects)
-            dgvSubjects.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
-        End If
-    End Sub
-
-    Private Sub btnDeleteSubject_Click(sender As Object, e As EventArgs) Handles btnDeleteSubject.Click
-        Dim selected = dgvSubjects.SelectedRows(0).Cells(0).Value.ToString
-        deleteSubject(selected)
-            displaySubjects(Me.dgvSubjects)
-        dgvSubjects.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+    Private Sub btnDeleteCourse_Click(sender As Object, e As EventArgs) Handles btnDeleteCourse.Click
+        Dim sqlStringDelete As String = My.Settings.deleteCourse.ToString()
+        Dim selected = DGVCourses.SelectedRows(0).Cells(0).Value.ToString
+        deleteFromTable(sqlStringDelete, selected)
+        Dim sqlString As String = My.Settings.selectCourse.ToString()
+        displayDGV(Me.DGVCourses, sqlString)
     End Sub
 End Class
