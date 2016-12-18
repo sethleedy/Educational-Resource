@@ -196,7 +196,11 @@ Module commonFunctions
         If checkForProgramDB1() Then
 
             ' Load the Campus Listbox
-            listCampusesInListBox(scheduler.lbCampus)
+            Dim sqlString As String = My.Settings.listCampuses.ToString()
+            Dim value As String = "campusID"
+            Dim display As String = "campusName"
+            displayItemsListBox(scheduler.lbCampus, sqlString, value, display)
+
 
             ' Load Buildings
 

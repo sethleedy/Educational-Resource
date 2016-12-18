@@ -22,6 +22,7 @@ Partial Class scheduler
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(scheduler))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
@@ -42,7 +43,20 @@ Partial Class scheduler
         Me.GroupScope = New System.Windows.Forms.GroupBox()
         Me.btnPopCampus = New System.Windows.Forms.Button()
         Me.GroupFeatures = New System.Windows.Forms.GroupBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.chckActivatePrinters = New System.Windows.Forms.CheckBox()
+        Me.chckActivateFloor = New System.Windows.Forms.CheckBox()
+        Me.chckActivateProjector = New System.Windows.Forms.CheckBox()
+        Me.chckActivateMonitors = New System.Windows.Forms.CheckBox()
+        Me.chckActivateComputers = New System.Windows.Forms.CheckBox()
+        Me.chckActivateCapacity = New System.Windows.Forms.CheckBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.chckRaisedFloor = New System.Windows.Forms.CheckBox()
+        Me.chckProjector = New System.Windows.Forms.CheckBox()
+        Me.chckDual = New System.Windows.Forms.CheckBox()
+        Me.chckComputers = New System.Windows.Forms.CheckBox()
+        Me.btnSearch = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtCapacity = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -57,10 +71,33 @@ Partial Class scheduler
         Me.btnAddTime = New System.Windows.Forms.Button()
         Me.btnUpdateTime = New System.Windows.Forms.Button()
         Me.btnDeleteTime = New System.Windows.Forms.Button()
+        Me.addRange = New System.Windows.Forms.Button()
+        Me.endSemester = New System.Windows.Forms.DateTimePicker()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.cbMeeting = New System.Windows.Forms.ComboBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.rdoColPri = New System.Windows.Forms.RadioButton()
+        Me.rdoGrayPri = New System.Windows.Forms.RadioButton()
+        Me.rdoSharedPri = New System.Windows.Forms.RadioButton()
+        Me.gbPrinters = New System.Windows.Forms.GroupBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.rdoNoPri = New System.Windows.Forms.RadioButton()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.PanelPrinters = New System.Windows.Forms.Panel()
+        Me.btnRefresh = New System.Windows.Forms.Button()
+        Me.PanelEditTimes = New System.Windows.Forms.Panel()
+        Me.TTSched = New System.Windows.Forms.ToolTip(Me.components)
+        Me.PanelScope = New System.Windows.Forms.Panel()
+        Me.lblSelectADB = New System.Windows.Forms.Label()
+        Me.PanelSearch = New System.Windows.Forms.Panel()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupScope.SuspendLayout()
         Me.GroupFeatures.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.gbPrinters.SuspendLayout()
+        Me.PanelScope.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -71,7 +108,7 @@ Partial Class scheduler
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(9, 3, 0, 3)
-        Me.MenuStrip1.Size = New System.Drawing.Size(917, 26)
+        Me.MenuStrip1.Size = New System.Drawing.Size(984, 26)
         Me.MenuStrip1.TabIndex = 4
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -212,46 +249,184 @@ Partial Class scheduler
         '
         'GroupFeatures
         '
-        Me.GroupFeatures.Controls.Add(Me.TextBox1)
+        Me.GroupFeatures.Controls.Add(Me.chckActivatePrinters)
+        Me.GroupFeatures.Controls.Add(Me.PanelSearch)
+        Me.GroupFeatures.Controls.Add(Me.chckActivateFloor)
+        Me.GroupFeatures.Controls.Add(Me.chckActivateProjector)
+        Me.GroupFeatures.Controls.Add(Me.chckActivateMonitors)
+        Me.GroupFeatures.Controls.Add(Me.chckActivateComputers)
+        Me.GroupFeatures.Controls.Add(Me.chckActivateCapacity)
+        Me.GroupFeatures.Controls.Add(Me.Label16)
+        Me.GroupFeatures.Controls.Add(Me.Label15)
+        Me.GroupFeatures.Controls.Add(Me.Label14)
+        Me.GroupFeatures.Controls.Add(Me.chckRaisedFloor)
+        Me.GroupFeatures.Controls.Add(Me.chckProjector)
+        Me.GroupFeatures.Controls.Add(Me.chckDual)
+        Me.GroupFeatures.Controls.Add(Me.chckComputers)
+        Me.GroupFeatures.Controls.Add(Me.btnSearch)
         Me.GroupFeatures.Controls.Add(Me.Label4)
         Me.GroupFeatures.Controls.Add(Me.txtCapacity)
         Me.GroupFeatures.Controls.Add(Me.Label1)
-        Me.GroupFeatures.Location = New System.Drawing.Point(711, 29)
+        Me.GroupFeatures.Location = New System.Drawing.Point(711, 33)
         Me.GroupFeatures.Name = "GroupFeatures"
-        Me.GroupFeatures.Size = New System.Drawing.Size(193, 141)
+        Me.GroupFeatures.Size = New System.Drawing.Size(238, 332)
         Me.GroupFeatures.TabIndex = 28
         Me.GroupFeatures.TabStop = False
         Me.GroupFeatures.Text = "Room Features:"
         '
-        'TextBox1
+        'chckActivatePrinters
         '
-        Me.TextBox1.Location = New System.Drawing.Point(141, 59)
-        Me.TextBox1.MaxLength = 3
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(44, 26)
-        Me.TextBox1.TabIndex = 26
+        Me.chckActivatePrinters.AutoSize = True
+        Me.chckActivatePrinters.Location = New System.Drawing.Point(24, 171)
+        Me.chckActivatePrinters.Name = "chckActivatePrinters"
+        Me.chckActivatePrinters.Size = New System.Drawing.Size(15, 14)
+        Me.chckActivatePrinters.TabIndex = 40
+        Me.chckActivatePrinters.UseVisualStyleBackColor = True
+        '
+        'chckActivateFloor
+        '
+        Me.chckActivateFloor.AutoSize = True
+        Me.chckActivateFloor.Location = New System.Drawing.Point(24, 146)
+        Me.chckActivateFloor.Name = "chckActivateFloor"
+        Me.chckActivateFloor.Size = New System.Drawing.Size(15, 14)
+        Me.chckActivateFloor.TabIndex = 39
+        Me.chckActivateFloor.UseVisualStyleBackColor = True
+        '
+        'chckActivateProjector
+        '
+        Me.chckActivateProjector.AutoSize = True
+        Me.chckActivateProjector.Location = New System.Drawing.Point(24, 120)
+        Me.chckActivateProjector.Name = "chckActivateProjector"
+        Me.chckActivateProjector.Size = New System.Drawing.Size(15, 14)
+        Me.chckActivateProjector.TabIndex = 38
+        Me.chckActivateProjector.UseVisualStyleBackColor = True
+        '
+        'chckActivateMonitors
+        '
+        Me.chckActivateMonitors.AutoSize = True
+        Me.chckActivateMonitors.Location = New System.Drawing.Point(24, 90)
+        Me.chckActivateMonitors.Name = "chckActivateMonitors"
+        Me.chckActivateMonitors.Size = New System.Drawing.Size(15, 14)
+        Me.chckActivateMonitors.TabIndex = 37
+        Me.chckActivateMonitors.UseVisualStyleBackColor = True
+        '
+        'chckActivateComputers
+        '
+        Me.chckActivateComputers.AutoSize = True
+        Me.chckActivateComputers.Location = New System.Drawing.Point(24, 60)
+        Me.chckActivateComputers.Name = "chckActivateComputers"
+        Me.chckActivateComputers.Size = New System.Drawing.Size(15, 14)
+        Me.chckActivateComputers.TabIndex = 36
+        Me.chckActivateComputers.UseVisualStyleBackColor = True
+        '
+        'chckActivateCapacity
+        '
+        Me.chckActivateCapacity.AutoSize = True
+        Me.chckActivateCapacity.Location = New System.Drawing.Point(24, 25)
+        Me.chckActivateCapacity.Name = "chckActivateCapacity"
+        Me.chckActivateCapacity.Size = New System.Drawing.Size(15, 14)
+        Me.chckActivateCapacity.TabIndex = 35
+        Me.chckActivateCapacity.UseVisualStyleBackColor = True
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(65, 146)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(103, 19)
+        Me.Label16.TabIndex = 34
+        Me.Label16.Text = "Raised Floor"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(88, 115)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(79, 19)
+        Me.Label15.TabIndex = 33
+        Me.Label15.Text = "Projector"
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(48, 85)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(119, 19)
+        Me.Label14.TabIndex = 32
+        Me.Label14.Text = "Dual Monitors"
+        '
+        'chckRaisedFloor
+        '
+        Me.chckRaisedFloor.AutoSize = True
+        Me.chckRaisedFloor.Enabled = False
+        Me.chckRaisedFloor.Location = New System.Drawing.Point(201, 151)
+        Me.chckRaisedFloor.Name = "chckRaisedFloor"
+        Me.chckRaisedFloor.Size = New System.Drawing.Size(15, 14)
+        Me.chckRaisedFloor.TabIndex = 31
+        Me.chckRaisedFloor.UseVisualStyleBackColor = True
+        '
+        'chckProjector
+        '
+        Me.chckProjector.AutoSize = True
+        Me.chckProjector.Enabled = False
+        Me.chckProjector.Location = New System.Drawing.Point(201, 120)
+        Me.chckProjector.Name = "chckProjector"
+        Me.chckProjector.Size = New System.Drawing.Size(15, 14)
+        Me.chckProjector.TabIndex = 30
+        Me.chckProjector.UseVisualStyleBackColor = True
+        '
+        'chckDual
+        '
+        Me.chckDual.AutoSize = True
+        Me.chckDual.Enabled = False
+        Me.chckDual.Location = New System.Drawing.Point(201, 90)
+        Me.chckDual.Name = "chckDual"
+        Me.chckDual.Size = New System.Drawing.Size(15, 14)
+        Me.chckDual.TabIndex = 29
+        Me.chckDual.UseVisualStyleBackColor = True
+        '
+        'chckComputers
+        '
+        Me.chckComputers.AutoSize = True
+        Me.chckComputers.Enabled = False
+        Me.chckComputers.Location = New System.Drawing.Point(201, 60)
+        Me.chckComputers.Name = "chckComputers"
+        Me.chckComputers.Size = New System.Drawing.Size(15, 14)
+        Me.chckComputers.TabIndex = 28
+        Me.chckComputers.UseVisualStyleBackColor = True
+        '
+        'btnSearch
+        '
+        Me.btnSearch.Location = New System.Drawing.Point(157, 303)
+        Me.btnSearch.Name = "btnSearch"
+        Me.btnSearch.Size = New System.Drawing.Size(75, 23)
+        Me.btnSearch.TabIndex = 27
+        Me.btnSearch.Text = "Search"
+        Me.btnSearch.UseVisualStyleBackColor = True
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(6, 58)
+        Me.Label4.Location = New System.Drawing.Point(45, 58)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(121, 19)
+        Me.Label4.Size = New System.Drawing.Size(122, 19)
         Me.Label4.TabIndex = 25
-        Me.Label4.Text = "# of Computers"
+        Me.Label4.Text = "Has Computers"
         '
         'txtCapacity
         '
-        Me.txtCapacity.Location = New System.Drawing.Point(141, 22)
+        Me.txtCapacity.Enabled = False
+        Me.txtCapacity.Location = New System.Drawing.Point(180, 22)
         Me.txtCapacity.MaxLength = 3
         Me.txtCapacity.Name = "txtCapacity"
         Me.txtCapacity.Size = New System.Drawing.Size(43, 26)
         Me.txtCapacity.TabIndex = 24
+        Me.txtCapacity.Text = "30"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(6, 22)
+        Me.Label1.Location = New System.Drawing.Point(45, 22)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(111, 19)
         Me.Label1.TabIndex = 23
@@ -262,12 +437,13 @@ Partial Class scheduler
         Me.DataGridView1.AllowUserToAddRows = False
         Me.DataGridView1.AllowUserToDeleteRows = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(29, 343)
+        Me.DataGridView1.Location = New System.Drawing.Point(29, 367)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.Size = New System.Drawing.Size(859, 185)
         Me.DataGridView1.TabIndex = 29
+        Me.DataGridView1.Visible = False
         '
         'Label6
         '
@@ -312,7 +488,7 @@ Partial Class scheduler
         Me.dtpStart.Name = "dtpStart"
         Me.dtpStart.Size = New System.Drawing.Size(202, 23)
         Me.dtpStart.TabIndex = 48
-        Me.dtpStart.Value = New Date(2017, 8, 29, 8, 0, 0, 0)
+        Me.dtpStart.Value = New Date(2019, 8, 29, 8, 0, 0, 0)
         '
         'dtpEnd
         '
@@ -322,7 +498,7 @@ Partial Class scheduler
         Me.dtpEnd.Name = "dtpEnd"
         Me.dtpEnd.Size = New System.Drawing.Size(202, 23)
         Me.dtpEnd.TabIndex = 49
-        Me.dtpEnd.Value = New Date(2017, 8, 29, 9, 55, 0, 0)
+        Me.dtpEnd.Value = New Date(2019, 8, 29, 9, 55, 0, 0)
         '
         'lblRoom
         '
@@ -335,7 +511,7 @@ Partial Class scheduler
         '
         'btnAddTime
         '
-        Me.btnAddTime.Location = New System.Drawing.Point(198, 272)
+        Me.btnAddTime.Location = New System.Drawing.Point(12, 272)
         Me.btnAddTime.Name = "btnAddTime"
         Me.btnAddTime.Size = New System.Drawing.Size(106, 23)
         Me.btnAddTime.TabIndex = 51
@@ -344,7 +520,7 @@ Partial Class scheduler
         '
         'btnUpdateTime
         '
-        Me.btnUpdateTime.Location = New System.Drawing.Point(310, 272)
+        Me.btnUpdateTime.Location = New System.Drawing.Point(124, 272)
         Me.btnUpdateTime.Name = "btnUpdateTime"
         Me.btnUpdateTime.Size = New System.Drawing.Size(124, 23)
         Me.btnUpdateTime.TabIndex = 52
@@ -353,22 +529,223 @@ Partial Class scheduler
         '
         'btnDeleteTime
         '
-        Me.btnDeleteTime.Location = New System.Drawing.Point(440, 272)
+        Me.btnDeleteTime.Location = New System.Drawing.Point(254, 272)
         Me.btnDeleteTime.Name = "btnDeleteTime"
         Me.btnDeleteTime.Size = New System.Drawing.Size(113, 23)
         Me.btnDeleteTime.TabIndex = 53
         Me.btnDeleteTime.Text = "Delete Time"
         Me.btnDeleteTime.UseVisualStyleBackColor = True
         '
+        'addRange
+        '
+        Me.addRange.Enabled = False
+        Me.addRange.Location = New System.Drawing.Point(538, 271)
+        Me.addRange.Name = "addRange"
+        Me.addRange.Size = New System.Drawing.Size(106, 23)
+        Me.addRange.TabIndex = 54
+        Me.addRange.Text = "Add Range"
+        Me.TTSched.SetToolTip(Me.addRange, "Creates entries between the dates entered in Start Time and Semester End." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Uses t" &
+        "he Meeting Days field to determine how many entries to make.")
+        Me.addRange.UseVisualStyleBackColor = True
+        '
+        'endSemester
+        '
+        Me.endSemester.Font = New System.Drawing.Font("Consolas", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.endSemester.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.endSemester.Location = New System.Drawing.Point(442, 211)
+        Me.endSemester.Name = "endSemester"
+        Me.endSemester.Size = New System.Drawing.Size(202, 23)
+        Me.endSemester.TabIndex = 49
+        Me.endSemester.Value = New Date(2019, 12, 18, 9, 55, 0, 0)
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(322, 211)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(109, 19)
+        Me.Label10.TabIndex = 55
+        Me.Label10.Text = "Semester End"
+        '
+        'cbMeeting
+        '
+        Me.cbMeeting.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbMeeting.FormattingEnabled = True
+        Me.cbMeeting.Items.AddRange(New Object() {"Ounce Per Week", "MW/TH", "MWF"})
+        Me.cbMeeting.Location = New System.Drawing.Point(486, 240)
+        Me.cbMeeting.Name = "cbMeeting"
+        Me.cbMeeting.Size = New System.Drawing.Size(158, 25)
+        Me.cbMeeting.TabIndex = 56
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(365, 243)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(115, 19)
+        Me.Label11.TabIndex = 57
+        Me.Label11.Text = "Meeting Days"
+        '
+        'rdoColPri
+        '
+        Me.rdoColPri.AutoSize = True
+        Me.rdoColPri.Checked = True
+        Me.rdoColPri.Location = New System.Drawing.Point(162, 21)
+        Me.rdoColPri.Name = "rdoColPri"
+        Me.rdoColPri.Size = New System.Drawing.Size(14, 13)
+        Me.rdoColPri.TabIndex = 32
+        Me.rdoColPri.TabStop = True
+        Me.rdoColPri.UseVisualStyleBackColor = True
+        '
+        'rdoGrayPri
+        '
+        Me.rdoGrayPri.AutoSize = True
+        Me.rdoGrayPri.Location = New System.Drawing.Point(162, 50)
+        Me.rdoGrayPri.Name = "rdoGrayPri"
+        Me.rdoGrayPri.Size = New System.Drawing.Size(14, 13)
+        Me.rdoGrayPri.TabIndex = 33
+        Me.rdoGrayPri.UseVisualStyleBackColor = True
+        '
+        'rdoSharedPri
+        '
+        Me.rdoSharedPri.AutoSize = True
+        Me.rdoSharedPri.Location = New System.Drawing.Point(162, 77)
+        Me.rdoSharedPri.Name = "rdoSharedPri"
+        Me.rdoSharedPri.Size = New System.Drawing.Size(14, 13)
+        Me.rdoSharedPri.TabIndex = 34
+        Me.rdoSharedPri.UseVisualStyleBackColor = True
+        '
+        'gbPrinters
+        '
+        Me.gbPrinters.Controls.Add(Me.Label17)
+        Me.gbPrinters.Controls.Add(Me.rdoNoPri)
+        Me.gbPrinters.Controls.Add(Me.Label13)
+        Me.gbPrinters.Controls.Add(Me.Label12)
+        Me.gbPrinters.Controls.Add(Me.Label9)
+        Me.gbPrinters.Controls.Add(Me.rdoSharedPri)
+        Me.gbPrinters.Controls.Add(Me.rdoColPri)
+        Me.gbPrinters.Controls.Add(Me.rdoGrayPri)
+        Me.gbPrinters.Enabled = False
+        Me.gbPrinters.Location = New System.Drawing.Point(763, 200)
+        Me.gbPrinters.Name = "gbPrinters"
+        Me.gbPrinters.Size = New System.Drawing.Size(186, 126)
+        Me.gbPrinters.TabIndex = 35
+        Me.gbPrinters.TabStop = False
+        Me.gbPrinters.Text = "Printer:"
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(107, 104)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(49, 19)
+        Me.Label17.TabIndex = 62
+        Me.Label17.Text = "None"
+        '
+        'rdoNoPri
+        '
+        Me.rdoNoPri.AutoSize = True
+        Me.rdoNoPri.Location = New System.Drawing.Point(162, 106)
+        Me.rdoNoPri.Name = "rdoNoPri"
+        Me.rdoNoPri.Size = New System.Drawing.Size(14, 13)
+        Me.rdoNoPri.TabIndex = 61
+        Me.rdoNoPri.TabStop = True
+        Me.rdoNoPri.UseVisualStyleBackColor = True
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(26, 74)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(130, 19)
+        Me.Label13.TabIndex = 60
+        Me.Label13.Text = "Shared Hallway"
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(23, 47)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(133, 19)
+        Me.Label12.TabIndex = 59
+        Me.Label12.Text = "Black and White"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(98, 22)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(48, 19)
+        Me.Label9.TabIndex = 58
+        Me.Label9.Text = "Color"
+        '
+        'PanelPrinters
+        '
+        Me.PanelPrinters.Location = New System.Drawing.Point(717, 204)
+        Me.PanelPrinters.Name = "PanelPrinters"
+        Me.PanelPrinters.Size = New System.Drawing.Size(232, 157)
+        Me.PanelPrinters.TabIndex = 61
+        '
+        'btnRefresh
+        '
+        Me.btnRefresh.Location = New System.Drawing.Point(342, 183)
+        Me.btnRefresh.Name = "btnRefresh"
+        Me.btnRefresh.Size = New System.Drawing.Size(76, 23)
+        Me.btnRefresh.TabIndex = 58
+        Me.btnRefresh.Text = "Refresh"
+        Me.TTSched.SetToolTip(Me.btnRefresh, "Click this if you added new courses.")
+        Me.btnRefresh.UseVisualStyleBackColor = True
+        '
+        'PanelEditTimes
+        '
+        Me.PanelEditTimes.Location = New System.Drawing.Point(12, 175)
+        Me.PanelEditTimes.Name = "PanelEditTimes"
+        Me.PanelEditTimes.Size = New System.Drawing.Size(683, 180)
+        Me.PanelEditTimes.TabIndex = 59
+        '
+        'PanelScope
+        '
+        Me.PanelScope.Controls.Add(Me.lblSelectADB)
+        Me.PanelScope.Location = New System.Drawing.Point(12, 33)
+        Me.PanelScope.Name = "PanelScope"
+        Me.PanelScope.Size = New System.Drawing.Size(693, 137)
+        Me.PanelScope.TabIndex = 60
+        '
+        'lblSelectADB
+        '
+        Me.lblSelectADB.AutoSize = True
+        Me.lblSelectADB.Location = New System.Drawing.Point(32, 18)
+        Me.lblSelectADB.Name = "lblSelectADB"
+        Me.lblSelectADB.Size = New System.Drawing.Size(372, 38)
+        Me.lblSelectADB.TabIndex = 0
+        Me.lblSelectADB.Text = "Welcome to the Educational Resource Scheduler!" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Please Select a Database in 'Prog" &
+    "ram -> Settings'"
+        '
+        'PanelSearch
+        '
+        Me.PanelSearch.Location = New System.Drawing.Point(0, 0)
+        Me.PanelSearch.Name = "PanelSearch"
+        Me.PanelSearch.Size = New System.Drawing.Size(238, 332)
+        Me.PanelSearch.TabIndex = 61
+        '
         'scheduler
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(917, 620)
+        Me.ClientSize = New System.Drawing.Size(984, 762)
+        Me.Controls.Add(Me.PanelPrinters)
+        Me.Controls.Add(Me.PanelScope)
+        Me.Controls.Add(Me.PanelEditTimes)
+        Me.Controls.Add(Me.btnRefresh)
+        Me.Controls.Add(Me.Label11)
+        Me.Controls.Add(Me.cbMeeting)
+        Me.Controls.Add(Me.Label10)
+        Me.Controls.Add(Me.addRange)
         Me.Controls.Add(Me.btnDeleteTime)
         Me.Controls.Add(Me.btnUpdateTime)
         Me.Controls.Add(Me.btnAddTime)
         Me.Controls.Add(Me.lblRoom)
+        Me.Controls.Add(Me.endSemester)
         Me.Controls.Add(Me.dtpEnd)
         Me.Controls.Add(Me.dtpStart)
         Me.Controls.Add(Me.ComboBox1)
@@ -376,16 +753,17 @@ Partial Class scheduler
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.DataGridView1)
-        Me.Controls.Add(Me.GroupFeatures)
         Me.Controls.Add(Me.GroupScope)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.Controls.Add(Me.gbPrinters)
+        Me.Controls.Add(Me.GroupFeatures)
         Me.Font = New System.Drawing.Font("Lucida Calligraphy", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.MinimumSize = New System.Drawing.Size(950, 800)
         Me.Name = "scheduler"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Educational Resource Scheduler"
-        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.GroupScope.ResumeLayout(False)
@@ -393,6 +771,10 @@ Partial Class scheduler
         Me.GroupFeatures.ResumeLayout(False)
         Me.GroupFeatures.PerformLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.gbPrinters.ResumeLayout(False)
+        Me.gbPrinters.PerformLayout()
+        Me.PanelScope.ResumeLayout(False)
+        Me.PanelScope.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -410,7 +792,6 @@ Partial Class scheduler
     Friend WithEvents Label2 As Label
     Friend WithEvents GroupScope As GroupBox
     Friend WithEvents GroupFeatures As GroupBox
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Label4 As Label
     Friend WithEvents txtCapacity As TextBox
     Friend WithEvents Label1 As Label
@@ -431,4 +812,39 @@ Partial Class scheduler
     Friend WithEvents btnAddTime As Button
     Friend WithEvents btnUpdateTime As Button
     Friend WithEvents btnDeleteTime As Button
+    Friend WithEvents addRange As Button
+    Friend WithEvents endSemester As DateTimePicker
+    Friend WithEvents Label10 As Label
+    Friend WithEvents cbMeeting As ComboBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents btnSearch As Button
+    Friend WithEvents chckComputers As CheckBox
+    Friend WithEvents Label16 As Label
+    Friend WithEvents Label15 As Label
+    Friend WithEvents Label14 As Label
+    Friend WithEvents chckRaisedFloor As CheckBox
+    Friend WithEvents chckProjector As CheckBox
+    Friend WithEvents chckDual As CheckBox
+    Friend WithEvents rdoColPri As RadioButton
+    Friend WithEvents rdoGrayPri As RadioButton
+    Friend WithEvents rdoSharedPri As RadioButton
+    Friend WithEvents gbPrinters As GroupBox
+    Friend WithEvents Label13 As Label
+    Friend WithEvents Label12 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents rdoNoPri As RadioButton
+    Friend WithEvents Label17 As Label
+    Friend WithEvents btnRefresh As Button
+    Friend WithEvents PanelEditTimes As Panel
+    Friend WithEvents TTSched As ToolTip
+    Friend WithEvents PanelScope As Panel
+    Friend WithEvents lblSelectADB As Label
+    Friend WithEvents PanelSearch As Panel
+    Friend WithEvents PanelPrinters As Panel
+    Friend WithEvents chckActivatePrinters As CheckBox
+    Friend WithEvents chckActivateFloor As CheckBox
+    Friend WithEvents chckActivateProjector As CheckBox
+    Friend WithEvents chckActivateMonitors As CheckBox
+    Friend WithEvents chckActivateComputers As CheckBox
+    Friend WithEvents chckActivateCapacity As CheckBox
 End Class

@@ -29,6 +29,8 @@ Partial Class frmSettings
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.btnRefresh = New System.Windows.Forms.Button()
+        Me.btnSelectSemester = New System.Windows.Forms.Button()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.semesterComboBox1 = New System.Windows.Forms.ComboBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -80,7 +82,22 @@ Partial Class frmSettings
         Me.txtSubjectName = New System.Windows.Forms.TextBox()
         Me.txtSubjectNickName = New System.Windows.Forms.TextBox()
         Me.dgvSubjects = New System.Windows.Forms.DataGridView()
+        Me.TabPage6 = New System.Windows.Forms.TabPage()
+        Me.btnDeleteCourse = New System.Windows.Forms.Button()
+        Me.BtnUpdateCourse = New System.Windows.Forms.Button()
+        Me.btnAddCourse = New System.Windows.Forms.Button()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.CBSubjects = New System.Windows.Forms.ComboBox()
+        Me.txtCourseNum = New System.Windows.Forms.TextBox()
+        Me.txtCRN = New System.Windows.Forms.TextBox()
+        Me.DGVCourses = New System.Windows.Forms.DataGridView()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.txtDBFilePath = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.txtBckUpPath = New System.Windows.Forms.TextBox()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -97,6 +114,8 @@ Partial Class frmSettings
         Me.GroupBox8.SuspendLayout()
         Me.TabPage5.SuspendLayout()
         CType(Me.dgvSubjects, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage6.SuspendLayout()
+        CType(Me.DGVCourses, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -105,7 +124,7 @@ Partial Class frmSettings
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(9, 3, 0, 3)
-        Me.MenuStrip1.Size = New System.Drawing.Size(704, 25)
+        Me.MenuStrip1.Size = New System.Drawing.Size(841, 25)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -133,13 +152,14 @@ Partial Class frmSettings
         Me.TabControl1.Controls.Add(Me.TabPage3)
         Me.TabControl1.Controls.Add(Me.TabPage4)
         Me.TabControl1.Controls.Add(Me.TabPage5)
+        Me.TabControl1.Controls.Add(Me.TabPage6)
         Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl1.HotTrack = True
         Me.TabControl1.Location = New System.Drawing.Point(0, 25)
         Me.TabControl1.Multiline = True
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(704, 337)
+        Me.TabControl1.Size = New System.Drawing.Size(841, 480)
         Me.TabControl1.TabIndex = 5
         '
         'TabPage1
@@ -149,13 +169,15 @@ Partial Class frmSettings
         Me.TabPage1.Location = New System.Drawing.Point(4, 26)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(696, 307)
+        Me.TabPage1.Size = New System.Drawing.Size(833, 307)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Semesters"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.btnRefresh)
+        Me.GroupBox2.Controls.Add(Me.btnSelectSemester)
         Me.GroupBox2.Controls.Add(Me.Label7)
         Me.GroupBox2.Controls.Add(Me.semesterComboBox1)
         Me.GroupBox2.Location = New System.Drawing.Point(8, 112)
@@ -165,10 +187,28 @@ Partial Class frmSettings
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Select semester for use"
         '
+        'btnRefresh
+        '
+        Me.btnRefresh.Location = New System.Drawing.Point(5, 71)
+        Me.btnRefresh.Name = "btnRefresh"
+        Me.btnRefresh.Size = New System.Drawing.Size(75, 23)
+        Me.btnRefresh.TabIndex = 3
+        Me.btnRefresh.Text = "Refresh"
+        Me.btnRefresh.UseVisualStyleBackColor = True
+        '
+        'btnSelectSemester
+        '
+        Me.btnSelectSemester.Location = New System.Drawing.Point(212, 26)
+        Me.btnSelectSemester.Name = "btnSelectSemester"
+        Me.btnSelectSemester.Size = New System.Drawing.Size(75, 23)
+        Me.btnSelectSemester.TabIndex = 2
+        Me.btnSelectSemester.Text = "Select"
+        Me.btnSelectSemester.UseVisualStyleBackColor = True
+        '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(212, 28)
+        Me.Label7.Location = New System.Drawing.Point(294, 26)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(246, 19)
         Me.Label7.TabIndex = 1
@@ -199,13 +239,17 @@ Partial Class frmSettings
         Me.TabPage2.Controls.Add(Me.GroupBox3)
         Me.TabPage2.Location = New System.Drawing.Point(4, 26)
         Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Size = New System.Drawing.Size(696, 307)
+        Me.TabPage2.Size = New System.Drawing.Size(833, 450)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Database information"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.Label19)
+        Me.GroupBox4.Controls.Add(Me.txtBckUpPath)
+        Me.GroupBox4.Controls.Add(Me.Label18)
+        Me.GroupBox4.Controls.Add(Me.txtDBFilePath)
         Me.GroupBox4.Controls.Add(Me.DateTimePickSemesterYear)
         Me.GroupBox4.Controls.Add(Me.comboSelectSemester)
         Me.GroupBox4.Controls.Add(Me.Label4)
@@ -214,7 +258,7 @@ Partial Class frmSettings
         Me.GroupBox4.Controls.Add(Me.DBReset)
         Me.GroupBox4.Location = New System.Drawing.Point(8, 200)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(680, 100)
+        Me.GroupBox4.Size = New System.Drawing.Size(789, 220)
         Me.GroupBox4.TabIndex = 4
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Database operations"
@@ -245,7 +289,7 @@ Partial Class frmSettings
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(162, 68)
+        Me.Label4.Location = New System.Drawing.Point(463, 184)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(163, 19)
         Me.Label4.TabIndex = 3
@@ -262,7 +306,7 @@ Partial Class frmSettings
         '
         'DBBackup
         '
-        Me.DBBackup.Location = New System.Drawing.Point(6, 61)
+        Me.DBBackup.Location = New System.Drawing.Point(632, 177)
         Me.DBBackup.Name = "DBBackup"
         Me.DBBackup.Size = New System.Drawing.Size(150, 30)
         Me.DBBackup.TabIndex = 1
@@ -406,7 +450,7 @@ Partial Class frmSettings
         Me.TabPage3.Controls.Add(Me.GroupBox5)
         Me.TabPage3.Location = New System.Drawing.Point(4, 26)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(696, 307)
+        Me.TabPage3.Size = New System.Drawing.Size(833, 307)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "User accounts"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -545,7 +589,7 @@ Partial Class frmSettings
         Me.TabPage4.Location = New System.Drawing.Point(4, 26)
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage4.Size = New System.Drawing.Size(696, 307)
+        Me.TabPage4.Size = New System.Drawing.Size(833, 307)
         Me.TabPage4.TabIndex = 3
         Me.TabPage4.Text = "Misc"
         Me.TabPage4.UseVisualStyleBackColor = True
@@ -607,7 +651,7 @@ Partial Class frmSettings
         Me.TabPage5.Location = New System.Drawing.Point(4, 26)
         Me.TabPage5.Name = "TabPage5"
         Me.TabPage5.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage5.Size = New System.Drawing.Size(696, 307)
+        Me.TabPage5.Size = New System.Drawing.Size(833, 307)
         Me.TabPage5.TabIndex = 4
         Me.TabPage5.Text = "Subjects"
         Me.TabPage5.UseVisualStyleBackColor = True
@@ -685,15 +729,156 @@ Partial Class frmSettings
         Me.dgvSubjects.Size = New System.Drawing.Size(460, 213)
         Me.dgvSubjects.TabIndex = 0
         '
+        'TabPage6
+        '
+        Me.TabPage6.Controls.Add(Me.btnDeleteCourse)
+        Me.TabPage6.Controls.Add(Me.BtnUpdateCourse)
+        Me.TabPage6.Controls.Add(Me.btnAddCourse)
+        Me.TabPage6.Controls.Add(Me.Label17)
+        Me.TabPage6.Controls.Add(Me.Label16)
+        Me.TabPage6.Controls.Add(Me.Label15)
+        Me.TabPage6.Controls.Add(Me.CBSubjects)
+        Me.TabPage6.Controls.Add(Me.txtCourseNum)
+        Me.TabPage6.Controls.Add(Me.txtCRN)
+        Me.TabPage6.Controls.Add(Me.DGVCourses)
+        Me.TabPage6.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage6.Name = "TabPage6"
+        Me.TabPage6.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage6.Size = New System.Drawing.Size(833, 307)
+        Me.TabPage6.TabIndex = 5
+        Me.TabPage6.Text = "Courses"
+        Me.TabPage6.UseVisualStyleBackColor = True
+        '
+        'btnDeleteCourse
+        '
+        Me.btnDeleteCourse.Location = New System.Drawing.Point(447, 59)
+        Me.btnDeleteCourse.Name = "btnDeleteCourse"
+        Me.btnDeleteCourse.Size = New System.Drawing.Size(124, 23)
+        Me.btnDeleteCourse.TabIndex = 9
+        Me.btnDeleteCourse.Text = "Delete Course"
+        Me.btnDeleteCourse.UseVisualStyleBackColor = True
+        '
+        'BtnUpdateCourse
+        '
+        Me.BtnUpdateCourse.Location = New System.Drawing.Point(260, 59)
+        Me.BtnUpdateCourse.Name = "BtnUpdateCourse"
+        Me.BtnUpdateCourse.Size = New System.Drawing.Size(130, 23)
+        Me.BtnUpdateCourse.TabIndex = 8
+        Me.BtnUpdateCourse.Text = "Update Course"
+        Me.BtnUpdateCourse.UseVisualStyleBackColor = True
+        '
+        'btnAddCourse
+        '
+        Me.btnAddCourse.Location = New System.Drawing.Point(89, 59)
+        Me.btnAddCourse.Name = "btnAddCourse"
+        Me.btnAddCourse.Size = New System.Drawing.Size(121, 23)
+        Me.btnAddCourse.TabIndex = 7
+        Me.btnAddCourse.Text = "Add Course"
+        Me.btnAddCourse.UseVisualStyleBackColor = True
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(429, 9)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(67, 19)
+        Me.Label17.TabIndex = 6
+        Me.Label17.Text = "Subject:"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(212, 9)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(72, 19)
+        Me.Label16.TabIndex = 5
+        Me.Label16.Text = "Course#:"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(34, 9)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(49, 19)
+        Me.Label15.TabIndex = 4
+        Me.Label15.Text = "CRN:"
+        '
+        'CBSubjects
+        '
+        Me.CBSubjects.FormattingEnabled = True
+        Me.CBSubjects.Location = New System.Drawing.Point(498, 6)
+        Me.CBSubjects.Name = "CBSubjects"
+        Me.CBSubjects.Size = New System.Drawing.Size(121, 25)
+        Me.CBSubjects.TabIndex = 3
+        '
+        'txtCourseNum
+        '
+        Me.txtCourseNum.Location = New System.Drawing.Point(290, 6)
+        Me.txtCourseNum.Name = "txtCourseNum"
+        Me.txtCourseNum.Size = New System.Drawing.Size(100, 26)
+        Me.txtCourseNum.TabIndex = 2
+        '
+        'txtCRN
+        '
+        Me.txtCRN.Location = New System.Drawing.Point(89, 6)
+        Me.txtCRN.Name = "txtCRN"
+        Me.txtCRN.Size = New System.Drawing.Size(100, 26)
+        Me.txtCRN.TabIndex = 1
+        '
+        'DGVCourses
+        '
+        Me.DGVCourses.AllowUserToAddRows = False
+        Me.DGVCourses.AllowUserToDeleteRows = False
+        Me.DGVCourses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DGVCourses.Location = New System.Drawing.Point(89, 88)
+        Me.DGVCourses.Name = "DGVCourses"
+        Me.DGVCourses.ReadOnly = True
+        Me.DGVCourses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DGVCourses.Size = New System.Drawing.Size(482, 213)
+        Me.DGVCourses.TabIndex = 0
+        '
         'ToolTip1
         '
         Me.ToolTip1.IsBalloon = True
+        '
+        'txtDBFilePath
+        '
+        Me.txtDBFilePath.Location = New System.Drawing.Point(6, 97)
+        Me.txtDBFilePath.Name = "txtDBFilePath"
+        Me.txtDBFilePath.Size = New System.Drawing.Size(777, 26)
+        Me.txtDBFilePath.TabIndex = 6
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(6, 78)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(157, 19)
+        Me.Label18.TabIndex = 7
+        Me.Label18.Text = "Database File Path:"
+        '
+        'txtBckUpPath
+        '
+        Me.txtBckUpPath.Location = New System.Drawing.Point(6, 145)
+        Me.txtBckUpPath.Name = "txtBckUpPath"
+        Me.txtBckUpPath.Size = New System.Drawing.Size(776, 26)
+        Me.txtBckUpPath.TabIndex = 8
+        Me.txtBckUpPath.Text = "C:\Users\Ryan\Documents\newBackup"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(10, 126)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(109, 19)
+        Me.Label19.TabIndex = 9
+        Me.Label19.Text = "Backup Path:"
         '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(704, 362)
+        Me.ClientSize = New System.Drawing.Size(841, 505)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Font = New System.Drawing.Font("Lucida Calligraphy", 10.0!)
@@ -705,7 +890,7 @@ Partial Class frmSettings
         Me.Name = "frmSettings"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "frmSettings"
+        Me.Text = "Settings"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.TabControl1.ResumeLayout(False)
@@ -729,6 +914,9 @@ Partial Class frmSettings
         Me.TabPage5.ResumeLayout(False)
         Me.TabPage5.PerformLayout()
         CType(Me.dgvSubjects, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage6.ResumeLayout(False)
+        Me.TabPage6.PerformLayout()
+        CType(Me.DGVCourses, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -791,4 +979,21 @@ Partial Class frmSettings
     Friend WithEvents txtSubjectName As TextBox
     Friend WithEvents txtSubjectNickName As TextBox
     Friend WithEvents dgvSubjects As DataGridView
+    Friend WithEvents btnSelectSemester As Button
+    Friend WithEvents TabPage6 As TabPage
+    Friend WithEvents Label17 As Label
+    Friend WithEvents Label16 As Label
+    Friend WithEvents Label15 As Label
+    Friend WithEvents CBSubjects As ComboBox
+    Friend WithEvents txtCourseNum As TextBox
+    Friend WithEvents txtCRN As TextBox
+    Friend WithEvents DGVCourses As DataGridView
+    Friend WithEvents btnDeleteCourse As Button
+    Friend WithEvents BtnUpdateCourse As Button
+    Friend WithEvents btnAddCourse As Button
+    Friend WithEvents btnRefresh As Button
+    Friend WithEvents Label18 As Label
+    Friend WithEvents txtDBFilePath As TextBox
+    Friend WithEvents Label19 As Label
+    Friend WithEvents txtBckUpPath As TextBox
 End Class

@@ -5,7 +5,7 @@
     <Setting Name="strCreateDatabase1" Type="System.String" Scope="Application">
       <Value Profile="(Default)">USE [master]
 GO
-/****** Object:  Database [EduResSch-template1]    Script Date: 10/14/2016 8:07:05 PM ******/
+/****** Object:  Database [EduResSch-template1]    Script Date: 11/26/2016 6:22:55 PM ******/
 CREATE DATABASE [EduResSch-template1]
 GO
 ALTER DATABASE [EduResSch-template1] SET COMPATIBILITY_LEVEL = 120
@@ -77,12 +77,12 @@ EXEC sys.sp_db_vardecimal_storage_format N'EduResSch-template1', N'ON'
 GO
 USE [EduResSch-template1]
 GO
-/****** Object:  Table [dbo].[building]    Script Date: 11/7/2016 10:33:42 PM ******/
+/****** Object:  Table [dbo].[buildings]    Script Date: 11/26/2016 6:22:55 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[building](
+CREATE TABLE [dbo].[buildings](
 	[dbBuildingId] [int] IDENTITY(1,1) NOT NULL,
 	[buildingName] [nvarchar](50) NOT NULL,
 	[buildingNickName] [nvarchar](50) NULL,
@@ -94,7 +94,7 @@ CREATE TABLE [dbo].[building](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[campus]    Script Date: 11/7/2016 10:33:42 PM ******/
+/****** Object:  Table [dbo].[campus]    Script Date: 11/26/2016 6:22:55 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -110,7 +110,7 @@ CREATE TABLE [dbo].[campus](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[courses]    Script Date: 11/7/2016 10:33:42 PM ******/
+/****** Object:  Table [dbo].[courses]    Script Date: 11/26/2016 6:22:55 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -127,7 +127,7 @@ CREATE TABLE [dbo].[courses](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[dateTimeBlocks]    Script Date: 11/7/2016 10:33:42 PM ******/
+/****** Object:  Table [dbo].[dateTimeBlocks]    Script Date: 11/26/2016 6:22:55 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -147,7 +147,7 @@ CREATE TABLE [dbo].[dateTimeBlocks](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[featuresDecriptions]    Script Date: 11/7/2016 10:33:42 PM ******/
+/****** Object:  Table [dbo].[featuresDecriptions]    Script Date: 11/26/2016 6:22:55 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -164,7 +164,7 @@ CREATE TABLE [dbo].[featuresDecriptions](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[roomFeatures]    Script Date: 11/7/2016 10:33:42 PM ******/
+/****** Object:  Table [dbo].[roomFeatures]    Script Date: 11/26/2016 6:22:55 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -187,7 +187,7 @@ CREATE TABLE [dbo].[roomFeatures](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[rooms]    Script Date: 11/7/2016 10:33:42 PM ******/
+/****** Object:  Table [dbo].[rooms]    Script Date: 11/26/2016 6:22:55 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -204,7 +204,7 @@ CREATE TABLE [dbo].[rooms](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[subjects]    Script Date: 11/7/2016 10:33:42 PM ******/
+/****** Object:  Table [dbo].[subjects]    Script Date: 11/26/2016 6:22:55 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -220,10 +220,10 @@ CREATE TABLE [dbo].[subjects](
 ) ON [PRIMARY]
 
 GO
-ALTER TABLE [dbo].[building]  WITH CHECK ADD  CONSTRAINT [FK_building_campus] FOREIGN KEY([campusId])
+ALTER TABLE [dbo].[buildings]  WITH CHECK ADD  CONSTRAINT [FK_building_campus] FOREIGN KEY([campusId])
 REFERENCES [dbo].[campus] ([campusId])
 GO
-ALTER TABLE [dbo].[building] CHECK CONSTRAINT [FK_building_campus]
+ALTER TABLE [dbo].[buildings] CHECK CONSTRAINT [FK_building_campus]
 GO
 ALTER TABLE [dbo].[courses]  WITH CHECK ADD  CONSTRAINT [FK_courses_subjects] FOREIGN KEY([subjectsId])
 REFERENCES [dbo].[subjects] ([subjectsId])
@@ -251,7 +251,7 @@ GO
 ALTER TABLE [dbo].[roomFeatures] CHECK CONSTRAINT [FK_roomFeatures_rooms]
 GO
 ALTER TABLE [dbo].[rooms]  WITH CHECK ADD  CONSTRAINT [FK_rooms_building] FOREIGN KEY([dbBuildingId])
-REFERENCES [dbo].[building] ([dbBuildingId])
+REFERENCES [dbo].[buildings] ([dbBuildingId])
 GO
 ALTER TABLE [dbo].[rooms] CHECK CONSTRAINT [FK_rooms_building]
 GO
@@ -398,6 +398,74 @@ GO</Value>
     </Setting>
     <Setting Name="DBCreated" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="selectDTB" Type="System.String" Scope="User">
+      <Value Profile="(Default)">select d.dateTimeBlocksID as ID, CONCAT( s.subjectName, c.courseNum) as Course, c.crnNum as CRN, d.dateTimeStampStart as Start_Time, d.dateTimeStampEnd as End_Time from  dateTimeBlocks as d
+                    join courses as c on d.coursesId = c.courseId
+                    join subjects as s on c.subjectsId = s.subjectsId
+                    where dbroomID = @roomID</Value>
+    </Setting>
+    <Setting Name="selectSub" Type="System.String" Scope="User">
+      <Value Profile="(Default)">select * from subjects</Value>
+    </Setting>
+    <Setting Name="selectCourse" Type="System.String" Scope="User">
+      <Value Profile="(Default)">select c.courseID, c.courseNum, c.crnNum, s.subjectName from courses as c
+            join Subjects as s on s.subjectsId = c.subjectsId</Value>
+    </Setting>
+    <Setting Name="listRooms" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Select dbRoomID, roomNum from rooms where dbBuildingID = @containerID</Value>
+    </Setting>
+    <Setting Name="listBuildings" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Select dbBuildingID, buildingName from buildings where campusID = @containerID</Value>
+    </Setting>
+    <Setting Name="listCampuses" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Select campusId, campusName from campus</Value>
+    </Setting>
+    <Setting Name="comboCourses" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Select c.courseID, CONCAT('CRN: ', c.crnNum, ' | Course#: ', s.subjectName, c.courseNum ) as corn from courses as c
+            join subjects as s on c.subjectsId = s.subjectsID</Value>
+    </Setting>
+    <Setting Name="comboSubjects" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Select subjectsID, subjectName from Subjects</Value>
+    </Setting>
+    <Setting Name="addDTB" Type="System.String" Scope="User">
+      <Value Profile="(Default)">insert into dateTimeBlocks(dbRoomID, coursesID, dateTimeStampStart, dateTimeStampEnd, daylightsavingsactive) values(@first, @second, @startTime, @endTime, 1)</Value>
+    </Setting>
+    <Setting Name="addSubject" Type="System.String" Scope="User">
+      <Value Profile="(Default)">insert into subjects(subjectName, subjectNickName) values(@first, @second)</Value>
+    </Setting>
+    <Setting Name="addCourse" Type="System.String" Scope="User">
+      <Value Profile="(Default)">insert into courses(courseNum, crnNum, subjectsID) values(@first, @second, @third)</Value>
+    </Setting>
+    <Setting Name="updateDTB" Type="System.String" Scope="User">
+      <Value Profile="(Default)">update dateTimeBlocks set dbRoomId = @first, coursesID = @second, dateTimeStampStart = @third, dateTimeStampEnd = @fourth 
+                where dateTimeBlocksId = @selected</Value>
+    </Setting>
+    <Setting Name="updateSubject" Type="System.String" Scope="User">
+      <Value Profile="(Default)">update subjects set subjectName = @first, subjectNickName = @second
+                where subjectsID = @selected</Value>
+    </Setting>
+    <Setting Name="updateCourse" Type="System.String" Scope="User">
+      <Value Profile="(Default)">update courses set courseNum = @first, crnNum = @second, subjectsID = @third
+                where courseID = @selected</Value>
+    </Setting>
+    <Setting Name="deleteDTB" Type="System.String" Scope="User">
+      <Value Profile="(Default)">delete from dateTimeBlocks where dateTimeBlocksId = @selected</Value>
+    </Setting>
+    <Setting Name="deleteSubject" Type="System.String" Scope="User">
+      <Value Profile="(Default)">delete from subjects where subjectsId = @selected</Value>
+    </Setting>
+    <Setting Name="deleteCourse" Type="System.String" Scope="User">
+      <Value Profile="(Default)">delete from courses where courseId = @selected</Value>
+    </Setting>
+    <Setting Name="searchByFeature" Type="System.String" Scope="User">
+      <Value Profile="(Default)">select CONCAT(c.campusName, ': ', b.buildingName, r.roomNum ) as fullRName, dbRoomID from rooms as r
+join buildings as b on b.dbBuildingId = r.dbBuildingId
+join campus as c on c.campusId = b.campusId
+join roomFeatures as rf on r.dbRoomId = rf.roomId
+
+where 
+</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -479,398 +479,228 @@ Module SQL_Functions
         End If
 
     End Function
-    Function listCampusesInListBox(lbox As ListBox) As Boolean
 
-        ' Dataset that the combobox is going to tie into.
+    Function displayItemsListBox(lbox As ListBox, sqlString As String, value As String, display As String, Optional container As String = "", Optional capacity As Integer = 0, Optional computers As Boolean = False, Optional dualMonitors As Boolean = False, Optional projector As Boolean = False, Optional raisedFloor As Boolean = False, Optional colorPri As Boolean = False, Optional grayPri As Boolean = False, Optional sharedPri As Boolean = False) As Boolean
+        Dim ds1 As New DataSet()
+        Dim command As SqlCommand
+        Dim adapter As New SqlDataAdapter()
+        Dim sql = sqlString
+        Dim retry As Boolean
+        Dim tries As Integer = 0
+        Do
+            Dim sqlConnList As SqlConnection = openSQL(False, False)
+            retry = False
+            Try
+                command = New SqlCommand(sql, sqlConnList)
+                command.Parameters.AddWithValue("@containerID", container)
+                command.Parameters.AddWithValue("@capacity", capacity)
+                command.Parameters.AddWithValue("@computers", computers)
+                command.Parameters.AddWithValue("@dualMonitors", dualMonitors)
+                command.Parameters.AddWithValue("@projector", projector)
+                command.Parameters.AddWithValue("@raisedFloor", raisedFloor)
+                command.Parameters.AddWithValue("@colorPri", colorPri)
+                command.Parameters.AddWithValue("@grayPri", grayPri)
+                command.Parameters.AddWithValue("@sharedPri", sharedPri)
+                adapter.SelectCommand = command
+                adapter.Fill(ds1)
+                adapter.Dispose()
+                command.Dispose()
+                lbox.ValueMember = value
+                lbox.DisplayMember = display
+                lbox.DataSource = ds1.Tables(0)
+                sqlConnList.Close()
+            Catch ex As Exception
+                If ex.Message.ToString() = "The ConnectionString property has not been initialized." Then
+                    retry = True
+                    tries += 1
+                Else
+                    MessageBox.Show("Error in listing items in listbox: " & ex.Message.ToString)
+                    Return False
+                End If
+            End Try
+            If tries > 4 Then
+                MessageBox.Show("5 tries")
+            End If
+        Loop While retry And tries < 5
+        Return True
+    End Function
+
+
+    Function displayItemsInComboBox(cbox As ComboBox, sqlString As String, value As String, display As String) As Boolean
         Dim ds1 As New DataSet()
         Dim command As SqlCommand
         Dim adapter As New SqlDataAdapter()
 
-        ' Open connection to Master
-        Dim sqlConnList As SqlConnection = openSQL(False, False) ' True, to skip connecting to a specific database
-
-
-
-        Dim sql = "Select campusId, campusName from campus"
-
-
-        ' SQL to DS1
-        Try
-            command = New SqlCommand(sql, sqlConnList)
-            adapter.SelectCommand = command
-            adapter.Fill(ds1)
-
-            adapter.Dispose()
-            command.Dispose()
-
-
-        Catch ex As Exception
-            MessageBox.Show("Error in listing campuses for a listbox: " & ex.Message.ToString)
-
-            Return False
-        End Try
-
-
-        ' Setup the passed combobox for displaying our dataset
-
-        lbox.ValueMember = "campusId"
-        lbox.DisplayMember = "campusName"
-        lbox.DataSource = ds1.Tables(0)
-        sqlConnList.Close()
+        Dim sql = sqlString
+        Dim retry As Boolean
+        Dim tries As Integer = 0
+        Do
+            Dim sqlConnList As SqlConnection = openSQL(False, False)
+            retry = False
+            Try
+                command = New SqlCommand(sql, sqlConnList)
+                adapter.SelectCommand = command
+                adapter.Fill(ds1)
+                adapter.Dispose()
+                command.Dispose()
+                cbox.ValueMember = value
+                cbox.DisplayMember = display
+                cbox.DataSource = ds1.Tables(0)
+                sqlConnList.Close()
+            Catch ex As Exception
+                If ex.Message.ToString() = "The ConnectionString property has not been initialized." Then
+                    retry = True
+                    tries += 1
+                Else
+                    MessageBox.Show("Error in listing items in combobox: " & ex.Message.ToString)
+                    Return False
+                End If
+            End Try
+        Loop While retry And tries < 5
         Return True
+    End Function 'new
 
-    End Function
 
-    Function listBuildingsInListBox(lbox As ListBox, campus As String) As Boolean
-
-        ' Dataset that the combobox is going to tie into.
+    Function displayDGV(dgv As DataGridView, sqlString As String, Optional room As String = "") As Boolean
         Dim ds1 As New DataSet()
         Dim command As SqlCommand
         Dim adapter As New SqlDataAdapter()
-
-        ' Open connection to Master
-        Dim sqlConnList As SqlConnection = openSQL(False, False) ' True, to skip connecting to a specific database
-
-        Dim sql = "Select dbBuildingID, buildingName from building where campusID = @campusID"
-
-
-        ' SQL to DS1
-        Try
-            command = New SqlCommand(sql, sqlConnList)
-            command.Parameters.AddWithValue("@campusID", campus)
-            adapter.SelectCommand = command
-            adapter.Fill(ds1)
-
-            adapter.Dispose()
-            command.Dispose()
-
-
-        Catch ex As Exception
-            MessageBox.Show("Error in listing buildings for a listbox: " & ex.Message.ToString)
-
-            Return False
-        End Try
-
-
-        ' Setup the passed combobox for displaying our dataset
-
-        lbox.ValueMember = "dbBuildingID"
-        lbox.DisplayMember = "buildingName"
-        lbox.DataSource = ds1.Tables(0)
-        sqlConnList.Close()
+        Dim sql = sqlString
+        Dim retry As Boolean
+        Dim tries As Integer = 0
+        Do
+            retry = False
+            Dim sqlConnList As SqlConnection = openSQL(False, False)
+            Try
+                command = New SqlCommand(sql, sqlConnList)
+                command.Parameters.AddWithValue("@roomID", room)
+                adapter.SelectCommand = command
+                adapter.Fill(ds1)
+                adapter.Dispose()
+                command.Dispose()
+                dgv.DataSource = ds1.Tables(0)
+                sqlConnList.Close()
+            Catch ex As Exception
+                If ex.Message.ToString() = "The ConnectionString property has not been initialized." Then
+                    retry = True
+                    tries += 1
+                Else
+                    MessageBox.Show("Error in listing table in dgv: " & ex.Message.ToString)
+                    Return False
+                End If
+            End Try
+        Loop While retry And tries < 5
         Return True
     End Function
 
-    Function listRoomsInListBox(lbox As ListBox, building As String) As Boolean
-
-        Dim ds1 As New DataSet()
-        Dim command As SqlCommand
-        Dim adapter As New SqlDataAdapter()
-
-        ' Open connection to Master
-        Dim sqlConnList As SqlConnection = openSQL(False, False) ' True, to skip connecting to a specific database
-
-        Dim sql = "Select dbRoomID, roomNum from rooms where dbBuildingID = @buildingID"
-
-
-        ' SQL to DS1
-        Try
-            command = New SqlCommand(sql, sqlConnList)
-            command.Parameters.AddWithValue("@buildingID", building)
-            adapter.SelectCommand = command
-            adapter.Fill(ds1)
-
-            adapter.Dispose()
-            command.Dispose()
-
-
-        Catch ex As Exception
-            MessageBox.Show("Error in listing rooms for a listbox: " & ex.Message.ToString)
-
-            Return False
-        End Try
-
-
-        lbox.ValueMember = "dbRoomID"
-        lbox.DisplayMember = "roomNum"
-        lbox.DataSource = ds1.Tables(0)
-        sqlConnList.Close()
-        Return True
-
-    End Function
-
-    Function listCoursesInComboBox(cbox As ComboBox) As Boolean
-
-        Dim ds1 As New DataSet()
-        Dim command As SqlCommand
-        Dim adapter As New SqlDataAdapter()
-
-        ' Open connection to Master
-        Dim sqlConnList As SqlConnection = openSQL(False, False) ' True, to skip connecting to a specific database
-
-        Dim sql = "Select c.courseID, CONCAT('CRN: ', c.crnNum, ' | Course#: ', s.subjectName, c.courseNum ) as corn from courses as c
-            join subjects as s on c.subjectsId = s.subjectsID"
-
-
-
-        Try
-            command = New SqlCommand(sql, sqlConnList)
-            adapter.SelectCommand = command
-            adapter.Fill(ds1)
-
-            adapter.Dispose()
-            command.Dispose()
-
-
-        Catch ex As Exception
-            MessageBox.Show("Error in listing courses for a combobox: " & ex.Message.ToString)
-
-            Return False
-        End Try
-
-
-        cbox.ValueMember = "courseID"
-        cbox.DisplayMember = "corn"
-        cbox.DataSource = ds1.Tables(0)
-        sqlConnList.Close()
-        Return True
-
-    End Function
-
-    Function displayDateTimeBlocks(dgv As DataGridView, room As String) As Boolean
-        Dim ds1 As New DataSet()
-        Dim command As SqlCommand
-        Dim adapter As New SqlDataAdapter()
-
-        Dim sql = "select d.dateTimeBlocksID as ID, CONCAT( s.subjectName, c.courseNum) as Course, c.crnNum as CRN, d.dateTimeStampStart as Start_Time, d.dateTimeStampEnd as End_Time from  dateTimeBlocks as d
-                    join courses as c on d.coursesId = c.courseId
-                    join subjects as s on c.subjectsId = s.subjectsId
-                    where dbroomID = @roomID"
-
-        Dim sqlConnList As SqlConnection = openSQL(False, False)
-
-        Try
-            command = New SqlCommand(Sql, sqlConnList)
-            command.Parameters.AddWithValue("@roomID", room)
-            adapter.SelectCommand = command
-            adapter.Fill(ds1)
-
-            adapter.Dispose()
-            command.Dispose()
-
-
-        Catch ex As Exception
-            MessageBox.Show("Error in listing dateTimes in dgv: " & ex.Message.ToString)
-
-            Return False
-        End Try
-
-        dgv.DataSource = ds1.Tables(0)
-        sqlConnList.Close()
-        Return True
-    End Function
-
-    Function addDateTimeBlock(room As String, course As String, startTime As String, endTime As String) As Boolean
-
-
+    Function addToTable(sqlString As String, first As String, second As String, Optional third As String = "", Optional fourth As String = "", Optional startTime As DateTime = Nothing, Optional endTime As DateTime = Nothing) As Boolean
         Dim ds As New DataSet
         Dim command As SqlCommand
         Dim adapter As New SqlDataAdapter()
+        Dim sql = sqlString
+        Dim tries As Integer = 0
+        Dim retry As Boolean
+        If startTime = Nothing Then
+            startTime = Now
+            endTime = Now
+        End If
 
-        Dim sql = "insert into dateTimeBlocks(dbRoomID, coursesID, dateTimeStampStart, dateTimeStampEnd, daylightsavingsactive) values(@roomID, @courseID, @startTime, @endTime, 1)"
-
-        Dim sqlConnList As SqlConnection = openSQL(False, False)
-
-        Try
-            command = New SqlCommand(sql, sqlConnList)
-            command.Parameters.AddWithValue("@roomID", room)
-            command.Parameters.AddWithValue("@courseID", course)
-            command.Parameters.AddWithValue("@startTime", startTime)
-            command.Parameters.AddWithValue("@endTime", endTime)
-            adapter.SelectCommand = command
-            adapter.Fill(ds)
-
-            adapter.Dispose()
-            command.Dispose()
-
-        Catch ex As Exception
-            MessageBox.Show("Error adding new DateTimeBlock: " & ex.Message.ToString())
-        End Try
-        sqlConnList.Close()
+        Do
+            Dim sqlConnList As SqlConnection = openSQL(False, False)
+            retry = False
+            Try
+                command = New SqlCommand(sql, sqlConnList)
+                command.Parameters.AddWithValue("@first", first)
+                command.Parameters.AddWithValue("@second", second)
+                command.Parameters.AddWithValue("@third", third)
+                command.Parameters.AddWithValue("@fourth", fourth)
+                command.Parameters.AddWithValue("@startTime", startTime)
+                command.Parameters.AddWithValue("@endTime", endTime)
+                adapter.SelectCommand = command
+                adapter.Fill(ds)
+                adapter.Dispose()
+                command.Dispose()
+                sqlConnList.Close()
+            Catch ex As Exception
+                If ex.Message.ToString() = "The ConnectionString property has not been initialized." Then
+                    retry = True
+                    tries += 1
+                Else
+                    MessageBox.Show("Error adding to table: " & ex.Message.ToString)
+                    Return False
+                End If
+            End Try
+        Loop While retry And tries < 5
         Return True
-    End Function
-
-    Function updateDateTimeBlock(selected As String, room As String, course As String, startTime As String, endTime As String) As Boolean
+    End Function 'new
 
 
+    Function updateTable(sqlString As String, selected As String, first As String, second As String, Optional third As String = "", Optional fourth As String = "") As Boolean
         Dim ds As New DataSet
         Dim command As SqlCommand
         Dim adapter As New SqlDataAdapter()
-
-        Dim sql = "update dateTimeBlocks set dbRoomId = @roomID, coursesID = @courseID, dateTimeStampStart = @startTime, dateTimeStampEnd = @endTime 
-                where dateTimeBlocksId = @selected"
-
-        Dim sqlConnList As SqlConnection = openSQL(False, False)
-
-        Try
-            command = New SqlCommand(sql, sqlConnList)
-            command.Parameters.AddWithValue("@selected", selected)
-            command.Parameters.AddWithValue("@roomID", room)
-            command.Parameters.AddWithValue("@courseID", course)
-            command.Parameters.AddWithValue("@startTime", startTime)
-            command.Parameters.AddWithValue("@endTime", endTime)
-            adapter.SelectCommand = command
-            adapter.Fill(ds)
-
-            adapter.Dispose()
-            command.Dispose()
-
-        Catch ex As Exception
-            MessageBox.Show("Error updating DateTimeBlock: " & ex.Message.ToString())
-        End Try
-        sqlConnList.Close()
+        Dim sql = sqlString
+        Dim retry As Boolean
+        Dim tries As Integer = 0
+        Do
+            Dim sqlConnList As SqlConnection = openSQL(False, False)
+            Try
+                command = New SqlCommand(sql, sqlConnList)
+                command.Parameters.AddWithValue("@selected", selected)
+                command.Parameters.AddWithValue("@first", first)
+                command.Parameters.AddWithValue("@second", second)
+                command.Parameters.AddWithValue("@third", third)
+                command.Parameters.AddWithValue("@fourth", fourth)
+                adapter.SelectCommand = command
+                adapter.Fill(ds)
+                adapter.Dispose()
+                command.Dispose()
+                sqlConnList.Close()
+            Catch ex As Exception
+                If ex.Message.ToString() = "The ConnectionString property has not been initialized." Then
+                    retry = True
+                    tries += 1
+                Else
+                    MessageBox.Show("Error updating table: " & ex.Message.ToString)
+                    Return False
+                End If
+            End Try
+        Loop While retry And tries < 5
         Return True
     End Function
 
-    Function deleteDateTimeBlock(selected As String) As Boolean
 
 
+    Function deleteFromTable(sqlString As String, selected As String) As Boolean
         Dim ds As New DataSet
         Dim command As SqlCommand
         Dim adapter As New SqlDataAdapter()
-
-        Dim sql = "delete from dateTimeBlocks where dateTimeBlocksId = @selected"
-
-        Dim sqlConnList As SqlConnection = openSQL(False, False)
-
-        Try
-            command = New SqlCommand(sql, sqlConnList)
-            command.Parameters.AddWithValue("@selected", selected)
-            adapter.SelectCommand = command
-            adapter.Fill(ds)
-
-            adapter.Dispose()
-            command.Dispose()
-
-        Catch ex As Exception
-            MessageBox.Show("Error deleting DateTimeBlock: " & ex.Message.ToString())
-        End Try
-        sqlConnList.Close()
+        Dim sql = sqlString
+        Dim retry As Boolean
+        Dim tries As Integer = 0
+        Do
+            retry = False
+            Dim sqlConnList As SqlConnection = openSQL(False, False)
+            Try
+                command = New SqlCommand(sql, sqlConnList)
+                command.Parameters.AddWithValue("@selected", selected)
+                adapter.SelectCommand = command
+                adapter.Fill(ds)
+                adapter.Dispose()
+                command.Dispose()
+                sqlConnList.Close()
+            Catch ex As Exception
+                If ex.Message.ToString() = "The ConnectionString property has not been initialized." Then
+                    retry = True
+                    tries += 1
+                Else
+                    MessageBox.Show("Error deleting from table: " & ex.Message.ToString)
+                    Return False
+                End If
+            End Try
+        Loop While retry And tries < 5
         Return True
     End Function
 
-    Function displaySubjects(dgv As DataGridView) As Boolean
-        Dim ds1 As New DataSet()
-        Dim command As SqlCommand
-        Dim adapter As New SqlDataAdapter()
-
-        Dim sql = "select * from subjects"
-
-        Dim sqlConnList As SqlConnection = openSQL(False, False)
-
-        Try
-            command = New SqlCommand(sql, sqlConnList)
-            adapter.SelectCommand = command
-            adapter.Fill(ds1)
-
-            adapter.Dispose()
-            command.Dispose()
-
-
-        Catch ex As Exception
-            MessageBox.Show("Error in listing subjects in dgv: " & ex.Message.ToString)
-
-            Return False
-        End Try
-
-        dgv.DataSource = ds1.Tables(0)
-        sqlConnList.Close()
-        Return True
-    End Function
-
-    Function addSubject(subName As String, subNickname As String) As Boolean
-
-
-        Dim ds As New DataSet
-        Dim command As SqlCommand
-        Dim adapter As New SqlDataAdapter()
-
-        Dim sql = "insert into subjects(subjectName, subjectNickName) values(@subName, @subNickName)"
-
-        Dim sqlConnList As SqlConnection = openSQL(False, False)
-
-        Try
-            command = New SqlCommand(sql, sqlConnList)
-            command.Parameters.AddWithValue("@subName", subName)
-            command.Parameters.AddWithValue("@subNickName", subNickname)
-            adapter.SelectCommand = command
-            adapter.Fill(ds)
-
-            adapter.Dispose()
-            command.Dispose()
-
-        Catch ex As Exception
-            MessageBox.Show("Error adding new Subject: " & ex.Message.ToString())
-        End Try
-        sqlConnList.Close()
-        Return True
-    End Function
-
-    Function updateSubject(selected As String, subName As String, subNickname As String) As Boolean
-
-
-        Dim ds As New DataSet
-        Dim command As SqlCommand
-        Dim adapter As New SqlDataAdapter()
-
-        Dim sql = "update subjects set subjectName = @subName, subjectNickName = @subNickName
-                where subjectsID = @selected"
-
-        Dim sqlConnList As SqlConnection = openSQL(False, False)
-
-        Try
-            command = New SqlCommand(sql, sqlConnList)
-            command.Parameters.AddWithValue("@selected", selected)
-            command.Parameters.AddWithValue("@subName", subName)
-            command.Parameters.AddWithValue("@subNickName", subNickname)
-            adapter.SelectCommand = command
-            adapter.Fill(ds)
-
-            adapter.Dispose()
-            command.Dispose()
-
-        Catch ex As Exception
-            MessageBox.Show("Error updating Subject: " & ex.Message.ToString())
-        End Try
-        sqlConnList.Close()
-        Return True
-    End Function
-
-    Function deleteSubject(selected As String) As Boolean
-
-
-        Dim ds As New DataSet
-        Dim command As SqlCommand
-        Dim adapter As New SqlDataAdapter()
-
-        Dim sql = "delete from subjects where subjectsId = @selected"
-
-        Dim sqlConnList As SqlConnection = openSQL(False, False)
-
-        Try
-            command = New SqlCommand(sql, sqlConnList)
-            command.Parameters.AddWithValue("@selected", selected)
-            adapter.SelectCommand = command
-            adapter.Fill(ds)
-
-            adapter.Dispose()
-            command.Dispose()
-
-        Catch ex As Exception
-            MessageBox.Show("Error deleting Subject: " & ex.Message.ToString())
-        End Try
-        sqlConnList.Close()
-        Return True
-    End Function
 
 End Module
