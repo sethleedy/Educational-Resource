@@ -43,6 +43,9 @@ Module SQL_Functions
             sqlCommand.Connection = openSQL() ' sqlCommand can hold the connection object, as returned by the function openSQL.
             If sqlCommand.Connection.State = ConnectionState.Open Then
 
+                ' The INSERT SQL connection
+                Dim insertSQLCon As SqlConnection = openSQL() ' sqlCommand can hold the connection object, as returned by the function openSQL.
+
                 ' To hold the values from the cells in the spreadsheet
                 Dim DataInString As String = ""
                 ' Arrays to hold the column names and inserted IDs for refrence to tables forign columns
@@ -58,6 +61,7 @@ Module SQL_Functions
                 For Each tbleItem As DataTable In collection
                     For Each FoundRow As DataRow In tbleItem.Rows
                         For Each FoundCol As DataColumn In tbleItem.Columns
+
                             If FoundRow(FoundCol.ColumnName) IsNot DBNull.Value Then
                                 ' FoundRow(FoundCol.ColumnName) is where the data comes from to insert into the MSSQL DB
                                 DataInString = FoundRow(FoundCol.ColumnName).ToString
@@ -69,17 +73,24 @@ Module SQL_Functions
                                         '       Does the Campus name exist in the table ?
                                         '           No: INSERT; Record Name, ID in Array. Set variable to ID
                                         '           Yes: Skip INSERT; Set variable to ID in Array that matches.
-                                        If checkForValue(DataInString, "campusName", "campus") = True Then
-                                            ' INSERT
-                                            'MsgBox("Found data")
-                                        Else
-                                            ' Grab the exiting entrys ID
+                                        Console.WriteLine(FoundCol.ColumnName & ": " & DataInString)
+                                        If insertSQLCon.State = ConnectionState.Open Then
+
+                                            Dim sql = "IF NOT EXISTS (SELECT campusName FROM campus WHERE campusName=@campusStr) BEGIN INSERT INTO campus (campusName) values (@campusStr) END"
+                                            Dim sqlCommandCampus = New SqlCommand(sql)
+                                            sqlCommandCampus.Connection = insertSQLCon
+
+                                            sqlCommandCampus.Parameters.AddWithValue("@campusStr", DataInString)
+
+                                            Dim insertResult As Integer = insertSQL(sqlCommandCampus)
+                                            Console.WriteLine("Result: " & insertResult)
 
                                         End If
+
                                     Case "Building"
-                                    '   "Buildings"
-                                    '       Fill in the building details with "campusID" set to the array's stored ID
-                                    '       Store Buildings ID in array too.
+                                        '   "Buildings"
+                                        '       Fill in the building details with "campusID" set to the array's stored ID
+                                        '       Store Buildings ID in array too.
                                     Case "Room"
                                         '   "Rooms"
                                         '       Ditto
@@ -91,6 +102,7 @@ Module SQL_Functions
                                 End Select
 
                             End If
+
                         Next
                     Next
 
@@ -117,39 +129,7 @@ Module SQL_Functions
         End If
     End Function
 
-    Function checkForValue(value As String, cColumn As String, cTable As String) As Boolean
-        ' Check for function parseSpreadSheet() if the table already has its value.
 
-
-        Dim sqlConn1 As SqlConnection = openSQL()
-
-        If sqlConn1.State = ConnectionState.Open Then
-
-            Dim cmdText As String = "SELECT " & cColumn & " FROM " + cTable & " WHERE " & cColumn + " = '" & value & "'"
-            Dim bRet As Boolean = False
-            Dim wID As Integer
-
-            Using sqlConn1
-
-                Using sqlCmd As SqlCommand = New SqlCommand(cmdText, sqlConn1)
-                    Using reader As SqlDataReader = sqlCmd.ExecuteReader
-                        bRet = reader.HasRows ' Yeah, it exists
-                        Console.WriteLine(bRet)
-
-                    End Using
-                End Using
-
-            End Using ' Closes SQL Connection when done looping
-
-            Return bRet
-
-        Else
-            MsgBox("Unable to use SQL Connection in checkForValue().", MsgBoxStyle.Critical)
-
-            Return False
-        End If
-
-    End Function
 
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Function SQLCreateSemesterDB() As Boolean
@@ -411,8 +391,10 @@ Module SQL_Functions
 
         Catch ex As Exception
 
+            Console.WriteLine("Can not execute sqlCommand.ExecuteNonQuery() !: " & ex.Message)
+
             closeCompletelySQL(sqlCommand.Connection)
-            MsgBox("Can not execute sqlCommand.ExecuteNonQuery() !: " & ex.Message)
+
             Return -1
         End Try
 
