@@ -38,9 +38,7 @@ Partial Class frmSettings
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.DateTimePickSemesterYear = New System.Windows.Forms.DateTimePicker()
         Me.comboSelectSemester = New System.Windows.Forms.ComboBox()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.DBBackup = New System.Windows.Forms.Button()
         Me.DBReset = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -94,10 +92,6 @@ Partial Class frmSettings
         Me.txtCRN = New System.Windows.Forms.TextBox()
         Me.DGVCourses = New System.Windows.Forms.DataGridView()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.txtDBFilePath = New System.Windows.Forms.TextBox()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.txtBckUpPath = New System.Windows.Forms.TextBox()
-        Me.Label19 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -124,7 +118,7 @@ Partial Class frmSettings
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(9, 3, 0, 3)
-        Me.MenuStrip1.Size = New System.Drawing.Size(841, 25)
+        Me.MenuStrip1.Size = New System.Drawing.Size(703, 25)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -159,7 +153,7 @@ Partial Class frmSettings
         Me.TabControl1.Multiline = True
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(841, 480)
+        Me.TabControl1.Size = New System.Drawing.Size(703, 337)
         Me.TabControl1.TabIndex = 5
         '
         'TabPage1
@@ -169,7 +163,7 @@ Partial Class frmSettings
         Me.TabPage1.Location = New System.Drawing.Point(4, 26)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(833, 307)
+        Me.TabPage1.Size = New System.Drawing.Size(833, 450)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Semesters"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -239,26 +233,20 @@ Partial Class frmSettings
         Me.TabPage2.Controls.Add(Me.GroupBox3)
         Me.TabPage2.Location = New System.Drawing.Point(4, 26)
         Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Size = New System.Drawing.Size(833, 450)
+        Me.TabPage2.Size = New System.Drawing.Size(695, 307)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Database information"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
         'GroupBox4
         '
-        Me.GroupBox4.Controls.Add(Me.Label19)
-        Me.GroupBox4.Controls.Add(Me.txtBckUpPath)
-        Me.GroupBox4.Controls.Add(Me.Label18)
-        Me.GroupBox4.Controls.Add(Me.txtDBFilePath)
         Me.GroupBox4.Controls.Add(Me.DateTimePickSemesterYear)
         Me.GroupBox4.Controls.Add(Me.comboSelectSemester)
-        Me.GroupBox4.Controls.Add(Me.Label4)
         Me.GroupBox4.Controls.Add(Me.Label3)
-        Me.GroupBox4.Controls.Add(Me.DBBackup)
         Me.GroupBox4.Controls.Add(Me.DBReset)
         Me.GroupBox4.Location = New System.Drawing.Point(8, 200)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(789, 220)
+        Me.GroupBox4.Size = New System.Drawing.Size(680, 91)
         Me.GroupBox4.TabIndex = 4
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Database operations"
@@ -286,15 +274,6 @@ Partial Class frmSettings
         Me.comboSelectSemester.TabIndex = 4
         Me.ToolTip1.SetToolTip(Me.comboSelectSemester, "Choose the new Semester to setup in a database.")
         '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(463, 184)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(163, 19)
-        Me.Label4.TabIndex = 3
-        Me.Label4.Text = "Backup the database"
-        '
         'Label3
         '
         Me.Label3.AutoSize = True
@@ -303,16 +282,6 @@ Partial Class frmSettings
         Me.Label3.Size = New System.Drawing.Size(299, 19)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Create anew or reset existing database"
-        '
-        'DBBackup
-        '
-        Me.DBBackup.Location = New System.Drawing.Point(632, 177)
-        Me.DBBackup.Name = "DBBackup"
-        Me.DBBackup.Size = New System.Drawing.Size(150, 30)
-        Me.DBBackup.TabIndex = 1
-        Me.DBBackup.Text = "Go!"
-        Me.ToolTip1.SetToolTip(Me.DBBackup, "The backup will goto a yet to be chosen folder")
-        Me.DBBackup.UseVisualStyleBackColor = True
         '
         'DBReset
         '
@@ -450,7 +419,7 @@ Partial Class frmSettings
         Me.TabPage3.Controls.Add(Me.GroupBox5)
         Me.TabPage3.Location = New System.Drawing.Point(4, 26)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(833, 307)
+        Me.TabPage3.Size = New System.Drawing.Size(833, 450)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "User accounts"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -589,7 +558,7 @@ Partial Class frmSettings
         Me.TabPage4.Location = New System.Drawing.Point(4, 26)
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage4.Size = New System.Drawing.Size(833, 307)
+        Me.TabPage4.Size = New System.Drawing.Size(833, 450)
         Me.TabPage4.TabIndex = 3
         Me.TabPage4.Text = "Misc"
         Me.TabPage4.UseVisualStyleBackColor = True
@@ -651,7 +620,7 @@ Partial Class frmSettings
         Me.TabPage5.Location = New System.Drawing.Point(4, 26)
         Me.TabPage5.Name = "TabPage5"
         Me.TabPage5.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage5.Size = New System.Drawing.Size(833, 307)
+        Me.TabPage5.Size = New System.Drawing.Size(833, 450)
         Me.TabPage5.TabIndex = 4
         Me.TabPage5.Text = "Subjects"
         Me.TabPage5.UseVisualStyleBackColor = True
@@ -744,7 +713,7 @@ Partial Class frmSettings
         Me.TabPage6.Location = New System.Drawing.Point(4, 26)
         Me.TabPage6.Name = "TabPage6"
         Me.TabPage6.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage6.Size = New System.Drawing.Size(833, 307)
+        Me.TabPage6.Size = New System.Drawing.Size(833, 450)
         Me.TabPage6.TabIndex = 5
         Me.TabPage6.Text = "Courses"
         Me.TabPage6.UseVisualStyleBackColor = True
@@ -841,44 +810,11 @@ Partial Class frmSettings
         '
         Me.ToolTip1.IsBalloon = True
         '
-        'txtDBFilePath
-        '
-        Me.txtDBFilePath.Location = New System.Drawing.Point(6, 97)
-        Me.txtDBFilePath.Name = "txtDBFilePath"
-        Me.txtDBFilePath.Size = New System.Drawing.Size(777, 26)
-        Me.txtDBFilePath.TabIndex = 6
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(6, 78)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(157, 19)
-        Me.Label18.TabIndex = 7
-        Me.Label18.Text = "Database File Path:"
-        '
-        'txtBckUpPath
-        '
-        Me.txtBckUpPath.Location = New System.Drawing.Point(6, 145)
-        Me.txtBckUpPath.Name = "txtBckUpPath"
-        Me.txtBckUpPath.Size = New System.Drawing.Size(776, 26)
-        Me.txtBckUpPath.TabIndex = 8
-        Me.txtBckUpPath.Text = "C:\Users\Ryan\Documents\newBackup"
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(10, 126)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(109, 19)
-        Me.Label19.TabIndex = 9
-        Me.Label19.Text = "Backup Path:"
-        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(841, 505)
+        Me.ClientSize = New System.Drawing.Size(703, 362)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Font = New System.Drawing.Font("Lucida Calligraphy", 10.0!)
@@ -936,9 +872,7 @@ Partial Class frmSettings
     Friend WithEvents Label1 As Label
     Friend WithEvents strDBServerAddress As TextBox
     Friend WithEvents GroupBox4 As GroupBox
-    Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label
-    Friend WithEvents DBBackup As Button
     Friend WithEvents DBReset As Button
     Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
@@ -992,8 +926,4 @@ Partial Class frmSettings
     Friend WithEvents BtnUpdateCourse As Button
     Friend WithEvents btnAddCourse As Button
     Friend WithEvents btnRefresh As Button
-    Friend WithEvents Label18 As Label
-    Friend WithEvents txtDBFilePath As TextBox
-    Friend WithEvents Label19 As Label
-    Friend WithEvents txtBckUpPath As TextBox
 End Class

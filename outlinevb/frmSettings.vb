@@ -217,9 +217,7 @@ Public Class frmSettings
             DGVCourses.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
         End If
 
-        If TabControl1.SelectedTab Is TabPage2 Then
-            txtDBFilePath.Text = "C:\Program Files\Microsoft SQL Server\MSSQL12.SQLEXPRESS\MSSQL\DATA\" & My.Settings.CurrentDB.ToString() & ".mdf"
-        End If
+
     End Sub
 
     Private Sub btnUpdateSubject_Click(sender As Object, e As EventArgs) Handles btnUpdateSubject.Click
@@ -304,20 +302,5 @@ Public Class frmSettings
         listSemestersInDB(Me.semesterComboBox1)
     End Sub
 
-    Private Sub DBBackup_Click(sender As Object, e As EventArgs) Handles DBBackup.Click
-        'Dim theController As System.ServiceProcess.ServiceController
-        'theController = New System.ServiceProcess.ServiceController("SQL Server (SQLEXPRESS)")
-        'theController.Stop()
-        'theController.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Stopped)
-        'Dim dbFilepath As String
-        ' dbFilepath = Path.Combine(txtDBFilePath.Text, My.Settings.CurrentDB.ToString(), ".mdf")
-        My.Computer.FileSystem.CopyFile(
-    txtDBFilePath.ToString(),
-    txtBckUpPath.ToString(),
-    FileIO.UIOption.OnlyErrorDialogs,
-    FileIO.UICancelOption.DoNothing)
-        'theController.Start()
-        'theController.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running)
-        'theController.Refresh()
-    End Sub
+
 End Class
